@@ -2,18 +2,25 @@
 
 /*
   AURUM OUD — design tokens
-  Aubergine 55% · Plum 20% · Ivory 15% · Gold 10%. Gold stays thin and rare.
+  Letters are luminous lilac/orchid with a soft glow; gold stays in thin lines
+  and buttons. Text colours are light enough to keep strong contrast on the
+  near-black aubergine background (WCAG AA+).
 */
 @theme inline {
   --color-aubergine: #160f1d;
   --color-plum: #34203f;
   --color-gold: #b99a69;
-  --color-ivory: #efe4d3;
   --color-walnut: #493329;
 
-  --color-ivory-soft: rgb(239 228 211 / 0.72);
-  --color-ivory-faint: rgb(239 228 211 / 0.5);
+  /* "ivory" is now the base lilac of all running text */
+  --color-ivory: #eadbfa;
+  --color-ivory-soft: rgb(234 219 250 / 0.82);
+  --color-ivory-faint: rgb(234 219 250 / 0.6);
+
+  --color-orchid: #c79bff;
+  --color-violet: #9b62ee;
   --color-gold-line: rgb(185 154 105 / 0.35);
+  --color-violet-line: rgb(168 112 255 / 0.4);
 
   --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
@@ -26,34 +33,85 @@
 html {
   background: var(--color-aubergine);
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
-  background: var(--color-aubergine);
+  background-color: var(--color-aubergine);
+  /* ambient purple light that stays put while the page scrolls */
+  background-image:
+    radial-gradient(70% 45% at 85% -5%, rgb(130 70 210 / 0.32), transparent 70%),
+    radial-gradient(60% 40% at 0% 45%, rgb(110 55 180 / 0.2), transparent 70%),
+    radial-gradient(70% 45% at 100% 100%, rgb(150 85 230 / 0.2), transparent 70%);
+  background-attachment: fixed;
   color: var(--color-ivory);
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+/* A faint glow on running text — subtle enough not to blur the letters. */
+p,
+li,
+dd,
+dt,
+label,
+summary {
+  text-shadow: 0 0 22px rgb(160 100 255 / 0.22);
 }
 
 ::selection {
-  background: var(--color-gold);
+  background: var(--color-orchid);
   color: var(--color-aubergine);
 }
 
 :focus-visible {
-  outline: 1px solid var(--color-gold);
+  outline: 1px solid var(--color-orchid);
   outline-offset: 4px;
 }
 
-/* Headings are serif, light and generously tracked. */
+/* Headlines: shiny polished-amethyst lettering with a soft violet glow. */
 .display {
   font-family: var(--font-serif);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.04;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.005em;
+  background-image: linear-gradient(
+    100deg,
+    #f6edff 0%,
+    #d3b0ff 22%,
+    #a46cf2 42%,
+    #f0e0ff 56%,
+    #bf92fb 76%,
+    #f6edff 100%
+  );
+  background-size: 240% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 0 12px rgb(168 112 255 / 0.5))
+    drop-shadow(0 0 32px rgb(130 70 220 / 0.3));
+  animation: sheen 12s ease-in-out infinite;
+}
+.display:hover {
+  filter: drop-shadow(0 0 16px rgb(190 140 255 / 0.7))
+    drop-shadow(0 0 40px rgb(150 90 240 / 0.45));
+}
+
+@keyframes sheen {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .eyebrow {
@@ -62,16 +120,28 @@ body {
   font-weight: 500;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-orchid);
+  text-shadow:
+    0 0 10px rgb(168 112 255 / 0.65),
+    0 0 26px rgb(140 80 235 / 0.4);
 }
 
+/* Dividers: a purple glow fading into gold at the ends. */
 .hairline {
   height: 1px;
-  background: var(--color-gold-line);
   border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(185 154 105 / 0.5),
+    rgb(168 112 255 / 0.7),
+    rgb(185 154 105 / 0.5),
+    transparent
+  );
+  box-shadow: 0 0 14px rgb(150 90 240 / 0.45);
 }
 
-/* Buttons: understated. One filled, one outlined. */
+/* Buttons: polished purple, understated. */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -83,35 +153,85 @@ body {
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  border: 1px solid var(--color-gold);
+  border: 1px solid rgb(199 155 255 / 0.65);
+  text-shadow: none;
   transition:
     background-color 0.4s ease,
     color 0.4s ease,
-    border-color 0.4s ease;
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
   cursor: pointer;
 }
 .btn-solid {
-  background: var(--color-gold);
-  color: var(--color-aubergine);
+  background-image: linear-gradient(135deg, #e3ccff 0%, #b585f5 55%, #8e55e0 100%);
+  color: #1a1022;
+  box-shadow:
+    0 0 22px rgb(160 100 255 / 0.45),
+    inset 0 1px 0 rgb(255 255 255 / 0.45);
 }
 .btn-solid:hover:not(:disabled) {
-  background: var(--color-ivory);
-  border-color: var(--color-ivory);
+  box-shadow:
+    0 0 34px rgb(185 130 255 / 0.75),
+    inset 0 1px 0 rgb(255 255 255 / 0.6);
+  border-color: #f0e2ff;
 }
 .btn-line {
-  background: transparent;
+  background: rgb(120 60 190 / 0.12);
   color: var(--color-ivory);
+  box-shadow: 0 0 16px rgb(140 80 230 / 0.2);
 }
 .btn-line:hover:not(:disabled) {
-  background: var(--color-gold);
-  color: var(--color-aubergine);
+  background-image: linear-gradient(135deg, #e3ccff 0%, #b585f5 55%, #8e55e0 100%);
+  color: #1a1022;
+  box-shadow: 0 0 30px rgb(170 110 255 / 0.6);
+  text-shadow: none;
 }
 .btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
 
-/* Slow rising smoke for placeholder / hero atmosphere. */
+/* ---------- Smoke around product photographs ----------
+   Soft puffs of incense smoke drift up along the edges of every photo, as in
+   a dim shop where oud is being warmed. Pure CSS: no JS, no images. */
+.smoke-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.smoke-puff {
+  position: absolute;
+  width: var(--s, 40%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgb(238 224 255 / 0.5) 0%,
+    rgb(176 126 245 / 0.3) 38%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  mix-blend-mode: screen;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: puff var(--d, 12s) ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes puff {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 10%, 0) scale(0.75);
+  }
+  30% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--dx, 8%), -28%, 0) scale(1.5);
+  }
+}
+
+/* Slow rising smoke for placeholder atmosphere. */
 @keyframes smoke {
   0% {
     transform: translate3d(0, 8%, 0) scale(1);
@@ -129,16 +249,23 @@ body {
   animation: smoke 14s ease-in-out infinite;
 }
 
+/* Reduced motion: stop all movement and show a calm, static version. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .smoke {
+  .display,
+  .smoke,
+  .smoke-puff {
     animation: none;
+  }
+  .smoke {
     opacity: 0.25;
   }
-  * {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+  .smoke-puff {
+    opacity: 0.35;
+  }
+  .btn {
+    transition: none;
   }
 }

@@ -30,7 +30,7 @@ const columns = [
 
 export function Footer() {
   return (
-    <footer className="mt-32 border-t border-gold-line">
+    <footer className="mt-32 border-t border-violet-line bg-gradient-to-b from-transparent to-plum/40 shadow-[0_-1px_30px_rgb(140_80_230/0.25)]">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_repeat(3,1fr)]">
         <div>
           <p className="display text-2xl tracking-[0.32em]">{site.name}</p>
