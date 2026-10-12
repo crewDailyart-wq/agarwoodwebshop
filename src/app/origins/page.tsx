@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AsiaMap } from "@/components/AsiaMap";
 import { EditorialPage } from "@/components/Page";
 import { products } from "@/content/catalog";
 
@@ -26,6 +27,9 @@ export default function OriginsPage() {
         Agarwood comes from trees of the Aquilaria and Gyrinops genera. It grows naturally across
         South and Southeast Asia, and the resinous wood has been traded and prized for centuries.
       </p>
+      <div className="frame -mx-5 my-10 overflow-hidden sm:mx-0">
+        <AsiaMap className="h-auto w-full" />
+      </div>
       <h2>Where the trees grow</h2>
       <ul className="divide-y divide-gold-line border-y border-gold-line">
         {regions.map((r) => (

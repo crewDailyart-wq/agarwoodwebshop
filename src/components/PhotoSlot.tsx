@@ -11,11 +11,14 @@ export function PhotoSlot({
   className = "",
   sizes = "(min-width: 1024px) 50vw, 100vw",
   priority = false,
+  quiet = false,
 }: {
   photo: Photo;
   className?: string;
   sizes?: string;
   priority?: boolean;
+  /** Hide the art-direction brief; show only a small "photograph to come" mark. */
+  quiet?: boolean;
 }) {
   // Callers may pass `absolute` (full-bleed backgrounds); don't let our
   // `relative` override it, or the frame collapses to zero height.
@@ -51,10 +54,16 @@ export function PhotoSlot({
         aria-hidden
         className="smoke absolute left-[38%] top-[30%] h-1/2 w-1/3 rounded-full bg-ivory/10 blur-3xl"
       />
-      <p className="absolute inset-x-0 bottom-0 p-5 text-[0.68rem] leading-relaxed tracking-[0.12em] text-ivory-faint">
-        <span className="eyebrow mb-1 block">Photograph to come</span>
-        {photo.brief}
-      </p>
+      {quiet ? (
+        <p className="eyebrow absolute bottom-3 left-4 !text-[0.48rem] !text-ivory-faint">
+          Photograph to come
+        </p>
+      ) : (
+        <p className="absolute inset-x-0 bottom-0 p-5 text-[0.75rem] leading-relaxed text-ivory-faint">
+          <span className="eyebrow eyebrow-gold mb-1 block">Photograph to come</span>
+          {photo.brief}
+        </p>
+      )}
     </div>
   );
 }

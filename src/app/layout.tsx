@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Cinzel, Cormorant_Garamond, EB_Garamond } from "next/font/google";
 import "./globals.css";
 import { BakhoorSmoke } from "@/components/BakhoorSmoke";
 import { CartDrawer } from "@/components/CartDrawer";
@@ -7,16 +7,24 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { site } from "@/content/site";
 
-const serif = Cormorant_Garamond({
+const display = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
-const sans = Inter({
-  variable: "--font-inter",
+const serif = EB_Garamond({
+  variable: "--font-garamond",
   subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const caps = Cinzel({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -28,12 +36,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#160F1D",
+  themeColor: "#0B0710",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="en" className={`${display.variable} ${serif.variable} ${caps.variable}`}>
       <body className="flex min-h-dvh flex-col">
         <BakhoorSmoke />
         <a

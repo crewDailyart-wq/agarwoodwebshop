@@ -84,7 +84,7 @@ async function Status() {
 
 export default function ConfirmationPage() {
   return (
-    <div className="mx-auto max-w-7xl px-5 pb-12 pt-40 sm:px-8 sm:pt-48">
+    <div className="mx-auto max-w-7xl px-5 pb-12 pt-16 sm:px-8 sm:pt-24">
       <Suspense fallback={<p className="text-ivory-soft">Checking your payment…</p>}>
         <Status />
       </Suspense>

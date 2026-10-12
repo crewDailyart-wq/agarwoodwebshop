@@ -1,41 +1,56 @@
 import Link from "next/link";
 import { site } from "@/content/site";
 import { CartButton } from "./CartButton";
+import { nav } from "@/content/nav";
+import { NavLinks } from "./NavLinks";
+import { SearchIcon, TreeMark } from "./icons";
 
-const nav = [
-  { href: "/shop/agarwood-chips", label: "Agarwood" },
-  { href: "/shop/incense-burner", label: "Burner" },
-  { href: "/shop/the-complete-ritual", label: "The Complete Ritual" },
-  { href: "/origins", label: "Origins" },
-  { href: "/ritual", label: "The Ritual" },
-];
+export function Logo({ small = false }: { small?: boolean }) {
+  return (
+    <Link href="/" className="flex items-center gap-3" aria-label={`${site.name} — home`}>
+      <TreeMark className={`${small ? "h-9 w-8" : "h-9 w-8 sm:h-11 sm:w-10"} shrink-0 text-gold`} />
+      <span className="whitespace-nowrap leading-none">
+        <span className={`wordmark block ${small ? "text-lg" : "text-[1.05rem] sm:text-[1.55rem]"}`}>
+          {site.name}
+        </span>
+        <span className="eyebrow eyebrow-gold mt-1.5 block !text-[0.44rem] !tracking-[0.3em] sm:!text-[0.5rem] sm:!tracking-[0.34em]">
+          {site.motto}
+        </span>
+      </span>
+    </Link>
+  );
+}
 
 export function Header() {
   return (
-    <header className="absolute inset-x-0 top-0 z-30">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
-        <Link href="/" className="display text-xl tracking-[0.32em] sm:text-2xl">
-          {site.name}
-        </Link>
-        <nav aria-label="Main" className="hidden items-center gap-8 lg:flex">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="eyebrow !text-ivory-soft hover:!text-gold transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))}
+    <header className="relative z-30 border-b border-gold-line bg-night/70 backdrop-blur-sm">
+      <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-6 px-5 py-4 sm:px-8">
+        <Logo />
+        <nav aria-label="Main" className="hidden lg:block">
+          <NavLinks />
         </nav>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <Link
+            href="/collection"
+            aria-label="Search the collection"
+            className="hidden h-11 w-11 items-center justify-center text-ivory hover:text-gold sm:flex"
+          >
+            <SearchIcon className="h-5 w-5" />
+          </Link>
+          <CartButton />
+          <span aria-hidden className="mx-2 hidden h-10 w-px bg-gold-line xl:block" />
+          <p className="side-note hidden !text-[0.5rem] !leading-[1.7] xl:block">
+            A more
+            <br />
+            fragrant
+            <br />
+            world
+          </p>
           <details className="relative lg:hidden">
-            <summary className="eyebrow !text-ivory flex min-h-11 cursor-pointer list-none items-center">
-              Menu
-            </summary>
+            <summary className="eyebrow flex h-11 cursor-pointer list-none items-center px-2">Menu</summary>
             <nav
               aria-label="Mobile"
-              className="absolute right-0 top-12 w-64 border border-gold-line bg-aubergine p-5"
+              className="absolute right-0 top-12 w-64 border border-gold-line bg-night p-5"
             >
               <ul className="space-y-1">
                 {nav.map((item) => (
@@ -48,7 +63,6 @@ export function Header() {
               </ul>
             </nav>
           </details>
-          <CartButton />
         </div>
       </div>
     </header>

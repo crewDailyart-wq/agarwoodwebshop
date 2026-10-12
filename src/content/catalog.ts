@@ -30,6 +30,8 @@ export type Product = {
   name: string;
   /** One line under the name. */
   subtitle: string;
+  /** Short gold small-caps label on product cards. Must stay factual. */
+  cardLabel: string;
   summary: string;
   description: string[];
   priceCents: number;
@@ -58,6 +60,7 @@ export const products: Record<ProductId, Product> = {
     slug: "agarwood-chips",
     name: "Signature Agarwood Chips",
     subtitle: "Genuine agarwood, for burning",
+    cardLabel: "Resin-rich heartwood",
     summary:
       "Resin-rich agarwood chips, selected to be warmed slowly and enjoyed as the fragrance unfolds.",
     description: [
@@ -136,6 +139,7 @@ export const products: Record<ProductId, Product> = {
     slug: "incense-burner",
     name: "The Incense Burner",
     subtitle: "Made to warm agarwood slowly",
+    cardLabel: "For warming agarwood",
     summary: "A refined burner designed for the gentle, indirect heat that agarwood deserves.",
     description: [
       "Agarwood is at its best when it is warmed, not burned. The burner holds the heat at a distance and lets the resin release gradually.",
@@ -197,6 +201,7 @@ export const products: Record<ProductId, Product> = {
     slug: "the-complete-ritual",
     name: "The Complete Ritual",
     subtitle: "Agarwood chips and incense burner, together",
+    cardLabel: "Chips & burner, presented",
     summary: "Both essentials, presented together — everything you need for the first ritual.",
     description: [
       "The Signature Agarwood Chips and The Incense Burner, together in one presentation. Nothing else to buy before the first evening.",

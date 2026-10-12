@@ -7,6 +7,7 @@ export const site = {
   /** Working brand name. Change here and it changes everywhere. */
   name: "AURUM OUD",
   tagline: "Nature's Rarest Fragrance",
+  motto: "Rare woods. Higher lives.",
   description:
     "Genuine agarwood chips for burning, and an incense burner made for them. One chip. One burner. One ritual.",
   /** Set NEXT_PUBLIC_SITE_URL in production. */

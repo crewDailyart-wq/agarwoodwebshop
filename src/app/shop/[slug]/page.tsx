@@ -47,7 +47,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
   };
 
   return (
-    <article className="mx-auto max-w-7xl px-5 pb-12 pt-28 sm:px-8 sm:pt-36">
+    <article className="mx-auto max-w-7xl px-5 pb-12 pt-10 sm:px-8 sm:pt-14">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}

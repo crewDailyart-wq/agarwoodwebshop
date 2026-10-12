@@ -17,7 +17,7 @@ async function Form() {
 
 export default function CheckoutPage() {
   return (
-    <div className="mx-auto max-w-7xl px-5 pb-12 pt-32 sm:px-8 sm:pt-40">
+    <div className="mx-auto max-w-7xl px-5 pb-12 pt-14 sm:px-8 sm:pt-20">
       <h1 className="display mb-12 text-5xl sm:text-6xl">Checkout</h1>
       <Suspense fallback={<p className="text-ivory-soft">Loading…</p>}>
         <Form />

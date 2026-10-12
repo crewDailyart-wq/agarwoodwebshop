@@ -1,164 +1,318 @@
 import Link from "next/link";
+import { AsiaMap } from "@/components/AsiaMap";
 import { PhotoSlot } from "@/components/PhotoSlot";
-import { Price } from "@/components/Price";
+import { ProductCard } from "@/components/ProductCard";
+import {
+  ArrowIcon,
+  BotanicalSprig,
+  FlowerIcon,
+  LeafIcon,
+  RootsIcon,
+} from "@/components/icons";
 import { products } from "@/content/catalog";
-import { site } from "@/content/site";
 
-const steps = [
+/** The agarwood-growing regions, grouped as in an atlas legend. Geography, not sourcing. */
+const regionGroups = [
+  { title: "South Asia", places: "India · Sri Lanka · Bangladesh" },
+  { title: "Mainland Southeast Asia", places: "Myanmar · Thailand · Laos · Cambodia · Vietnam" },
+  { title: "Maritime Southeast Asia", places: "Malaysia · Singapore · Brunei · Indonesia · Philippines" },
+  { title: "Southern China", places: "Southern China" },
+  { title: "New Guinea / Oceania", places: "Papua New Guinea" },
+];
+
+const craft = [
+  { Icon: RootsIcon, title: "Natural resin formation", note: "Years to decades" },
+  { Icon: LeafIcon, title: "A gentle ritual", note: "Warmed, never lit" },
+  { Icon: FlowerIcon, title: "Considered selection", note: "Two essentials, chosen" },
+];
+
+/**
+ * Notes from the house. These are NOT customer reviews: real reviews, with the
+ * customer's permission, can replace them later. Never invent attributions.
+ */
+const voices = [
   {
-    n: "I",
-    title: "Prepare",
-    text: "Prepare the incense burner using a suitable heating method.",
+    quote:
+      "Agarwood is warmed, never lit. Its fragrance arrives slowly — and changes as it does.",
+    source: "On the ritual",
   },
   {
-    n: "II",
-    title: "Release",
-    text: "Gently warm a small piece of agarwood and release its aromatic compounds.",
-  },
-  {
-    n: "III",
-    title: "Experience",
-    text: "Follow the fragrance as it changes.",
+    quote: "A single chip, a quiet evening. Some luxuries ask only for time.",
+    source: "From the house",
   },
 ];
 
+function SideNote({ lines, className = "" }: { lines: string[]; className?: string }) {
+  return (
+    <p aria-hidden className={`side-note pointer-events-none absolute ${className}`}>
+      {lines.map((l) => (
+        <span key={l} className="block">
+          {l}
+        </span>
+      ))}
+    </p>
+  );
+}
+
 export default function Home() {
-  const chips = products["agarwood-chips"];
-  const burner = products["incense-burner"];
-  const ritual = products["the-complete-ritual"];
+  const featured = [
+    products["agarwood-chips"],
+    products["incense-burner"],
+    products["the-complete-ritual"],
+  ];
 
   return (
     <>
-      {/* A — Hero */}
-      <section className="relative isolate flex min-h-[100svh] items-end">
-        <PhotoSlot
-          photo={{
-            src: null,
-            alt: "Agarwood chips in a handcrafted vessel with a thread of smoke",
-            brief:
-              "Hero: agarwood chips in a handcrafted vessel, dramatic low light, delicate smoke, deep plum shadows. Portrait crop for mobile.",
-            width: 2400,
-            height: 1400,
-          }}
-          sizes="100vw"
-          priority
-          className="absolute inset-0 -z-10"
+      {/* ───────── Hero ───────── */}
+      <section className="relative isolate overflow-hidden border-b border-gold-line">
+        <div className="absolute inset-y-0 right-0 -z-10 w-full md:w-[64%]">
+          <PhotoSlot
+            photo={{
+              src: null,
+              alt: "Agarwood chips heaped in an ornate bronze vessel, smoke rising",
+              brief:
+                "Hero: dark resinous agarwood chips heaped in an ornate bronze vessel; smoke; warm low light; deep plum velvet; calligraphy panels softly out of focus behind.",
+              width: 2000,
+              height: 1100,
+            }}
+            quiet
+            priority
+            sizes="(min-width: 768px) 64vw, 100vw"
+            className="absolute inset-0"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-night via-night/60 to-transparent" />
+        </div>
+        <BotanicalSprig className="absolute -left-6 top-0 -z-10 hidden h-full w-40 text-gold/45 md:block" />
+
+        <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 md:py-24 lg:py-28">
+          <div className="max-w-xl md:pl-10">
+            <p className="eyebrow eyebrow-gold">Extraordinary by nature</p>
+            <h1 className="display mt-5 text-5xl sm:text-6xl lg:text-[4.2rem]">
+              Nature&rsquo;s Rarest Fragrance
+            </h1>
+            <p className="eyebrow mt-6 !text-[0.7rem]">Time. Nature. A higher existence.</p>
+            <p className="mt-5 max-w-md text-[1.12rem] leading-relaxed text-ivory">
+              Genuine agarwood, formed over years as a tree answers a wound with fragrant resin. For
+              connoisseurs, collectors and a more fragrant world.
+            </p>
+            <Link href="/collection" className="btn btn-line mt-9">
+              Explore the collection <ArrowIcon className="h-4 w-4" />
+            </Link>
+            <ul className="eyebrow eyebrow-gold mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 !text-[0.55rem]">
+              <li>
+                <Link href="/origins" className="hover:text-gold-bright">Rare origins</Link>
+              </li>
+              <li aria-hidden className="h-3 w-px bg-gold" />
+              <li>
+                <Link href="/ritual" className="hover:text-gold-bright">The ritual</Link>
+              </li>
+              <li aria-hidden className="h-3 w-px bg-gold" />
+              <li>
+                <Link href="/our-story" className="hover:text-gold-bright">Lasting legacy</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <SideNote
+          lines={["More than a", "fragrance", "a heritage"]}
+          className="bottom-8 right-8 hidden text-right md:block"
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-aubergine via-aubergine/40 to-transparent" />
-        <div className="mx-auto w-full max-w-7xl px-5 pb-20 pt-40 sm:px-8 sm:pb-28">
-          <p className="eyebrow mb-6">{site.name}</p>
-          <h1 className="display max-w-4xl text-5xl sm:text-7xl lg:text-8xl">{site.tagline}</h1>
-          <p className="display mt-5 text-2xl text-ivory-soft sm:text-3xl">
-            Discover the Art of Agarwood
-          </p>
-          <p className="mt-6 max-w-md text-ivory-soft">
-            Genuine agarwood chips for burning as incense, and a burner made to warm them slowly.
-          </p>
-          <Link href="/shop/agarwood-chips" className="btn btn-solid mt-10">
-            Discover Our Agarwood
-          </Link>
-        </div>
       </section>
 
-      {/* B — The Two Essentials */}
-      <section className="mx-auto max-w-7xl px-5 py-28 sm:px-8 sm:py-36">
-        <div className="mb-16 max-w-xl">
-          <p className="eyebrow mb-4">The Two Essentials</p>
-          <h2 className="display text-4xl sm:text-5xl">Two things. Chosen with care.</h2>
-        </div>
-        <div className="grid gap-16 md:grid-cols-2 md:gap-10">
-          {[chips, burner].map((p, i) => (
-            <article key={p.id} className={i === 1 ? "md:mt-24" : ""}>
-              <Link href={`/shop/${p.slug}`} className="group block">
-                <PhotoSlot
-                  photo={p.photos[0]}
-                  className="aspect-[4/5] w-full"
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                />
-              </Link>
-              <div className="mt-6 flex items-start justify-between gap-6">
-                <div>
-                  <h3 className="display text-3xl">{p.name}</h3>
-                  <p className="mt-2 max-w-sm text-sm text-ivory-soft">{p.summary}</p>
-                </div>
-                <Price cents={p.priceCents} className="shrink-0 tabular-nums" />
+      {/* ───────── Featured selection ───────── */}
+      <section className="border-b border-gold-line bg-night/70">
+        <div className="mx-auto max-w-[1400px] px-5 py-14 sm:px-8">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-6 md:pl-10">
+            <div>
+              <p className="eyebrow">Featured selection</p>
+              <div className="mt-3 flex items-center gap-5">
+                <h2 className="display text-4xl sm:text-[2.6rem]">Exceptional Agarwood</h2>
+                <span aria-hidden className="hidden h-px w-12 bg-gold sm:block" />
               </div>
-              <Link href={`/shop/${p.slug}`} className="btn btn-line mt-6">
-                View
-              </Link>
-            </article>
-          ))}
+            </div>
+            <p className="flex items-center gap-5 text-[1.05rem] italic text-ivory">
+              &ldquo;The rarest fragrances are written by time.&rdquo;
+              <span aria-hidden className="hidden h-px w-10 bg-gold sm:block" />
+            </p>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {featured.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+            <Link
+              href="/collection"
+              className="frame velvet group relative flex min-h-72 flex-col justify-between overflow-hidden p-8"
+            >
+              <BotanicalSprig className="absolute -right-8 -top-10 h-80 w-28 rotate-12 text-gold/25" />
+              <p className="font-[family-name:var(--font-caps)] text-[1.35rem] uppercase leading-snug tracking-[0.16em] text-ivory">
+                A higher
+                <br />
+                kind of
+                <br />
+                luxury
+              </p>
+              <span aria-hidden className="my-6 h-px w-10 bg-gold" />
+              <span className="flex items-center justify-between gap-4">
+                <span className="eyebrow eyebrow-gold !text-[0.55rem] leading-loose">
+                  Discover
+                  <br />
+                  all products
+                </span>
+                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold text-gold transition-colors group-hover:bg-gold group-hover:text-ink">
+                  <ArrowIcon className="h-4 w-4" />
+                </span>
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* C — The Ritual */}
-      <section className="bg-plum/40">
-        <div className="mx-auto max-w-7xl px-5 py-28 sm:px-8 sm:py-36">
-          <p className="eyebrow mb-4">The Ritual</p>
-          <h2 className="display max-w-2xl text-4xl sm:text-5xl">
-            Agarwood is warmed, never lit.
-          </h2>
-          <ol className="mt-20 grid gap-12 md:grid-cols-3 md:gap-8">
-            {steps.map((s) => (
-              <li key={s.n} className="border-t border-gold-line pt-6">
-                <span className="display text-3xl">{s.n}</span>
-                <h3 className="display mt-4 text-3xl">{s.title}</h3>
-                <p className="mt-3 max-w-xs text-ivory-soft">{s.text}</p>
+      {/* ───────── Sacred origins ───────── */}
+      <section className="velvet border-b border-gold-line">
+        <div className="mx-auto grid max-w-[1400px] items-center lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.9fr)_minmax(0,0.85fr)]">
+          <div className="px-5 py-14 sm:px-8 lg:py-20 lg:pl-12">
+            <p className="eyebrow eyebrow-gold">Sacred origins</p>
+            <h2 className="display mt-4 text-4xl sm:text-[2.6rem]">A Global Heritage</h2>
+            <p className="mt-5 max-w-xs text-[1.08rem] leading-relaxed text-ivory">
+              From ancient forests to your hands. Discover the regions where agarwood has grown,
+              and been revered, for centuries.
+            </p>
+            <Link href="/origins" className="btn btn-line mt-8">
+              Explore the origins <ArrowIcon className="h-4 w-4" />
+            </Link>
+          </div>
+
+          <div className="px-2 pb-6 lg:px-0 lg:py-6">
+            <AsiaMap className="fade-edges h-auto w-full" />
+          </div>
+
+          <div className="border-gold-line px-5 py-12 sm:px-8 lg:border-l lg:px-7">
+            <p className="eyebrow eyebrow-gold">The agarwood regions</p>
+            <ol className="mt-6 space-y-5">
+              {regionGroups.map((g, i) => (
+                <li key={g.title} className="flex gap-4">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-b from-gold-bright to-gold font-[family-name:var(--font-caps)] text-[0.75rem] font-semibold text-ink">
+                    {i + 1}
+                  </span>
+                  <span>
+                    <span className="block leading-tight text-ivory">{g.title}</span>
+                    <span className="mt-0.5 block text-[0.82rem] leading-snug text-ivory-soft">
+                      {g.places}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-8 flex items-start gap-4">
+              <span aria-hidden className="mt-2 h-px w-8 shrink-0 bg-gold" />
+              <p className="eyebrow !text-[0.52rem] leading-loose">
+                Exceptional places.
+                <br />
+                Extraordinary woods.
+              </p>
+            </div>
+            <p className="mt-6 text-[0.75rem] italic leading-snug text-ivory-faint">
+              Where agarwood grows naturally — not a list of where ours comes from.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ───────── The craft ───────── */}
+      <section className="relative isolate overflow-hidden border-b border-gold-line bg-night/70">
+        <div className="absolute inset-y-0 right-0 -z-10 hidden w-[34%] lg:block">
+          <PhotoSlot
+            photo={{
+              src: null,
+              alt: "A drop of golden resin on dark agarwood",
+              brief: "Macro: a bead of golden resin on dark, grained agarwood; purple shadows.",
+              width: 1000,
+              height: 800,
+            }}
+            quiet
+            sizes="34vw"
+            className="absolute inset-0"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-night to-transparent" />
+        </div>
+        <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)_minmax(0,0.75fr)] lg:pl-12">
+          <div>
+            <p className="eyebrow eyebrow-gold">The craft</p>
+            <h2 className="display mt-4 text-4xl sm:text-[2.6rem]">A Rarity Born of Time</h2>
+            <p className="mt-5 max-w-md text-[1.02rem] leading-relaxed text-ivory">
+              Agarwood is nature&rsquo;s alchemy — formed over years through a rare interplay of
+              tree, resin and time. We present it with respect for the material and the traditions
+              around it.
+            </p>
+            <Link href="/craft" className="btn btn-line mt-7">
+              Our craftsmanship <ArrowIcon className="h-4 w-4" />
+            </Link>
+          </div>
+          <ul className="grid grid-cols-3 divide-x divide-gold-line border-x border-gold-line">
+            {craft.map(({ Icon, title, note }) => (
+              <li key={title} className="flex flex-col items-center px-3 py-4 text-center">
+                <Icon className="h-14 w-14 text-gold" />
+                <p className="eyebrow mt-5 !text-[0.52rem] leading-loose">{title}</p>
+                <p className="mt-3 text-[0.85rem] italic text-ivory-soft">{note}</p>
               </li>
             ))}
-          </ol>
-          <Link href="/ritual" className="btn btn-line mt-16">
-            Explore the Ritual
-          </Link>
+          </ul>
+          <div className="hidden lg:block" />
         </div>
+        <SideNote
+          lines={["Time", "creates", "the", "extraordinary"]}
+          className="bottom-8 right-8 hidden lg:block"
+        />
       </section>
 
-      {/* D — The World of Agarwood */}
-      <section className="mx-auto max-w-7xl px-5 py-28 sm:px-8 sm:py-36">
-        <div className="grid items-center gap-16 lg:grid-cols-2">
-          <div>
-            <p className="eyebrow mb-4">The World of Agarwood</p>
-            <h2 className="display text-4xl sm:text-5xl">A fragrance with a geography.</h2>
-            <p className="mt-6 max-w-md text-ivory-soft">
-              Agarwood grows naturally across South and Southeast Asia, from the foothills of India
-              to the forests of New Guinea. Explore where the trees grow and how the fragrance came
-              to matter.
-            </p>
-            <Link href="/origins" className="btn btn-line mt-10">
-              Explore the origins
-            </Link>
-          </div>
-          <div
-            aria-hidden
-            className="relative aspect-[5/4] overflow-hidden border border-gold-line"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgb(185 154 105 / 0.12) 1px, transparent 1px), linear-gradient(90deg, rgb(185 154 105 / 0.12) 1px, transparent 1px)",
-              backgroundSize: "12.5% 14.28%",
-            }}
-          >
-            <p className="eyebrow absolute bottom-4 left-4">Atlas · interactive map to follow</p>
-          </div>
-        </div>
-      </section>
-
-      {/* E — The Complete Ritual */}
+      {/* ───────── Voices & heritage ───────── */}
       <section className="relative isolate overflow-hidden">
-        <PhotoSlot photo={ritual.photos[0]} sizes="100vw" className="absolute inset-0 -z-10" />
-        <div className="absolute inset-0 -z-10 bg-aubergine/70" />
-        <div className="mx-auto max-w-7xl px-5 py-32 sm:px-8 sm:py-44">
-          <p className="eyebrow mb-4">The Complete Ritual</p>
-          <h2 className="display max-w-3xl text-4xl sm:text-6xl">
-            Two Essentials. One Extraordinary Ritual.
-          </h2>
-          <p className="mt-6 max-w-md text-ivory-soft">{ritual.summary}</p>
-          <div className="mt-10 flex flex-wrap items-center gap-6">
-            <Link href="/shop/the-complete-ritual" className="btn btn-solid">
-              Discover the Complete Ritual
-            </Link>
-            <Price cents={ritual.priceCents} className="tabular-nums" />
-          </div>
+        <div className="absolute inset-y-0 right-0 -z-10 hidden w-[26%] lg:block">
+          <PhotoSlot
+            photo={{
+              src: null,
+              alt: "The incense burner with smoke rising in a dim room",
+              brief: "The burner on a dark table, smoke rising, window light behind.",
+              width: 800,
+              height: 800,
+            }}
+            quiet
+            sizes="26vw"
+            className="absolute inset-0"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-night to-transparent" />
         </div>
+        <div className="mx-auto grid max-w-[1400px] gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.75fr)] lg:pl-12">
+          <div>
+            <p className="eyebrow">Voices &amp; heritage</p>
+            <h2 className="display mt-4 text-4xl sm:text-[2.4rem]">
+              A Fragrance
+              <br />
+              that Connects Us
+            </h2>
+            <p className="mt-5 text-[0.95rem] italic text-ivory-soft">Notes from the house.</p>
+          </div>
+          {voices.map((v) => (
+            <figure key={v.quote} className="border-gold-line lg:border-l lg:pl-8">
+              <span aria-hidden className="display block text-5xl leading-none">
+                &ldquo;
+              </span>
+              <blockquote className="mt-1 text-[1.02rem] italic leading-relaxed text-ivory">
+                {v.quote}
+              </blockquote>
+              <figcaption className="mt-4 flex items-center gap-3 text-[0.85rem] text-ivory-soft">
+                <span aria-hidden className="h-px w-6 bg-gold" />
+                {v.source}
+              </figcaption>
+            </figure>
+          ))}
+          <div className="hidden lg:block" />
+        </div>
+        <SideNote
+          lines={["Different", "peoples", "one rare", "connection"]}
+          className="bottom-1/3 right-8 hidden lg:block"
+        />
       </section>
     </>
   );
