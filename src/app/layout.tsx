@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cinzel, Cormorant_Garamond, EB_Garamond } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { BakhoorSmoke } from "@/components/BakhoorSmoke";
 import { CartDrawer } from "@/components/CartDrawer";
@@ -7,24 +7,27 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { site } from "@/content/site";
 
-const display = Cormorant_Garamond({
+// Self-hosted (src/fonts) so the build never depends on Google Fonts.
+const display = localFont({
   variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  src: "../fonts/cormorant-garamond-latin-wght-normal.woff2",
+  weight: "300 700",
   display: "swap",
 });
 
-const serif = EB_Garamond({
+const serif = localFont({
   variable: "--font-garamond",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
+  src: [
+    { path: "../fonts/eb-garamond-latin-wght-normal.woff2", weight: "400 800", style: "normal" },
+    { path: "../fonts/eb-garamond-latin-wght-italic.woff2", weight: "400 800", style: "italic" },
+  ],
   display: "swap",
 });
 
-const caps = Cinzel({
+const caps = localFont({
   variable: "--font-cinzel",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  src: "../fonts/cinzel-latin-wght-normal.woff2",
+  weight: "400 900",
   display: "swap",
 });
 
