@@ -12,7 +12,7 @@ export function CartButton() {
       aria-label={`Open cart, ${count} item${count === 1 ? "" : "s"}`}
     >
       Cart
-      <span className="tabular-nums text-gold" suppressHydrationWarning>
+      <span className="tabular-nums text-ivory" suppressHydrationWarning>
         {count > 0 ? `(${count})` : ""}
       </span>
     </button>

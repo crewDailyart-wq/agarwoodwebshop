@@ -8,11 +8,15 @@
   --color-aubergine: #160f1d;
   --color-plum: #34203f;
   --color-gold: #b99a69;
-  --color-ivory: #efe4d3;
+  /* "ivory" tokens now hold the deep purple of all lettering (owner's choice).
+     Shades are as dark as they can be while staying readable on the black. */
+  --color-ivory: #9a76d0;
+  --color-amethyst: #7a4fb5; /* headings: deepest purple, large text only */
+  --color-ink: #2a1438; /* lettering on gold buttons */
   --color-walnut: #493329;
 
-  --color-ivory-soft: rgb(239 228 211 / 0.72);
-  --color-ivory-faint: rgb(239 228 211 / 0.5);
+  --color-ivory-soft: #9470cc;
+  --color-ivory-faint: #8a62c4;
   --color-gold-line: rgb(185 154 105 / 0.35);
 
   --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
@@ -29,7 +33,9 @@ html {
 }
 
 body {
-  background: var(--color-aubergine);
+  /* transparent so the bakhoor smoke layer behind the page shows through;
+     the black comes from <html>. */
+  background: transparent;
   color: var(--color-ivory);
   font-family: var(--font-sans);
   font-size: 1rem;
@@ -51,7 +57,8 @@ body {
 /* Headings are serif, light and generously tracked. */
 .display {
   font-family: var(--font-serif);
-  font-weight: 300;
+  font-weight: 400;
+  color: var(--color-amethyst);
   line-height: 1.04;
   letter-spacing: -0.01em;
 }
@@ -62,7 +69,7 @@ body {
   font-weight: 500;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-ivory);
 }
 
 .hairline {
@@ -92,7 +99,7 @@ body {
 }
 .btn-solid {
   background: var(--color-gold);
-  color: var(--color-aubergine);
+  color: var(--color-ink);
 }
 .btn-solid:hover:not(:disabled) {
   background: var(--color-ivory);
@@ -104,7 +111,7 @@ body {
 }
 .btn-line:hover:not(:disabled) {
   background: var(--color-gold);
-  color: var(--color-aubergine);
+  color: var(--color-ink);
 }
 .btn:disabled {
   opacity: 0.45;
@@ -129,7 +136,52 @@ body {
   animation: smoke 14s ease-in-out infinite;
 }
 
+/* ---------- Bakhoor smoke ----------
+   Plumes rise slowly from the bottom of the screen behind all content.
+   Each plume's wavy shape is drawn once by an SVG filter; only its position
+   and opacity animate, which the browser does cheaply on the GPU. */
+.bakhoor {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.bakhoor-plume {
+  position: absolute;
+  bottom: -35vh;
+  height: 130vh;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: bakhoor-rise var(--d) linear var(--delay) infinite;
+}
+.bakhoor-plume svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+@keyframes bakhoor-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 20vh, 0) scaleX(0.85);
+  }
+  20% {
+    opacity: var(--o);
+  }
+  70% {
+    opacity: var(--o);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--dx), -45vh, 0) scaleX(1.35);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .bakhoor-plume {
+    animation: none;
+    opacity: var(--o);
+  }
   html {
     scroll-behavior: auto;
   }

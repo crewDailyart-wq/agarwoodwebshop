@@ -17,9 +17,13 @@ export function PhotoSlot({
   sizes?: string;
   priority?: boolean;
 }) {
+  // Callers may pass `absolute` (full-bleed backgrounds); don't let our
+  // `relative` override it, or the frame collapses to zero height.
+  const position = /\babsolute\b/.test(className) ? "" : "relative";
+
   if (photo.src) {
     return (
-      <div className={`relative overflow-hidden bg-plum ${className}`}>
+      <div className={`${position} overflow-hidden bg-plum ${className}`}>
         <Image
           src={photo.src}
           alt={photo.alt}
@@ -36,10 +40,11 @@ export function PhotoSlot({
     <div
       role="img"
       aria-label={`${photo.alt} (photograph to come)`}
-      className={`relative overflow-hidden bg-plum ${className}`}
+      className={`${position} overflow-hidden ${className}`}
       style={{
+        // Semi-transparent so the bakhoor smoke stays visible until a real photo is set.
         backgroundImage:
-          "radial-gradient(120% 90% at 70% 15%, rgb(185 154 105 / 0.16), transparent 55%), radial-gradient(90% 70% at 20% 100%, rgb(73 51 41 / 0.55), transparent 60%), linear-gradient(160deg, #2a1a34 0%, #160f1d 100%)",
+          "radial-gradient(120% 90% at 70% 15%, rgb(185 154 105 / 0.12), transparent 55%), radial-gradient(90% 70% at 20% 100%, rgb(73 51 41 / 0.4), transparent 60%), linear-gradient(160deg, rgb(42 26 52 / 0.55) 0%, rgb(22 15 29 / 0.35) 100%)",
       }}
     >
       <div

@@ -10,7 +10,7 @@ export default function ContactPage() {
       {site.contactEmail ? (
         <p>
           Write to us at{" "}
-          <a href={`mailto:${site.contactEmail}`} className="text-gold underline underline-offset-4">
+          <a href={`mailto:${site.contactEmail}`} className="text-ivory underline underline-offset-4">
             {site.contactEmail}
           </a>
           .
