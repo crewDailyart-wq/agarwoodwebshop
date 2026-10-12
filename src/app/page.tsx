@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <>
       {/* A — Hero */}
-      <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden">
+      <section className="relative isolate flex min-h-[100svh] items-end">
         <PhotoSlot
           photo={{
             src: null,
@@ -92,7 +92,7 @@ export default function Home() {
       </section>
 
       {/* C — The Ritual */}
-      <section className="relative bg-gradient-to-b from-plum/70 via-[#42265a]/55 to-plum/40 shadow-[inset_0_1px_0_rgb(199_155_255/0.35),inset_0_-1px_0_rgb(199_155_255/0.25)]">
+      <section className="bg-plum/40">
         <div className="mx-auto max-w-7xl px-5 py-28 sm:px-8 sm:py-36">
           <p className="eyebrow mb-4">The Ritual</p>
           <h2 className="display max-w-2xl text-4xl sm:text-5xl">
@@ -130,7 +130,7 @@ export default function Home() {
           </div>
           <div
             aria-hidden
-            className="relative aspect-[5/4] overflow-hidden border border-violet-line shadow-[0_0_60px_-12px_rgb(140_80_230/0.6)]"
+            className="relative aspect-[5/4] overflow-hidden border border-gold-line"
             style={{
               backgroundImage:
                 "linear-gradient(rgb(185 154 105 / 0.12) 1px, transparent 1px), linear-gradient(90deg, rgb(185 154 105 / 0.12) 1px, transparent 1px)",
