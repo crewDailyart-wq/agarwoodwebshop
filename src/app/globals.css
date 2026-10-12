@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+/*
+  AURUM OUD — design tokens
+  Aubergine 55% · Plum 20% · Ivory 15% · Gold 10%. Gold stays thin and rare.
+*/
+@theme inline {
+  --color-aubergine: #160f1d;
+  --color-plum: #34203f;
+  --color-gold: #b99a69;
+  --color-ivory: #efe4d3;
+  --color-walnut: #493329;
+
+  --color-ivory-soft: rgb(239 228 211 / 0.72);
+  --color-ivory-faint: rgb(239 228 211 / 0.5);
+  --color-gold-line: rgb(185 154 105 / 0.35);
+
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-aubergine);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-aubergine);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-aubergine);
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+/* Headings are serif, light and generously tracked. */
+.display {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.hairline {
+  height: 1px;
+  background: var(--color-gold-line);
+  border: 0;
+}
+
+/* Buttons: understated. One filled, one outlined. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 3rem;
+  padding: 0 2rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-gold);
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease;
+  cursor: pointer;
+}
+.btn-solid {
+  background: var(--color-gold);
+  color: var(--color-aubergine);
+}
+.btn-solid:hover:not(:disabled) {
+  background: var(--color-ivory);
+  border-color: var(--color-ivory);
+}
+.btn-line {
+  background: transparent;
+  color: var(--color-ivory);
+}
+.btn-line:hover:not(:disabled) {
+  background: var(--color-gold);
+  color: var(--color-aubergine);
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Slow rising smoke for placeholder / hero atmosphere. */
+@keyframes smoke {
+  0% {
+    transform: translate3d(0, 8%, 0) scale(1);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate3d(4%, -22%, 0) scale(1.35);
+    opacity: 0;
+  }
+}
+.smoke {
+  animation: smoke 14s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .smoke {
+    animation: none;
+    opacity: 0.25;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
