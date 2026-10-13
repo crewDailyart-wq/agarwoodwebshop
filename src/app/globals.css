@@ -203,6 +203,21 @@ body {
   animation: smoke 14s ease-in-out infinite;
 }
 
+/* Homepage hero: the forest drifts closer, very slowly. Transform only. */
+@keyframes hero-drift {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.08) translate3d(-0.6%, -0.4%, 0);
+  }
+}
+.hero-drift {
+  transform-origin: 62% 50%;
+  animation: hero-drift 40s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
 /* ---------- Bakhoor smoke ----------
    Plumes rise slowly from the bottom of the screen behind all content.
    Each plume's wavy shape is drawn once by an SVG filter; only its position
@@ -249,7 +264,8 @@ body {
     scroll-behavior: auto;
   }
   .smoke,
-  .marker-halo {
+  .marker-halo,
+  .hero-drift {
     animation: none;
   }
   .smoke {

@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import heroForest from "@/assets/hero-oud-forest.jpg";
 import { AsiaMap } from "@/components/AsiaMap";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { ProductCard } from "@/components/ProductCard";
@@ -64,27 +66,30 @@ export default function Home() {
   return (
     <>
       {/* ───────── Hero ───────── */}
-      <section className="relative isolate overflow-hidden border-b border-gold-line">
-        <div className="absolute inset-y-0 right-0 -z-10 w-full md:w-[64%]">
-          <PhotoSlot
-            photo={{
-              src: null,
-              alt: "Agarwood chips heaped in an ornate bronze vessel, smoke rising",
-              brief:
-                "Hero: dark resinous agarwood chips heaped in an ornate bronze vessel; smoke; warm low light; deep plum velvet; calligraphy panels softly out of focus behind.",
-              width: 2000,
-              height: 1100,
-            }}
-            quiet
-            priority
-            sizes="(min-width: 768px) 64vw, 100vw"
-            className="absolute inset-0"
+      <section className="relative isolate flex min-h-[min(86svh,820px)] items-center overflow-hidden border-b border-gold-line">
+        {/* Full-bleed atmosphere: the oud forest at sunset. Decorative, so alt="". */}
+        <div aria-hidden className="absolute inset-0 -z-10 bg-night">
+          <Image
+            src={heroForest}
+            alt=""
+            fill
+            preload
+            placeholder="blur"
+            quality={85}
+            sizes="100vw"
+            className="hero-drift object-cover object-[60%_50%]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-night via-night/60 to-transparent" />
+          {/* Night falls from the left so the copy reads cleanly. */}
+          <div className="absolute inset-0 bg-gradient-to-r from-night/95 via-night/65 to-night/5 md:from-night/90 md:via-night/30 md:via-45% md:to-transparent md:to-75%" />
+          {/* Soft plum veil ties the warm sunset to the house palette. */}
+          <div className="absolute inset-0 bg-plum/15 mix-blend-multiply" />
+          {/* Melts into the header above and the next section below. */}
+          <div className="absolute inset-0 bg-gradient-to-b from-night/45 via-transparent via-55% to-night" />
+          <div className="absolute inset-0 shadow-[inset_0_0_140px_30px_rgb(11_7_16_/_0.55)]" />
         </div>
-        <BotanicalSprig className="absolute -left-6 top-0 -z-10 hidden h-full w-40 text-gold/45 md:block" />
+        <BotanicalSprig className="absolute -left-6 top-0 -z-10 hidden h-full w-40 text-gold/30 md:block" />
 
-        <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 md:py-24 lg:py-28">
+        <div className="mx-auto w-full max-w-[1400px] px-5 py-20 sm:px-8 md:py-24 lg:py-28">
           <div className="max-w-xl md:pl-10">
             <p className="eyebrow eyebrow-gold">Extraordinary by nature</p>
             <h1 className="display mt-5 text-5xl sm:text-6xl lg:text-[4.2rem]">
