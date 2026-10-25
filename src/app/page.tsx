@@ -118,33 +118,51 @@ export default function Home() {
       <section className="velvet relative isolate overflow-hidden border-b border-gold-line">
         <BotanicalSprig className="absolute -left-6 top-0 -z-10 hidden h-full w-40 text-gold/25 md:block" />
 
-        <div className="mx-auto grid w-full max-w-[1400px] items-center gap-12 px-5 py-16 sm:px-8 md:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16 lg:py-24">
-          <div className="max-w-xl md:pl-10">
-            <h1 className="display text-5xl sm:text-6xl lg:text-[4rem]">
-              True Agarwood from Different Parts of Asia
-            </h1>
-            <p className="mt-6 max-w-md text-[1.12rem] leading-relaxed text-ivory">
-              Genuine agarwood, formed over years as a tree answers a wound with fragrant resin.
-            </p>
-            <Link href="/collection" className="btn btn-line mt-9">
-              Explore the collection <ArrowIcon className="h-4 w-4" />
-            </Link>
-            <ul className="eyebrow eyebrow-gold mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 !text-[0.55rem]">
-              <li>
-                <Link href="/origins" className="hover:text-gold-bright">Rare origins</Link>
-              </li>
-              <li aria-hidden className="h-3 w-px bg-gold" />
-              <li>
-                <Link href="/ritual" className="hover:text-gold-bright">The ritual</Link>
-              </li>
-              <li aria-hidden className="h-3 w-px bg-gold" />
-              <li>
-                <Link href="/our-story" className="hover:text-gold-bright">Lasting legacy</Link>
-              </li>
-            </ul>
+        <div className="mx-auto w-full max-w-[1400px] px-5 pb-14 pt-8 sm:px-8 md:pb-16 md:pt-10">
+          <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6 md:pl-10">
+            <div className="max-w-3xl">
+              <h1 className="display text-[2.6rem] sm:text-5xl lg:text-[3.6rem]">
+                True Agarwood from Different Parts of Asia
+              </h1>
+              <p className="mt-4 max-w-xl text-[1.12rem] leading-relaxed text-ivory">
+                Genuine agarwood, formed over years as a tree answers a wound with fragrant resin.
+              </p>
+            </div>
+            <div className="flex flex-col items-start gap-5">
+              <Link href="/collection" className="btn btn-line">
+                Explore the collection <ArrowIcon className="h-4 w-4" />
+              </Link>
+              <ul className="eyebrow eyebrow-gold flex flex-wrap items-center gap-x-4 gap-y-2 !text-[0.55rem]">
+                <li>
+                  <Link href="/origins" className="hover:text-gold-bright">Rare origins</Link>
+                </li>
+                <li aria-hidden className="h-3 w-px bg-gold" />
+                <li>
+                  <Link href="/ritual" className="hover:text-gold-bright">The ritual</Link>
+                </li>
+                <li aria-hidden className="h-3 w-px bg-gold" />
+                <li>
+                  <Link href="/our-story" className="hover:text-gold-bright">Lasting legacy</Link>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <Signs />
+          <div className="mt-10 grid items-stretch gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:pl-10">
+            <figure className="frame relative flex flex-col bg-night/55 p-2">
+              <div className="relative aspect-[1000/720] overflow-hidden bg-black lg:aspect-auto lg:flex-1">
+                <AsiaMap cover className="absolute inset-0 h-full w-full" />
+              </div>
+              <figcaption className="flex flex-wrap items-center justify-between gap-2 px-3 pb-1 pt-3">
+                <span className="eyebrow eyebrow-gold !text-[0.55rem]">Where agarwood grows</span>
+                <span className="text-[0.75rem] italic text-ivory-faint">
+                  Satellite imagery: NASA Blue Marble
+                </span>
+              </figcaption>
+            </figure>
+
+            <Signs />
+          </div>
         </div>
       </section>
 
@@ -199,21 +217,17 @@ export default function Home() {
 
       {/* ───────── Sacred origins ───────── */}
       <section className="velvet border-b border-gold-line">
-        <div className="mx-auto grid max-w-[1400px] items-center lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.9fr)_minmax(0,0.85fr)]">
+        <div className="mx-auto grid max-w-[1400px] items-center lg:grid-cols-2">
           <div className="px-5 py-14 sm:px-8 lg:py-20 lg:pl-12">
             <p className="eyebrow eyebrow-gold">Sacred origins</p>
             <h2 className="display mt-4 text-4xl sm:text-[2.6rem]">A Global Heritage</h2>
             <p className="mt-5 max-w-xs text-[1.08rem] leading-relaxed text-ivory">
-              From ancient forests to your hands. Discover the regions where agarwood has grown,
-              and been revered, for centuries.
+              From ancient forests to your hands. The map above shows the regions where agarwood has
+              grown, and been revered, for centuries.
             </p>
             <Link href="/origins" className="btn btn-line mt-8">
               Explore the origins <ArrowIcon className="h-4 w-4" />
             </Link>
-          </div>
-
-          <div className="px-2 pb-6 lg:px-0 lg:py-6">
-            <AsiaMap className="fade-edges h-auto w-full" />
           </div>
 
           <div className="border-gold-line px-5 py-12 sm:px-8 lg:border-l lg:px-7">

@@ -5,26 +5,19 @@ import { CartButton } from "./CartButton";
 import { nav } from "@/content/nav";
 import { NavLinks } from "./NavLinks";
 import { SearchIcon } from "./icons";
-import mark from "@/assets/aluwwah-mark.png";
+import logo from "@/assets/aluwwah-logo.png";
 
 export function Logo({ small = false }: { small?: boolean }) {
   return (
-    <Link href="/" className="flex items-center gap-3" aria-label={`${site.name} — home`}>
+    <Link href="/" className="flex shrink-0 items-center" aria-label={`${site.name} — home`}>
+      {/* The full ALUWWAH logo: tree, name and roots. The name is in the artwork. */}
       <Image
-        src={mark}
-        alt=""
+        src={logo}
+        alt={site.name}
         preload={!small}
-        sizes="96px"
-        className={`${small ? "h-9" : "h-9 sm:h-12"} w-auto shrink-0`}
+        sizes="(min-width: 640px) 192px, 160px"
+        className={`${small ? "h-20" : "h-[4.5rem] sm:h-24"} w-auto`}
       />
-      <span className="whitespace-nowrap leading-none">
-        <span className={`wordmark block ${small ? "text-lg" : "text-[1.05rem] sm:text-[1.55rem]"}`}>
-          {site.name}
-        </span>
-        <span className="eyebrow eyebrow-gold mt-1.5 block !text-[0.44rem] !tracking-[0.3em] sm:!text-[0.5rem] sm:!tracking-[0.34em]">
-          {site.motto}
-        </span>
-      </span>
     </Link>
   );
 }
@@ -32,7 +25,7 @@ export function Logo({ small = false }: { small?: boolean }) {
 export function Header() {
   return (
     <header className="relative z-30 border-b border-gold-line bg-night/70 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-6 px-5 py-4 sm:px-8">
+      <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-6 px-5 py-2 sm:px-8">
         <Logo />
         <nav aria-label="Main" className="hidden lg:block">
           <NavLinks />

@@ -18,7 +18,7 @@ const highlight = new Set([
 
 const projection = geoMercator()
   .fitExtent([[0, 0], [W, H]], { type: "MultiPoint", coordinates: [[64, 33], [156, -13]] })
-  .clipExtent([[-10, -10], [W + 10, H + 10]]);
+  .clipExtent([[-10, -210], [W + 10, H + 210]]); // extra rows match EXT in build-satellite.py
 const path = geoPath(projection).digits(0);
 
 const land = [];

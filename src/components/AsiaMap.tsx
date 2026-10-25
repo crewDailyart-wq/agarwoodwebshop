@@ -1,9 +1,18 @@
+import satellite from "@/assets/asia-satellite.jpg";
 import { landPaths, mapMarkers, mapSize, regionPaths } from "@/content/asia-map";
 
 /**
+ * Map of the regions where agarwood trees grow naturally.
+ * `satellite` (default): true-colour satellite imagery (NASA Blue Marble,
+ * public domain), reprojected by scripts/build-satellite.py to the same
+ * Mercator frame as the Natural Earth outlines below, so they line up.
+ * `atlas`: the earlier antique-atlas style.
  * Antique-atlas map of the regions where agarwood trees grow naturally.
  * Geography only: it does not say where our own agarwood comes from.
  */
+
+/** Must match EXT in scripts/build-satellite.py. */
+const SAT_EXT = 200;
 
 type Label = { dx: number; dy: number; anchor?: "start" | "end"; line?: boolean };
 
@@ -26,11 +35,23 @@ const labels: Record<string, Label> = {
   "Papua New Guinea": { dx: -16, dy: -20, anchor: "end" },
 };
 
-export function AsiaMap({ className = "" }: { className?: string }) {
+export function AsiaMap({
+  className = "",
+  variant = "satellite",
+  cover = false,
+}: {
+  className?: string;
+  variant?: "satellite" | "atlas";
+  /** Fill the parent like object-fit: cover, showing extra imagery above and below. */
+  cover?: boolean;
+}) {
+  const sat = variant === "satellite";
+  const ext = sat && cover ? SAT_EXT : 0;
   const { width, height } = mapSize;
   return (
     <svg
-      viewBox={`0 0 ${width} ${height}`}
+      viewBox={`0 ${-ext} ${width} ${height + 2 * ext}`}
+      preserveAspectRatio={cover ? "xMidYMid slice" : undefined}
       className={className}
       role="img"
       aria-label="Map of South and Southeast Asia showing the regions where agarwood trees grow: India, Bangladesh, Sri Lanka, Myanmar, Thailand, Laos, Cambodia, Vietnam, southern China, Malaysia, Singapore, Brunei, Indonesia, the Philippines and Papua New Guinea."
@@ -58,8 +79,21 @@ export function AsiaMap({ className = "" }: { className?: string }) {
         </radialGradient>
       </defs>
 
-      <rect width={width} height={height} fill="url(#map-sea)" />
+      {sat ? (
+        <image
+          href={satellite.src}
+          x="0"
+          y={-SAT_EXT}
+          width={width}
+          height={height + 2 * SAT_EXT}
+          preserveAspectRatio="none"
+        />
+      ) : (
+        <rect width={width} height={height} fill="url(#map-sea)" />
+      )}
 
+      {!sat && (
+      <>
       {/* faint graticule */}
       <g stroke="rgb(198 162 107 / 0.08)" strokeWidth="1">
         {Array.from({ length: 9 }, (_, i) => (
@@ -75,8 +109,17 @@ export function AsiaMap({ className = "" }: { className?: string }) {
           <path key={i} d={d} />
         ))}
       </g>
+      </>
+      )}
 
-      <g fill="url(#map-region)" stroke="#e2bf85" strokeWidth="0.9" filter="url(#map-glow)" opacity="0.92">
+      <g
+        fill={sat ? "rgb(236 202 130 / 0.16)" : "url(#map-region)"}
+        stroke={sat ? "#f3d68f" : "#e2bf85"}
+        strokeWidth={sat ? 1.3 : 0.9}
+        strokeLinejoin="round"
+        filter={sat ? undefined : "url(#map-glow)"}
+        opacity={sat ? 1 : 0.92}
+      >
         {regionPaths.map((r) => (
           <path key={r.name} d={r.d}>
             <title>{r.name}</title>
@@ -86,7 +129,7 @@ export function AsiaMap({ className = "" }: { className?: string }) {
 
       {/* ocean and continent labels */}
       <g
-        fill="rgb(239 228 211 / 0.55)"
+        fill={sat ? "rgb(255 255 255 / 0.7)" : "rgb(239 228 211 / 0.55)"}
         fontFamily="var(--font-caps), serif"
         fontSize="15"
         letterSpacing="5"
@@ -127,11 +170,11 @@ export function AsiaMap({ className = "" }: { className?: string }) {
               x={tx}
               y={ty}
               textAnchor={l.anchor ?? "start"}
-              fill="#efe4d3"
+              fill={sat ? "#ffffff" : "#efe4d3"}
               fontFamily="var(--font-garamond), serif"
               fontSize="21"
-              stroke="#04130b"
-              strokeWidth="4"
+              stroke={sat ? "rgb(0 0 0 / 0.75)" : "#04130b"}
+              strokeWidth={sat ? 3.5 : 4}
               paintOrder="stroke"
             >
               {m.name}
