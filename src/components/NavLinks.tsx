@@ -7,7 +7,7 @@ import { nav } from "@/content/nav";
 export function NavLinks() {
   const pathname = usePathname();
   return (
-    <ul className="flex items-center gap-9">
+    <ul className="flex items-center gap-8 xl:gap-11">
       {nav.map((item) => {
         const active =
           item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
@@ -16,10 +16,8 @@ export function NavLinks() {
             <Link
               href={item.href}
               aria-current={active ? "page" : undefined}
-              className={`border-b pb-1 text-[0.98rem] transition-colors ${
-                active
-                  ? "border-gold text-gold-bright"
-                  : "border-transparent text-ivory hover:text-gold-bright"
+              className={`border-b-2 pb-1 font-[family-name:var(--font-caps)] text-[1.05rem] font-semibold uppercase tracking-[0.14em] text-gold-deep transition-colors xl:text-[1.2rem] ${
+                active ? "border-gold" : "border-transparent hover:border-gold/50 hover:text-emerald"
               }`}
             >
               {item.label}

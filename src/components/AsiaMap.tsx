@@ -135,9 +135,11 @@ export function AsiaMap({
         letterSpacing="5"
         textAnchor="middle"
       >
-        <text x="470" y="60" fill="rgb(239 228 211 / 0.85)" fontSize="18" letterSpacing="7">
-          ASIA
-        </text>
+        {!cover && (
+          <text x="470" y="60" fill="rgb(239 228 211 / 0.85)" fontSize="18" letterSpacing="7">
+            ASIA
+          </text>
+        )}
         <text x="190" y="520">INDIAN</text>
         <text x="190" y="542">OCEAN</text>
         <text x="830" y="250">PACIFIC</text>

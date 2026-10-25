@@ -24,23 +24,26 @@ export function Logo({ small = false }: { small?: boolean }) {
 
 export function Header() {
   return (
-    <header className="relative z-30 border-b border-gold-line bg-night/70 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-6 px-5 py-2 sm:px-8">
+    <header className="relative z-30 flex items-stretch border-b border-gold bg-white">
+      {/* The logo sits on its own deep-emerald corner, as in the original artwork. */}
+      <div className="flex shrink-0 items-center bg-emerald bg-[radial-gradient(90%_90%_at_50%_45%,#00461a_0%,#002e0a_70%)] px-5 py-2 sm:px-8">
         <Logo />
-        <nav aria-label="Main" className="hidden lg:block">
+      </div>
+      <div className="flex flex-1 items-center justify-between gap-6 px-5 sm:px-8">
+        <nav aria-label="Main" className="hidden flex-1 justify-center lg:flex">
           <NavLinks />
         </nav>
-        <div className="flex items-center gap-2 sm:gap-4">
+        <div className="ml-auto flex items-center gap-2 sm:gap-4">
           <Link
             href="/collection"
             aria-label="Search the collection"
-            className="hidden h-11 w-11 items-center justify-center text-ivory hover:text-gold sm:flex"
+            className="hidden h-11 w-11 items-center justify-center text-gold-deep hover:text-emerald sm:flex"
           >
-            <SearchIcon className="h-5 w-5" />
+            <SearchIcon className="h-6 w-6" />
           </Link>
           <CartButton />
-          <span aria-hidden className="mx-2 hidden h-10 w-px bg-gold-line xl:block" />
-          <p className="side-note hidden !text-[0.5rem] !leading-[1.7] xl:block">
+          <span aria-hidden className="mx-2 hidden h-10 w-px bg-gold/60 min-[1400px]:block" />
+          <p className="side-note hidden !text-[0.58rem] !leading-[1.7] !text-gold-deep min-[1400px]:block">
             A more
             <br />
             fragrant
@@ -48,7 +51,9 @@ export function Header() {
             world
           </p>
           <details className="relative lg:hidden">
-            <summary className="eyebrow flex h-11 cursor-pointer list-none items-center px-2">Menu</summary>
+            <summary className="flex h-11 cursor-pointer list-none items-center px-2 font-[family-name:var(--font-caps)] text-[0.85rem] font-semibold tracking-[0.25em] text-gold-deep uppercase">
+              Menu
+            </summary>
             <nav
               aria-label="Mobile"
               className="absolute right-0 top-12 w-64 border border-gold-line bg-night p-5"

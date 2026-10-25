@@ -76,12 +76,12 @@ const verses = [
 
 function Signs() {
   return (
-    <aside aria-label="From the Holy Qur'an" className="frame relative bg-night/55 px-6 py-9 sm:px-10">
+    <aside aria-label="From the Holy Qur'an" className="frame relative bg-night/55 px-6 py-7 sm:px-9">
       <span aria-hidden className="absolute inset-2 border border-gold-hair" />
-      <ul className="relative space-y-8">
+      <ul className="relative space-y-6">
         {verses.map((v) => (
           <li key={v.ref} className="text-center">
-            <p lang="ar" dir="rtl" className="quran text-[1.7rem] leading-[2.1] sm:text-[2rem]">
+            <p lang="ar" dir="rtl" className="quran text-[1.6rem] leading-[2] sm:text-[1.85rem]">
               {v.arabic}
             </p>
             <p className="mx-auto mt-3 max-w-lg text-[1.02rem] italic leading-relaxed text-ivory">
@@ -91,7 +91,7 @@ function Signs() {
           </li>
         ))}
       </ul>
-      <div aria-hidden className="relative mx-auto my-8 flex items-center justify-center gap-3">
+      <div aria-hidden className="relative mx-auto my-6 flex items-center justify-center gap-3">
         <span className="h-px w-12 bg-gold-line" />
         <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
         <span className="h-px w-12 bg-gold-line" />
@@ -118,42 +118,26 @@ export default function Home() {
       <section className="velvet relative isolate overflow-hidden border-b border-gold-line">
         <BotanicalSprig className="absolute -left-6 top-0 -z-10 hidden h-full w-40 text-gold/25 md:block" />
 
-        <div className="mx-auto w-full max-w-[1400px] px-5 pb-14 pt-8 sm:px-8 md:pb-16 md:pt-10">
-          <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6 md:pl-10">
-            <div className="max-w-3xl">
-              <h1 className="display text-[2.6rem] sm:text-5xl lg:text-[3.6rem]">
-                True Agarwood from Different Parts of Asia
-              </h1>
-              <p className="mt-4 max-w-xl text-[1.12rem] leading-relaxed text-ivory">
-                Genuine agarwood, formed over years as a tree answers a wound with fragrant resin.
-              </p>
-            </div>
-            <div className="flex flex-col items-start gap-5">
-              <Link href="/collection" className="btn btn-line">
-                Explore the collection <ArrowIcon className="h-4 w-4" />
-              </Link>
-              <ul className="eyebrow eyebrow-gold flex flex-wrap items-center gap-x-4 gap-y-2 !text-[0.55rem]">
-                <li>
-                  <Link href="/origins" className="hover:text-gold-bright">Rare origins</Link>
-                </li>
-                <li aria-hidden className="h-3 w-px bg-gold" />
-                <li>
-                  <Link href="/ritual" className="hover:text-gold-bright">The ritual</Link>
-                </li>
-                <li aria-hidden className="h-3 w-px bg-gold" />
-                <li>
-                  <Link href="/our-story" className="hover:text-gold-bright">Lasting legacy</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+        <div className="mx-auto w-full max-w-[1400px] px-5 pb-12 pt-5 sm:px-8 md:pt-6">
+          <h1 className="display text-balance text-center text-[2.1rem] sm:text-[2.6rem] lg:text-[3rem]">
+            True Agarwood from Different Parts of Asia
+          </h1>
 
-          <div className="mt-10 grid items-stretch gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:pl-10">
+          <div className="mt-5 grid items-stretch gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
             <figure className="frame relative flex flex-col bg-night/55 p-2">
-              <div className="relative aspect-[1000/720] overflow-hidden bg-black lg:aspect-auto lg:flex-1">
+              <div className="relative aspect-[1000/760] overflow-hidden bg-black lg:aspect-auto lg:flex-1">
                 <AsiaMap cover className="absolute inset-0 h-full w-full" />
+                {/* Over the open land of the north, clear of every country name. */}
+                <div className="absolute inset-x-0 top-[4%] flex justify-center px-4">
+                  <Link
+                    href="/collection"
+                    className="btn btn-solid !min-h-[2.5rem] !gap-3 !px-5 !text-[0.6rem] sm:!min-h-[3.2rem] sm:!gap-4 sm:!px-8 sm:!text-[0.74rem] shadow-[0_6px_28px_rgb(0_0_0_/_0.55)] ring-1 ring-gold-bright/70"
+                  >
+                    Explore the collection <ArrowIcon className="h-4 w-4" />
+                  </Link>
+                </div>
               </div>
-              <figcaption className="flex flex-wrap items-center justify-between gap-2 px-3 pb-1 pt-3">
+              <figcaption className="flex flex-wrap items-center justify-between gap-2 px-3 pb-1 pt-2.5">
                 <span className="eyebrow eyebrow-gold !text-[0.55rem]">Where agarwood grows</span>
                 <span className="text-[0.75rem] italic text-ivory-faint">
                   Satellite imagery: NASA Blue Marble
