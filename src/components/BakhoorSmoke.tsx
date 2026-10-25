@@ -44,10 +44,10 @@ export function BakhoorSmoke() {
           <svg viewBox="0 0 400 1000" preserveAspectRatio="none">
             <defs>
               <linearGradient id={`bk-fade-${i}`} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#d9cde6" stopOpacity="0" />
-                <stop offset="0.35" stopColor="#d9cde6" stopOpacity="0.55" />
-                <stop offset="0.75" stopColor="#c4b2d8" stopOpacity="0.8" />
-                <stop offset="1" stopColor="#c4b2d8" stopOpacity="0" />
+                <stop offset="0" stopColor="#dfe6dc" stopOpacity="0" />
+                <stop offset="0.35" stopColor="#dfe6dc" stopOpacity="0.55" />
+                <stop offset="0.75" stopColor="#c6d3c4" stopOpacity="0.8" />
+                <stop offset="1" stopColor="#c6d3c4" stopOpacity="0" />
               </linearGradient>
               <filter
                 id={`bk-curl-${i}`}

@@ -1,14 +1,22 @@
+import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/content/site";
 import { CartButton } from "./CartButton";
 import { nav } from "@/content/nav";
 import { NavLinks } from "./NavLinks";
-import { SearchIcon, TreeMark } from "./icons";
+import { SearchIcon } from "./icons";
+import mark from "@/assets/aluwwah-mark.png";
 
 export function Logo({ small = false }: { small?: boolean }) {
   return (
     <Link href="/" className="flex items-center gap-3" aria-label={`${site.name} — home`}>
-      <TreeMark className={`${small ? "h-9 w-8" : "h-9 w-8 sm:h-11 sm:w-10"} shrink-0 text-gold`} />
+      <Image
+        src={mark}
+        alt=""
+        preload={!small}
+        sizes="96px"
+        className={`${small ? "h-9" : "h-9 sm:h-12"} w-auto shrink-0`}
+      />
       <span className="whitespace-nowrap leading-none">
         <span className={`wordmark block ${small ? "text-lg" : "text-[1.05rem] sm:text-[1.55rem]"}`}>
           {site.name}

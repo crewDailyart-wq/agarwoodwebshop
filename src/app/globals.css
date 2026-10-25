@@ -1,25 +1,26 @@
 @import "tailwindcss";
 
 /*
-  AURUM OUD — design tokens
-  Near-black with velvet plum panels, champagne-gold serif headings, warm ivory
-  text, thin gold frames. Modelled on the owner's reference design.
+  ALUWWAH — design tokens
+  Deep forest-emerald (from the ALUWWAH logo's green field), champagne-gold
+  serif headings, warm ivory text, thin gold frames. Token names are kept from
+  the earlier plum palette so nothing else has to change.
 */
 @theme inline {
-  --color-night: #0b0710;
-  --color-aubergine: #160f1d;
-  --color-plum: #34203f;
-  --color-velvet: #4a2a5c;
-  --color-gold: #c6a26b;
-  --color-gold-bright: #e6c78f;
-  --color-walnut: #493329;
-  --color-ink: #1a0f20;
+  --color-night: #04130b;
+  --color-aubergine: #082015;
+  --color-plum: #0e3321;
+  --color-velvet: #145232;
+  --color-gold: #d4ad62;
+  --color-gold-bright: #ecca82;
+  --color-walnut: #3d3322;
+  --color-ink: #062012;
 
   --color-ivory: #efe4d3;
   --color-ivory-soft: rgb(239 228 211 / 0.8);
   --color-ivory-faint: rgb(239 228 211 / 0.6);
-  --color-gold-line: rgb(198 162 107 / 0.38);
-  --color-gold-hair: rgb(198 162 107 / 0.2);
+  --color-gold-line: rgb(212 173 98 / 0.38);
+  --color-gold-hair: rgb(212 173 98 / 0.2);
 
   --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-serif: var(--font-garamond), "EB Garamond", Georgia, serif;
@@ -66,7 +67,7 @@ body {
   line-height: 1.08;
   letter-spacing: 0;
   color: var(--color-gold-bright);
-  background-image: linear-gradient(180deg, #f3dcae 0%, #d9b67c 55%, #b48e57 100%);
+  background-image: linear-gradient(180deg, #f6dc9c 0%, #e2b866 55%, #b88b3e 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -83,6 +84,13 @@ body {
 }
 .eyebrow-gold {
   color: var(--color-gold);
+}
+
+/* Qur'anic text: Amiri, gold, generous line height for the vowel marks. */
+.quran {
+  font-family: var(--font-amiri), "Amiri", "Traditional Arabic", serif;
+  font-weight: 400;
+  color: var(--color-gold-bright);
 }
 
 .wordmark {
@@ -104,9 +112,9 @@ body {
 }
 .velvet {
   background:
-    radial-gradient(120% 90% at 85% 10%, rgb(110 60 140 / 0.45), transparent 60%),
-    radial-gradient(90% 80% at 0% 100%, rgb(74 42 92 / 0.55), transparent 65%),
-    linear-gradient(160deg, #24152e 0%, #120b17 100%);
+    radial-gradient(120% 90% at 85% 10%, rgb(28 110 62 / 0.42), transparent 60%),
+    radial-gradient(90% 80% at 0% 100%, rgb(20 82 50 / 0.5), transparent 65%),
+    linear-gradient(160deg, #0d2e1d 0%, #05170d 100%);
 }
 
 /* Buttons */
@@ -139,7 +147,7 @@ body {
   border-color: var(--color-gold-bright);
 }
 .btn-line {
-  background: rgb(74 42 92 / 0.55);
+  background: rgb(20 82 50 / 0.55);
   color: var(--color-gold-bright);
 }
 .btn-line:hover:not(:disabled) {
@@ -203,21 +211,6 @@ body {
   animation: smoke 14s ease-in-out infinite;
 }
 
-/* Homepage hero: the forest drifts closer, very slowly. Transform only. */
-@keyframes hero-drift {
-  from {
-    transform: scale(1.02);
-  }
-  to {
-    transform: scale(1.08) translate3d(-0.6%, -0.4%, 0);
-  }
-}
-.hero-drift {
-  transform-origin: 62% 50%;
-  animation: hero-drift 40s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
 /* ---------- Bakhoor smoke ----------
    Plumes rise slowly from the bottom of the screen behind all content.
    Each plume's wavy shape is drawn once by an SVG filter; only its position
@@ -264,8 +257,7 @@ body {
     scroll-behavior: auto;
   }
   .smoke,
-  .marker-halo,
-  .hero-drift {
+  .marker-halo {
     animation: none;
   }
   .smoke {

@@ -31,20 +31,30 @@ const caps = localFont({
   display: "swap",
 });
 
+const arabic = localFont({
+  variable: "--font-amiri",
+  src: [
+    { path: "../fonts/amiri-arabic-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/amiri-arabic-700-normal.woff2", weight: "700", style: "normal" },
+  ],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.name} — ${site.tagline}`, template: `%s — ${site.name}` },
   description: site.description,
   openGraph: { siteName: site.name, type: "website" },
+  icons: { icon: "/aluwwah-mark.png", apple: "/aluwwah-logo.png" },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0B0710",
+  themeColor: "#04130B",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${display.variable} ${serif.variable} ${caps.variable}`}>
+    <html lang="en" className={`${display.variable} ${serif.variable} ${caps.variable} ${arabic.variable}`}>
       <body className="flex min-h-dvh flex-col">
         <BakhoorSmoke />
         <a

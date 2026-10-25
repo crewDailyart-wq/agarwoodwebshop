@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Link from "next/link";
-import heroForest from "@/assets/hero-oud-forest.jpg";
 import { AsiaMap } from "@/components/AsiaMap";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { ProductCard } from "@/components/ProductCard";
@@ -56,6 +54,57 @@ function SideNote({ lines, className = "" }: { lines: string[]; className?: stri
   );
 }
 
+/**
+ * Two verses of the Holy Qur'an (Arabic text with an English rendering of the
+ * meaning) and the owner's reflection on them. Shown in the hero so every
+ * visitor sees them on arrival.
+ */
+const verses = [
+  {
+    arabic:
+      "وَسَخَّرَ لَكُمْ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ جَمِيعًا مِنْهُ ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ",
+    english:
+      "And He has subjected to you whatever is in the heavens and whatever is on the earth — all from Him. Indeed, in that are signs for a people who reflect.",
+    ref: "Surah Al-Jathiyah 45:13",
+  },
+  {
+    arabic: "وَيُرِيكُمْ آيَاتِهِ فَأَيَّ آيَاتِ اللَّهِ تُنْكِرُونَ",
+    english: "And He shows you His signs. So which of the signs of Allah will you deny?",
+    ref: "Surah Ghafir 40:81",
+  },
+];
+
+function Signs() {
+  return (
+    <aside aria-label="From the Holy Qur'an" className="frame relative bg-night/55 px-6 py-9 sm:px-10">
+      <span aria-hidden className="absolute inset-2 border border-gold-hair" />
+      <ul className="relative space-y-8">
+        {verses.map((v) => (
+          <li key={v.ref} className="text-center">
+            <p lang="ar" dir="rtl" className="quran text-[1.7rem] leading-[2.1] sm:text-[2rem]">
+              {v.arabic}
+            </p>
+            <p className="mx-auto mt-3 max-w-lg text-[1.02rem] italic leading-relaxed text-ivory">
+              &ldquo;{v.english}&rdquo;
+            </p>
+            <p className="eyebrow eyebrow-gold mt-3 !text-[0.55rem]">{v.ref}</p>
+          </li>
+        ))}
+      </ul>
+      <div aria-hidden className="relative mx-auto my-8 flex items-center justify-center gap-3">
+        <span className="h-px w-12 bg-gold-line" />
+        <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
+        <span className="h-px w-12 bg-gold-line" />
+      </div>
+      <p className="relative mx-auto max-w-lg text-center text-[1.05rem] leading-relaxed text-ivory">
+        Our Creator has subjected to us all that is in the earth, and shows us His signs therein;
+        we use it and benefit from it. But it should not lead us away from Him &mdash; rather, it
+        should lead us closer to Him.
+      </p>
+    </aside>
+  );
+}
+
 export default function Home() {
   const featured = [
     products["agarwood-chips"],
@@ -66,39 +115,16 @@ export default function Home() {
   return (
     <>
       {/* ───────── Hero ───────── */}
-      <section className="relative isolate flex min-h-[min(86svh,820px)] items-center overflow-hidden border-b border-gold-line">
-        {/* Full-bleed atmosphere: the oud forest at sunset. Decorative, so alt="". */}
-        <div aria-hidden className="absolute inset-0 -z-10 bg-night">
-          <Image
-            src={heroForest}
-            alt=""
-            fill
-            preload
-            placeholder="blur"
-            quality={85}
-            sizes="100vw"
-            className="hero-drift object-cover object-[60%_50%]"
-          />
-          {/* Night falls from the left so the copy reads cleanly. */}
-          <div className="absolute inset-0 bg-gradient-to-r from-night/95 via-night/65 to-night/5 md:from-night/90 md:via-night/30 md:via-45% md:to-transparent md:to-75%" />
-          {/* Soft plum veil ties the warm sunset to the house palette. */}
-          <div className="absolute inset-0 bg-plum/15 mix-blend-multiply" />
-          {/* Melts into the header above and the next section below. */}
-          <div className="absolute inset-0 bg-gradient-to-b from-night/45 via-transparent via-55% to-night" />
-          <div className="absolute inset-0 shadow-[inset_0_0_140px_30px_rgb(11_7_16_/_0.55)]" />
-        </div>
-        <BotanicalSprig className="absolute -left-6 top-0 -z-10 hidden h-full w-40 text-gold/30 md:block" />
+      <section className="velvet relative isolate overflow-hidden border-b border-gold-line">
+        <BotanicalSprig className="absolute -left-6 top-0 -z-10 hidden h-full w-40 text-gold/25 md:block" />
 
-        <div className="mx-auto w-full max-w-[1400px] px-5 py-20 sm:px-8 md:py-24 lg:py-28">
+        <div className="mx-auto grid w-full max-w-[1400px] items-center gap-12 px-5 py-16 sm:px-8 md:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16 lg:py-24">
           <div className="max-w-xl md:pl-10">
-            <p className="eyebrow eyebrow-gold">Extraordinary by nature</p>
-            <h1 className="display mt-5 text-5xl sm:text-6xl lg:text-[4.2rem]">
-              Nature&rsquo;s Rarest Fragrance
+            <h1 className="display text-5xl sm:text-6xl lg:text-[4rem]">
+              True Agarwood from Different Parts of Asia
             </h1>
-            <p className="eyebrow mt-6 !text-[0.7rem]">Time. Nature. A higher existence.</p>
-            <p className="mt-5 max-w-md text-[1.12rem] leading-relaxed text-ivory">
-              Genuine agarwood, formed over years as a tree answers a wound with fragrant resin. For
-              connoisseurs, collectors and a more fragrant world.
+            <p className="mt-6 max-w-md text-[1.12rem] leading-relaxed text-ivory">
+              Genuine agarwood, formed over years as a tree answers a wound with fragrant resin.
             </p>
             <Link href="/collection" className="btn btn-line mt-9">
               Explore the collection <ArrowIcon className="h-4 w-4" />
@@ -117,11 +143,9 @@ export default function Home() {
               </li>
             </ul>
           </div>
+
+          <Signs />
         </div>
-        <SideNote
-          lines={["More than a", "fragrance", "a heritage"]}
-          className="bottom-8 right-8 hidden text-right md:block"
-        />
       </section>
 
       {/* ───────── Featured selection ───────── */}

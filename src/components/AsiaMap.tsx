@@ -37,8 +37,8 @@ export function AsiaMap({ className = "" }: { className?: string }) {
     >
       <defs>
         <radialGradient id="map-sea" cx="45%" cy="45%" r="70%">
-          <stop offset="0" stopColor="#2a1736" />
-          <stop offset="1" stopColor="#0d0812" />
+          <stop offset="0" stopColor="#0f3a24" />
+          <stop offset="1" stopColor="#04130b" />
         </radialGradient>
         <linearGradient id="map-region" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#b88a4e" />
@@ -52,9 +52,9 @@ export function AsiaMap({ className = "" }: { className?: string }) {
           </feMerge>
         </filter>
         <radialGradient id="map-marker">
-          <stop offset="0" stopColor="#f6d8ff" stopOpacity="1" />
-          <stop offset="0.4" stopColor="#c46ee8" stopOpacity="0.8" />
-          <stop offset="1" stopColor="#9b3fd0" stopOpacity="0" />
+          <stop offset="0" stopColor="#fff3cf" stopOpacity="1" />
+          <stop offset="0.4" stopColor="#ecca82" stopOpacity="0.8" />
+          <stop offset="1" stopColor="#c99a3f" stopOpacity="0" />
         </radialGradient>
       </defs>
 
@@ -70,7 +70,7 @@ export function AsiaMap({ className = "" }: { className?: string }) {
         ))}
       </g>
 
-      <g fill="#24171f" stroke="rgb(198 162 107 / 0.22)" strokeWidth="0.8">
+      <g fill="#0c2418" stroke="rgb(198 162 107 / 0.22)" strokeWidth="0.8">
         {landPaths.map((d, i) => (
           <path key={i} d={d} />
         ))}
@@ -109,7 +109,7 @@ export function AsiaMap({ className = "" }: { className?: string }) {
         return (
           <g key={m.name}>
             <circle className="marker-halo" cx={m.x} cy={m.y} r="16" fill="url(#map-marker)" />
-            <circle cx={m.x} cy={m.y} r="4" fill="#fbe9ff" />
+            <circle cx={m.x} cy={m.y} r="4" fill="#fff6dc" />
             {l.line && (
               <>
                 <line
@@ -130,7 +130,7 @@ export function AsiaMap({ className = "" }: { className?: string }) {
               fill="#efe4d3"
               fontFamily="var(--font-garamond), serif"
               fontSize="21"
-              stroke="#0d0812"
+              stroke="#04130b"
               strokeWidth="4"
               paintOrder="stroke"
             >

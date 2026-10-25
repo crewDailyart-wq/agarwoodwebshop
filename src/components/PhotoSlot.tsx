@@ -47,7 +47,7 @@ export function PhotoSlot({
       style={{
         // Semi-transparent so the bakhoor smoke stays visible until a real photo is set.
         backgroundImage:
-          "radial-gradient(120% 90% at 70% 15%, rgb(185 154 105 / 0.12), transparent 55%), radial-gradient(90% 70% at 20% 100%, rgb(73 51 41 / 0.4), transparent 60%), linear-gradient(160deg, rgb(42 26 52 / 0.55) 0%, rgb(22 15 29 / 0.35) 100%)",
+          "radial-gradient(120% 90% at 70% 15%, rgb(185 154 105 / 0.12), transparent 55%), radial-gradient(90% 70% at 20% 100%, rgb(73 51 41 / 0.4), transparent 60%), linear-gradient(160deg, rgb(14 51 33 / 0.55) 0%, rgb(8 32 21 / 0.35) 100%)",
       }}
     >
       <div
