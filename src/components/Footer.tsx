@@ -4,7 +4,7 @@ import { Logo } from "./Header";
 import { nav } from "@/content/nav";
 
 const more = [
-  { href: "/shop/the-complete-ritual", label: "The Complete Ritual" },
+  { href: "/shop/the-complete-ritual", label: "Complete Agarwood Set" },
   { href: "/ritual", label: "The Ritual" },
   { href: "/our-story", label: "Our Story" },
   { href: "/shipping-returns", label: "Shipping & returns" },

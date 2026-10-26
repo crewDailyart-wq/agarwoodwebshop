@@ -58,8 +58,8 @@ export const products: Record<ProductId, Product> = {
   "agarwood-chips": {
     id: "agarwood-chips",
     slug: "agarwood-chips",
-    name: "Signature Agarwood Chips",
-    subtitle: "Genuine agarwood, for burning",
+    name: "High Grade Vietnamese Agarwood Chips",
+    subtitle: "Genuine agarwood from Vietnam, for burning",
     cardLabel: "Resin-rich heartwood",
     summary:
       "Resin-rich agarwood chips, selected to be warmed slowly and enjoyed as the fragrance unfolds.",
@@ -95,7 +95,7 @@ export const products: Record<ProductId, Product> = {
       },
     ],
     facts: [
-      { label: "Country of origin", value: null },
+      { label: "Country of origin", value: "Vietnam" }, // owner, Oct 2026
       { label: "Botanical species", value: null },
       { label: "Net weight", value: null },
       { label: "Grade", value: null },
@@ -128,9 +128,9 @@ export const products: Record<ProductId, Product> = {
     ],
     related: ["incense-burner"],
     seo: {
-      title: "Signature Agarwood Chips",
+      title: "High Grade Vietnamese Agarwood Chips",
       description:
-        "Genuine agarwood chips for burning as incense — resin-rich, warmed slowly, never lit.",
+        "Genuine Vietnamese agarwood chips for burning as incense — resin-rich, warmed slowly, never lit.",
     },
   },
 
@@ -199,14 +199,14 @@ export const products: Record<ProductId, Product> = {
   "the-complete-ritual": {
     id: "the-complete-ritual",
     slug: "the-complete-ritual",
-    name: "The Complete Ritual",
-    subtitle: "Agarwood chips and incense burner, together",
-    cardLabel: "Chips & burner, presented",
-    summary: "Both essentials, presented together — everything you need for the first ritual.",
+    name: "Complete Agarwood Set",
+    subtitle: "Agarwood of your choice with all you need to use it",
+    cardLabel: "Agarwood of your choice with all you need to use it",
+    summary: "Agarwood of your choice, with all you need to use it — presented together.",
     description: [
-      "The Signature Agarwood Chips and The Incense Burner, together in one presentation. Nothing else to buy before the first evening.",
+      "Agarwood of your choice and The Incense Burner, together in one presentation. Nothing else to buy before the first evening.",
     ],
-    priceCents: 15000, // PLACEHOLDER
+    priceCents: 13500, // owner, Oct 2026 (was 150)
     stock: null,
     variants: [],
     includes: [
@@ -222,7 +222,7 @@ export const products: Record<ProductId, Product> = {
         height: 1500,
       },
     ],
-    facts: [{ label: "Includes", value: "Signature Agarwood Chips · The Incense Burner" }],
+    facts: [{ label: "Includes", value: "High Grade Vietnamese Agarwood Chips · The Incense Burner" }],
     sections: [
       {
         title: "Presentation",
@@ -233,8 +233,8 @@ export const products: Record<ProductId, Product> = {
     ],
     related: [],
     seo: {
-      title: "The Complete Ritual",
-      description: "Signature Agarwood Chips and The Incense Burner, presented together.",
+      title: "Complete Agarwood Set",
+      description: "Agarwood of your choice with the incense burner — all you need to use it.",
     },
   },
 };

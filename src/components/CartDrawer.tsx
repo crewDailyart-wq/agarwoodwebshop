@@ -57,7 +57,7 @@ export function CartDrawer() {
               onClick={() => cart.closeDrawer()}
               className="btn btn-line"
             >
-              Discover the Complete Ritual
+              Discover the Complete Agarwood Set
             </Link>
           </div>
         ) : (

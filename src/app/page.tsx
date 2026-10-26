@@ -1,8 +1,23 @@
 import Link from "next/link";
 import { AsiaMap } from "@/components/AsiaMap";
-import { ProductCard } from "@/components/ProductCard";
+import { CartIconButton } from "@/components/CartIconButton";
+import { FlowerPanel } from "@/components/FlowerPanel";
+import { PhotoSlot } from "@/components/PhotoSlot";
+import { VietnamMap } from "@/components/VietnamMap";
 import { ArrowIcon, BotanicalSprig } from "@/components/icons";
-import { products } from "@/content/catalog";
+import { pricesConfirmed, products } from "@/content/catalog";
+import { formatMoney } from "@/lib/money";
+
+function CardPrice({ cents }: { cents: number }) {
+  return (
+    <p className="font-[family-name:var(--font-display)] text-[1.5rem] leading-none tabular-nums">
+      {formatMoney(cents)}
+      {!pricesConfirmed && (
+        <span className="eyebrow mt-1 block !text-[0.48rem] !text-ivory-faint">preview price</span>
+      )}
+    </p>
+  );
+}
 
 /**
  * Two verses of the Holy Qur'an (Arabic text with an English rendering of the
@@ -56,11 +71,8 @@ function Signs() {
 }
 
 export default function Home() {
-  const featured = [
-    products["agarwood-chips"],
-    products["incense-burner"],
-    products["the-complete-ritual"],
-  ];
+  const vietnamese = products["agarwood-chips"];
+  const set = products["the-complete-ritual"];
 
   return (
     <>
@@ -100,51 +112,90 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────── Featured selection ───────── */}
+      {/* ───────── Regions & products ───────── */}
       <section className="border-b border-gold-line bg-night/70">
-        <div className="mx-auto max-w-[1400px] px-5 py-14 sm:px-8">
-          <div className="mb-8 flex flex-wrap items-end justify-between gap-6 md:pl-10">
-            <div>
-              <p className="eyebrow">Featured selection</p>
-              <div className="mt-3 flex items-center gap-5">
-                <h2 className="display text-4xl sm:text-[2.6rem]">Exceptional Agarwood</h2>
-                <span aria-hidden className="hidden h-px w-12 bg-gold sm:block" />
-              </div>
-            </div>
-            <p className="flex items-center gap-5 text-[1.05rem] italic text-ivory">
-              &ldquo;The rarest fragrances are written by time.&rdquo;
-              <span aria-hidden className="hidden h-px w-10 bg-gold sm:block" />
-            </p>
-          </div>
+        <div className="mx-auto grid max-w-[1400px] gap-8 px-5 py-14 sm:px-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)]">
+          <FlowerPanel />
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-            <Link
-              href="/collection"
-              className="frame velvet group relative flex min-h-72 flex-col justify-between overflow-hidden p-8"
-            >
-              <BotanicalSprig className="absolute -right-8 -top-10 h-80 w-28 rotate-12 text-gold/25" />
-              <p className="font-[family-name:var(--font-caps)] text-[1.35rem] uppercase leading-snug tracking-[0.16em] text-ivory">
-                A higher
-                <br />
-                kind of
-                <br />
-                luxury
-              </p>
-              <span aria-hidden className="my-6 h-px w-10 bg-gold" />
-              <span className="flex items-center justify-between gap-4">
-                <span className="eyebrow eyebrow-gold !text-[0.55rem] leading-loose">
-                  Discover
+          <div className="flex flex-col">
+            <p className="eyebrow">Choose which agarwood region</p>
+            <div className="mt-3 flex items-center gap-5">
+              <h2 className="display text-4xl sm:text-[2.6rem]">True Agarwood</h2>
+              <span aria-hidden className="hidden h-px w-12 bg-gold sm:block" />
+            </div>
+
+            <div className="mt-7 grid flex-1 gap-5 sm:grid-cols-2 sm:grid-rows-[auto_auto]">
+              {/* Vietnam: satellite map of the region, with the product photo inset. */}
+              <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold sm:row-span-2">
+                <Link
+                  href={`/shop/${vietnamese.slug}`}
+                  tabIndex={-1}
+                  aria-hidden
+                  className="relative block aspect-[600/860] overflow-hidden bg-black"
+                >
+                  <VietnamMap className="absolute inset-0 h-full w-full" />
+                  <span className="eyebrow eyebrow-gold absolute left-4 top-4 bg-night/75 px-3 py-1.5 !text-[0.52rem]">
+                    Region · Vietnam
+                  </span>
+                  <span className="frame absolute bottom-4 left-4 block w-[30%] bg-night/80 p-1 shadow-[0_8px_30px_rgb(0_0_0_/_0.6)]">
+                    <PhotoSlot photo={vietnamese.photos[0]} quiet className="aspect-square w-full" sizes="200px" />
+                  </span>
+                </Link>
+                <div className="px-5 pb-5 pt-5">
+                  <h3 className="eyebrow !text-[0.72rem] leading-relaxed">
+                    <Link href={`/shop/${vietnamese.slug}`} className="hover:text-gold-bright">
+                      {vietnamese.name}
+                    </Link>
+                  </h3>
+                  <p className="eyebrow eyebrow-gold mt-1 !text-[0.52rem]">{vietnamese.cardLabel}</p>
+                  <div className="mt-5 flex items-end justify-between gap-3">
+                    <CardPrice cents={vietnamese.priceCents} />
+                    <CartIconButton id={vietnamese.id} name={vietnamese.name} soldOut={vietnamese.stock === 0} />
+                  </div>
+                </div>
+              </article>
+
+              <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold">
+                <Link href={`/shop/${set.slug}`} tabIndex={-1} aria-hidden className="block">
+                  <PhotoSlot photo={set.photos[0]} quiet className="aspect-[16/10] w-full" sizes="(min-width: 1024px) 25vw, 50vw" />
+                </Link>
+                <div className="flex flex-1 flex-col px-5 pb-5 pt-5">
+                  <h3 className="eyebrow !text-[0.72rem] leading-relaxed">
+                    <Link href={`/shop/${set.slug}`} className="hover:text-gold-bright">
+                      {set.name}
+                    </Link>
+                  </h3>
+                  <p className="eyebrow eyebrow-gold mt-1 !text-[0.52rem] leading-loose">{set.cardLabel}</p>
+                  <div className="mt-auto flex items-end justify-between gap-3 pt-5">
+                    <CardPrice cents={set.priceCents} />
+                    <CartIconButton id={set.id} name={set.name} soldOut={set.stock === 0} />
+                  </div>
+                </div>
+              </article>
+
+              <Link
+                href="/collection"
+                className="frame velvet group relative flex min-h-56 flex-col justify-between overflow-hidden p-7"
+              >
+                <BotanicalSprig className="absolute -right-8 -top-10 h-72 w-28 rotate-12 text-gold/25" />
+                <p className="font-[family-name:var(--font-caps)] text-[1.3rem] uppercase leading-snug tracking-[0.14em] text-ivory">
+                  Our Creator&rsquo;s
                   <br />
-                  all products
+                  favor upon us
+                </p>
+                <span aria-hidden className="my-5 h-px w-10 bg-gold" />
+                <span className="flex items-center justify-between gap-4">
+                  <span className="eyebrow eyebrow-gold !text-[0.55rem] leading-loose">
+                    Discover
+                    <br />
+                    all products
+                  </span>
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold text-gold transition-colors group-hover:bg-gold group-hover:text-ink">
+                    <ArrowIcon className="h-4 w-4" />
+                  </span>
                 </span>
-                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold text-gold transition-colors group-hover:bg-gold group-hover:text-ink">
-                  <ArrowIcon className="h-4 w-4" />
-                </span>
-              </span>
-            </Link>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

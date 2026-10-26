@@ -31,7 +31,7 @@ export function CheckoutForm({
       <div className="py-10">
         <p className="display text-3xl text-ivory-soft">Your cart is empty.</p>
         <Link href="/shop/the-complete-ritual" className="btn btn-line mt-8">
-          Discover the Complete Ritual
+          Discover the Complete Agarwood Set
         </Link>
       </div>
     );

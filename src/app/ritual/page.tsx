@@ -27,7 +27,7 @@ export default function RitualPage() {
       </p>
       <p className="pt-6">
         <Link href="/shop/the-complete-ritual" className="btn btn-line">
-          Discover the Complete Ritual
+          Discover the Complete Agarwood Set
         </Link>
       </p>
     </EditorialPage>

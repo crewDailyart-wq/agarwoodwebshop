@@ -4,7 +4,7 @@ import { productList } from "@/content/catalog";
 
 export const metadata: Metadata = {
   title: "Collection",
-  description: "Signature Agarwood Chips, The Incense Burner, and The Complete Ritual.",
+  description: "High Grade Vietnamese Agarwood Chips, The Incense Burner, and the Complete Agarwood Set.",
 };
 
 export default function CollectionPage() {

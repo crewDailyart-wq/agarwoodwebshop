@@ -45,7 +45,7 @@ export default function OriginsPage() {
       <h2>Our agarwood</h2>
       <p>
         {origin
-          ? `Our Signature Agarwood Chips come from ${origin}.`
+          ? `Our High Grade Agarwood Chips come from ${origin}.`
           : "Documented details about the origin of our agarwood will be published here once verified. We will never state an origin we cannot document."}
       </p>
     </EditorialPage>
