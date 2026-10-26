@@ -17,6 +17,7 @@ function ProductBody({ product }: { product: Product }) {
         </Link>
       </h3>
       <p className="eyebrow eyebrow-gold mt-1 !text-[0.5rem] leading-loose">{product.cardLabel}</p>
+      <p className="mt-3 text-[0.8rem] leading-relaxed text-ivory-soft">{product.summary}</p>
       <div className="mt-auto flex items-end justify-between gap-3 pt-4">
         <CardPrice cents={product.priceCents} />
         <CartIconButton id={product.id} name={product.name} soldOut={product.stock === 0} />
@@ -142,14 +143,14 @@ export default function Home() {
           </header>
 
           {/* Four cards of equal width and height. */}
-          <div className="mt-9 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mx-auto mt-9 grid max-w-sm gap-5 sm:max-w-2xl sm:grid-cols-2 lg:max-w-[1240px] lg:grid-cols-4">
             <FlowerPanel />
 
             {/* Vietnam: the product photo leads; the region map is a small inset. */}
             <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold">
-              <Link href={`/shop/${vietnamese.slug}`} tabIndex={-1} aria-hidden className="relative block aspect-[4/5]">
-                <PhotoSlot photo={vietnamese.photos[0]} quiet className="absolute inset-0" sizes="(min-width: 1280px) 330px, (min-width: 640px) 50vw, 100vw" />
-                <span className="frame absolute right-3 top-3 block w-[30%] bg-night/85 p-1 shadow-[0_6px_24px_rgb(0_0_0_/_0.55)]">
+              <Link href={`/shop/${vietnamese.slug}`} tabIndex={-1} aria-hidden className="relative block aspect-[4/3]">
+                <PhotoSlot photo={vietnamese.photos[0]} quiet className="absolute inset-0" sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw" />
+                <span className="frame absolute right-2.5 top-2.5 block w-[24%] bg-night/85 p-1 shadow-[0_6px_24px_rgb(0_0_0_/_0.55)]">
                   <span className="relative block aspect-[600/860] overflow-hidden bg-black">
                     <VietnamMap label={false} className="absolute inset-0 h-full w-full" />
                   </span>
@@ -162,18 +163,18 @@ export default function Home() {
             </article>
 
             <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold">
-              <Link href={`/shop/${set.slug}`} tabIndex={-1} aria-hidden className="relative block aspect-[4/5]">
-                <PhotoSlot photo={set.photos[0]} quiet className="absolute inset-0" sizes="(min-width: 1280px) 330px, (min-width: 640px) 50vw, 100vw" />
+              <Link href={`/shop/${set.slug}`} tabIndex={-1} aria-hidden className="relative block aspect-[4/3]">
+                <PhotoSlot photo={set.photos[0]} quiet className="absolute inset-0" sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw" />
               </Link>
               <ProductBody product={set} />
             </article>
 
             <Link
               href="/collection"
-              className="frame velvet group relative flex min-h-80 flex-col justify-between overflow-hidden p-7"
+              className="frame velvet group relative flex min-h-64 flex-col justify-between overflow-hidden p-6"
             >
               <BotanicalSprig className="absolute -right-8 -top-10 h-80 w-28 rotate-12 text-gold/25" />
-              <p className="font-[family-name:var(--font-caps)] text-[1.3rem] uppercase leading-snug tracking-[0.14em] text-ivory">
+              <p className="font-[family-name:var(--font-caps)] text-[1.15rem] uppercase leading-snug tracking-[0.14em] text-ivory">
                 Our Creator&rsquo;s
                 <br />
                 favor upon us
