@@ -133,17 +133,42 @@ export default function Home() {
       {/* ───────── Regions & products ───────── */}
       <section className="velvet border-b border-gold-line">
         <div className="mx-auto max-w-[1400px] px-5 py-14 sm:px-8">
-          <header className="text-center">
-            <p className="eyebrow eyebrow-gold">Choose which agarwood region</p>
-            <div className="mt-3 flex items-center justify-center gap-5">
-              <span aria-hidden className="h-px w-12 bg-gold" />
-              <h2 className="display text-4xl sm:text-[2.6rem]">True Agarwood</h2>
-              <span aria-hidden className="h-px w-12 bg-gold" />
-            </div>
-          </header>
+          {/* Two halves, each centred over two of the four cards below. */}
+          <div className="mx-auto grid max-w-sm items-center gap-6 sm:max-w-2xl lg:max-w-[1240px] lg:grid-cols-2 lg:gap-5">
+            <header className="text-center">
+              <p className="eyebrow eyebrow-gold">Choose which agarwood region</p>
+              <div className="mt-3 flex items-center justify-center gap-4 sm:gap-5">
+                <span aria-hidden className="h-px w-8 bg-gold sm:w-12" />
+                <h2 className="display whitespace-nowrap text-[2.2rem] sm:text-[2.6rem]">True Agarwood</h2>
+                <span aria-hidden className="h-px w-8 bg-gold sm:w-12" />
+              </div>
+            </header>
+
+            {/* Sahih Muslim 2254: the Prophet ﷺ fumigated himself with aloeswood (al-uluwwah). */}
+            <figure className="frame relative bg-night/45 px-5 py-4 text-center sm:px-7">
+              <span aria-hidden className="absolute inset-1.5 border border-gold-hair" />
+              <blockquote className="relative">
+                <p lang="ar" dir="rtl" className="quran text-[1.02rem] leading-[1.95] sm:text-[1.1rem]">
+                  عَنْ نَافِعٍ، قَالَ: كَانَ ابْنُ عُمَرَ إِذَا اسْتَجْمَرَ اسْتَجْمَرَ{" "}
+                  <span className="text-ivory">بِالأَلُوَّةِ</span> غَيْرِ مُطَرَّاةٍ، وَبِكَافُورٍ يَطْرَحُهُ مَعَ{" "}
+                  <span className="text-ivory">الأَلُوَّةِ</span>، ثُمَّ قَالَ: هَكَذَا كَانَ يَسْتَجْمِرُ رَسُولُ اللَّهِ صَلَّى
+                  اللَّهُ عَلَيْهِ وَسَلَّمَ
+                </p>
+                <p className="mx-auto mt-2 max-w-xl text-[0.86rem] italic leading-relaxed text-ivory">
+                  Nafi&rsquo; reported: When Ibn &lsquo;Umar fumigated himself, he used aloeswood{" "}
+                  <span className="not-italic text-gold-bright">(al-uluwwah)</span> without mixing anything with
+                  it, and with camphor which he put together with the aloeswood. Then he said: &ldquo;This is how the
+                  Messenger of Allah{" "}
+                  <span className="mx-0.5 inline-block not-italic text-[1.15em] leading-none">&#xFDFA;</span>{" "}
+                  used to fumigate himself.&rdquo;
+                </p>
+              </blockquote>
+              <figcaption className="eyebrow eyebrow-gold relative mt-2 !text-[0.5rem]">Sahih Muslim 2254</figcaption>
+            </figure>
+          </div>
 
           {/* Four cards of equal width and height. */}
-          <div className="mx-auto mt-9 grid max-w-sm gap-5 sm:max-w-2xl sm:grid-cols-2 lg:max-w-[1240px] lg:grid-cols-4">
+          <div className="mx-auto mt-8 grid max-w-sm gap-5 sm:max-w-2xl sm:grid-cols-2 lg:max-w-[1240px] lg:grid-cols-4">
             <FlowerPanel />
 
             {/* Vietnam: the product photo leads; the region map is a small inset. */}
