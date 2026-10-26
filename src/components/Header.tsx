@@ -38,7 +38,7 @@ export function Header() {
       {/* Three columns with equal outer widths, so the menu sits exactly under the strip's text. */}
       <div className="relative grid grid-cols-[1fr_auto] items-stretch border-b border-gold bg-white lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
         <StarLattice
-          className="pointer-events-none absolute inset-0 h-full w-full text-gold-deep opacity-[0.16] [mask-image:linear-gradient(90deg,#000,transparent_38%,transparent_62%,#000)]"
+          className="pointer-events-none absolute inset-0 h-full w-full text-gold-deep opacity-[0.28] [mask-image:linear-gradient(90deg,#000,rgb(0_0_0/0.35)_40%,rgb(0_0_0/0.35)_60%,#000)]"
         />
 
         <div className="relative flex min-w-0 items-stretch">
@@ -48,18 +48,18 @@ export function Header() {
           </div>
           {/* Below lg the menu is folded away: a facing pair of branches fills the bar. */}
           <div className="flex min-w-0 flex-1 items-center justify-center gap-1 px-2 sm:gap-4 lg:hidden">
-            <AgarwoodBranch className="h-10 w-auto max-w-[46%] text-gold sm:h-[4.6rem]" />
-            <AgarwoodBranch className="h-10 w-auto max-w-[46%] -scale-x-100 text-gold sm:h-[4.6rem]" />
+            <AgarwoodBranch id="orn-m1" className="h-12 w-auto max-w-[47%] sm:h-[5rem]" />
+            <AgarwoodBranch id="orn-m2" className="h-12 w-auto max-w-[47%] -scale-x-100 sm:h-[5rem]" />
           </div>
         </div>
 
         {/* Menu flanked by two identical branches, so the centre stays symmetrical. */}
-        <div className="relative hidden items-center gap-5 px-3 lg:flex">
-          <AgarwoodBranch className="hidden w-[8rem] shrink-0 text-gold min-[1420px]:block min-[1600px]:w-[11rem]" />
+        <div className="relative hidden items-center gap-3 px-3 lg:flex min-[1600px]:gap-4">
+          <AgarwoodBranch id="orn-l" className="hidden h-[3.5rem] w-auto shrink-0 min-[1440px]:block min-[1600px]:h-[5.6rem]" />
           <nav aria-label="Main">
             <NavLinks />
           </nav>
-          <AgarwoodBranch className="hidden w-[8rem] shrink-0 -scale-x-100 text-gold min-[1420px]:block min-[1600px]:w-[11rem]" />
+          <AgarwoodBranch id="orn-r" className="hidden h-[3.5rem] w-auto shrink-0 -scale-x-100 min-[1440px]:block min-[1600px]:h-[5.6rem]" />
         </div>
 
         <div className="relative flex min-w-0 items-center justify-end">
