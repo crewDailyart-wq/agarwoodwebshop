@@ -5,8 +5,25 @@ import { FlowerPanel } from "@/components/FlowerPanel";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { VietnamMap } from "@/components/VietnamMap";
 import { ArrowIcon, BotanicalSprig } from "@/components/icons";
-import { pricesConfirmed, products } from "@/content/catalog";
+import { pricesConfirmed, products, type Product } from "@/content/catalog";
 import { formatMoney } from "@/lib/money";
+
+function ProductBody({ product }: { product: Product }) {
+  return (
+    <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
+      <h3 className="eyebrow !text-[0.7rem] leading-relaxed">
+        <Link href={`/shop/${product.slug}`} className="hover:text-gold-bright">
+          {product.name}
+        </Link>
+      </h3>
+      <p className="eyebrow eyebrow-gold mt-1 !text-[0.5rem] leading-loose">{product.cardLabel}</p>
+      <div className="mt-auto flex items-end justify-between gap-3 pt-4">
+        <CardPrice cents={product.priceCents} />
+        <CartIconButton id={product.id} name={product.name} soldOut={product.stock === 0} />
+      </div>
+    </div>
+  );
+}
 
 function CardPrice({ cents }: { cents: number }) {
   return (
@@ -113,89 +130,66 @@ export default function Home() {
       </section>
 
       {/* ───────── Regions & products ───────── */}
-      <section className="border-b border-gold-line bg-night/70">
-        <div className="mx-auto grid max-w-[1400px] gap-8 px-5 py-14 sm:px-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)]">
-          <FlowerPanel />
-
-          <div className="flex flex-col">
-            <p className="eyebrow">Choose which agarwood region</p>
-            <div className="mt-3 flex items-center gap-5">
+      <section className="velvet border-b border-gold-line">
+        <div className="mx-auto max-w-[1400px] px-5 py-14 sm:px-8">
+          <header className="text-center">
+            <p className="eyebrow eyebrow-gold">Choose which agarwood region</p>
+            <div className="mt-3 flex items-center justify-center gap-5">
+              <span aria-hidden className="h-px w-12 bg-gold" />
               <h2 className="display text-4xl sm:text-[2.6rem]">True Agarwood</h2>
-              <span aria-hidden className="hidden h-px w-12 bg-gold sm:block" />
+              <span aria-hidden className="h-px w-12 bg-gold" />
             </div>
+          </header>
 
-            <div className="mt-7 grid flex-1 gap-5 sm:grid-cols-2 sm:grid-rows-[auto_auto]">
-              {/* Vietnam: satellite map of the region, with the product photo inset. */}
-              <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold sm:row-span-2">
-                <Link
-                  href={`/shop/${vietnamese.slug}`}
-                  tabIndex={-1}
-                  aria-hidden
-                  className="relative block aspect-[600/860] overflow-hidden bg-black"
-                >
-                  <VietnamMap className="absolute inset-0 h-full w-full" />
-                  <span className="eyebrow eyebrow-gold absolute left-4 top-4 bg-night/75 px-3 py-1.5 !text-[0.52rem]">
-                    Region · Vietnam
-                  </span>
-                  <span className="frame absolute bottom-4 left-4 block w-[30%] bg-night/80 p-1 shadow-[0_8px_30px_rgb(0_0_0_/_0.6)]">
-                    <PhotoSlot photo={vietnamese.photos[0]} quiet className="aspect-square w-full" sizes="200px" />
-                  </span>
-                </Link>
-                <div className="px-5 pb-5 pt-5">
-                  <h3 className="eyebrow !text-[0.72rem] leading-relaxed">
-                    <Link href={`/shop/${vietnamese.slug}`} className="hover:text-gold-bright">
-                      {vietnamese.name}
-                    </Link>
-                  </h3>
-                  <p className="eyebrow eyebrow-gold mt-1 !text-[0.52rem]">{vietnamese.cardLabel}</p>
-                  <div className="mt-5 flex items-end justify-between gap-3">
-                    <CardPrice cents={vietnamese.priceCents} />
-                    <CartIconButton id={vietnamese.id} name={vietnamese.name} soldOut={vietnamese.stock === 0} />
-                  </div>
-                </div>
-              </article>
+          {/* Four cards of equal width and height. */}
+          <div className="mt-9 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            <FlowerPanel />
 
-              <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold">
-                <Link href={`/shop/${set.slug}`} tabIndex={-1} aria-hidden className="block">
-                  <PhotoSlot photo={set.photos[0]} quiet className="aspect-[16/10] w-full" sizes="(min-width: 1024px) 25vw, 50vw" />
-                </Link>
-                <div className="flex flex-1 flex-col px-5 pb-5 pt-5">
-                  <h3 className="eyebrow !text-[0.72rem] leading-relaxed">
-                    <Link href={`/shop/${set.slug}`} className="hover:text-gold-bright">
-                      {set.name}
-                    </Link>
-                  </h3>
-                  <p className="eyebrow eyebrow-gold mt-1 !text-[0.52rem] leading-loose">{set.cardLabel}</p>
-                  <div className="mt-auto flex items-end justify-between gap-3 pt-5">
-                    <CardPrice cents={set.priceCents} />
-                    <CartIconButton id={set.id} name={set.name} soldOut={set.stock === 0} />
-                  </div>
-                </div>
-              </article>
-
-              <Link
-                href="/collection"
-                className="frame velvet group relative flex min-h-56 flex-col justify-between overflow-hidden p-7"
-              >
-                <BotanicalSprig className="absolute -right-8 -top-10 h-72 w-28 rotate-12 text-gold/25" />
-                <p className="font-[family-name:var(--font-caps)] text-[1.3rem] uppercase leading-snug tracking-[0.14em] text-ivory">
-                  Our Creator&rsquo;s
-                  <br />
-                  favor upon us
-                </p>
-                <span aria-hidden className="my-5 h-px w-10 bg-gold" />
-                <span className="flex items-center justify-between gap-4">
-                  <span className="eyebrow eyebrow-gold !text-[0.55rem] leading-loose">
-                    Discover
-                    <br />
-                    all products
+            {/* Vietnam: the product photo leads; the region map is a small inset. */}
+            <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold">
+              <Link href={`/shop/${vietnamese.slug}`} tabIndex={-1} aria-hidden className="relative block aspect-[4/5]">
+                <PhotoSlot photo={vietnamese.photos[0]} quiet className="absolute inset-0" sizes="(min-width: 1280px) 330px, (min-width: 640px) 50vw, 100vw" />
+                <span className="frame absolute right-3 top-3 block w-[30%] bg-night/85 p-1 shadow-[0_6px_24px_rgb(0_0_0_/_0.55)]">
+                  <span className="relative block aspect-[600/860] overflow-hidden bg-black">
+                    <VietnamMap label={false} className="absolute inset-0 h-full w-full" />
                   </span>
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold text-gold transition-colors group-hover:bg-gold group-hover:text-ink">
-                    <ArrowIcon className="h-4 w-4" />
+                  <span className="eyebrow eyebrow-gold block pt-1 text-center !text-[0.45rem] !tracking-[0.25em]">
+                    Vietnam
                   </span>
                 </span>
               </Link>
-            </div>
+              <ProductBody product={vietnamese} />
+            </article>
+
+            <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold">
+              <Link href={`/shop/${set.slug}`} tabIndex={-1} aria-hidden className="relative block aspect-[4/5]">
+                <PhotoSlot photo={set.photos[0]} quiet className="absolute inset-0" sizes="(min-width: 1280px) 330px, (min-width: 640px) 50vw, 100vw" />
+              </Link>
+              <ProductBody product={set} />
+            </article>
+
+            <Link
+              href="/collection"
+              className="frame velvet group relative flex min-h-80 flex-col justify-between overflow-hidden p-7"
+            >
+              <BotanicalSprig className="absolute -right-8 -top-10 h-80 w-28 rotate-12 text-gold/25" />
+              <p className="font-[family-name:var(--font-caps)] text-[1.3rem] uppercase leading-snug tracking-[0.14em] text-ivory">
+                Our Creator&rsquo;s
+                <br />
+                favor upon us
+              </p>
+              <span aria-hidden className="h-px w-10 bg-gold" />
+              <span className="flex items-center justify-between gap-4">
+                <span className="eyebrow eyebrow-gold !text-[0.55rem] leading-loose">
+                  Discover
+                  <br />
+                  all products
+                </span>
+                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold text-gold transition-colors group-hover:bg-gold group-hover:text-ink">
+                  <ArrowIcon className="h-4 w-4" />
+                </span>
+              </span>
+            </Link>
           </div>
         </div>
       </section>
