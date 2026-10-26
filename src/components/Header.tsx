@@ -5,6 +5,7 @@ import { CartButton } from "./CartButton";
 import { nav } from "@/content/nav";
 import { NavLinks } from "./NavLinks";
 import { SearchIcon } from "./icons";
+import { AgarwoodBranch, StarLattice } from "./HeaderOrnament";
 import logo from "@/assets/aluwwah-logo.png";
 
 export function Logo({ small = false }: { small?: boolean }) {
@@ -24,51 +25,73 @@ export function Logo({ small = false }: { small?: boolean }) {
 
 export function Header() {
   return (
-    <header className="relative z-30 flex items-stretch border-b border-gold bg-white">
-      {/* The logo sits on its own deep-emerald corner, as in the original artwork. */}
-      <div className="flex shrink-0 items-center bg-emerald bg-[radial-gradient(90%_90%_at_50%_45%,#00461a_0%,#002e0a_70%)] px-5 py-2 sm:px-8">
-        <Logo />
+    <header className="relative z-30">
+      {/* Announcement strip */}
+      <div className="bg-black">
+        <p className="flex items-center justify-center gap-3 py-2 font-[family-name:var(--font-caps)] text-[0.68rem] font-semibold uppercase tracking-[0.34em] text-gold-bright sm:text-[0.74rem]">
+          <span aria-hidden className="h-1 w-1 rotate-45 bg-gold" />
+          Worldwide shipping
+          <span aria-hidden className="h-1 w-1 rotate-45 bg-gold" />
+        </p>
       </div>
-      <div className="flex flex-1 items-center justify-between gap-6 px-5 sm:px-8">
-        <nav aria-label="Main" className="hidden flex-1 justify-center lg:flex">
-          <NavLinks />
-        </nav>
-        <div className="ml-auto flex items-center gap-2 sm:gap-4">
-          <Link
-            href="/collection"
-            aria-label="Search the collection"
-            className="hidden h-11 w-11 items-center justify-center text-gold-deep hover:text-emerald sm:flex"
-          >
-            <SearchIcon className="h-6 w-6" />
-          </Link>
-          <CartButton />
-          <span aria-hidden className="mx-2 hidden h-10 w-px bg-gold/60 min-[1400px]:block" />
-          <p className="side-note hidden !text-[0.58rem] !leading-[1.7] !text-gold-deep min-[1400px]:block">
-            A more
-            <br />
-            fragrant
-            <br />
-            world
-          </p>
-          <details className="relative lg:hidden">
-            <summary className="flex h-11 cursor-pointer list-none items-center px-2 font-[family-name:var(--font-caps)] text-[0.85rem] font-semibold tracking-[0.25em] text-gold-deep uppercase">
-              Menu
-            </summary>
-            <nav
-              aria-label="Mobile"
-              className="absolute right-0 top-12 w-64 border border-gold-line bg-night p-5"
+
+      {/* Three columns with equal outer widths, so the menu sits exactly under the strip's text. */}
+      <div className="relative grid grid-cols-[1fr_auto] items-stretch border-b border-gold bg-white lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
+        <StarLattice
+          className="pointer-events-none absolute inset-0 h-full w-full text-gold-deep opacity-[0.16] [mask-image:linear-gradient(90deg,#000,transparent_38%,transparent_62%,#000)]"
+        />
+
+        <div className="relative flex min-w-0 items-stretch">
+          {/* The logo sits on its own deep-emerald corner, as in the original artwork. */}
+          <div className="flex shrink-0 items-center bg-emerald bg-[radial-gradient(90%_90%_at_50%_45%,#00461a_0%,#002e0a_70%)] px-5 py-2 sm:px-8">
+            <Logo />
+          </div>
+          {/* Below lg the menu is folded away: a facing pair of branches fills the bar. */}
+          <div className="flex min-w-0 flex-1 items-center justify-center gap-1 px-2 sm:gap-4 lg:hidden">
+            <AgarwoodBranch className="h-10 w-auto max-w-[46%] text-gold sm:h-[4.6rem]" />
+            <AgarwoodBranch className="h-10 w-auto max-w-[46%] -scale-x-100 text-gold sm:h-[4.6rem]" />
+          </div>
+        </div>
+
+        {/* Menu flanked by two identical branches, so the centre stays symmetrical. */}
+        <div className="relative hidden items-center gap-5 px-3 lg:flex">
+          <AgarwoodBranch className="hidden w-[8rem] shrink-0 text-gold min-[1420px]:block min-[1600px]:w-[11rem]" />
+          <nav aria-label="Main">
+            <NavLinks />
+          </nav>
+          <AgarwoodBranch className="hidden w-[8rem] shrink-0 -scale-x-100 text-gold min-[1420px]:block min-[1600px]:w-[11rem]" />
+        </div>
+
+        <div className="relative flex min-w-0 items-center justify-end">
+          <div className="flex shrink-0 items-center gap-1 pr-4 sm:gap-2 sm:pr-6">
+            <Link
+              href="/collection"
+              aria-label="Search the collection"
+              className="hidden h-11 w-11 items-center justify-center text-gold-deep hover:text-emerald sm:flex"
             >
-              <ul className="space-y-1">
-                {nav.map((item) => (
-                  <li key={item.href}>
-                    <Link href={item.href} className="display block py-2 text-2xl">
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </details>
+              <SearchIcon className="h-6 w-6" />
+            </Link>
+            <CartButton />
+            <details className="relative lg:hidden">
+              <summary className="flex h-11 cursor-pointer list-none items-center px-2 font-[family-name:var(--font-caps)] text-[0.85rem] font-semibold tracking-[0.25em] text-gold-deep uppercase">
+                Menu
+              </summary>
+              <nav
+                aria-label="Mobile"
+                className="absolute right-0 top-12 w-64 border border-gold-line bg-night p-5"
+              >
+                <ul className="space-y-1">
+                  {nav.map((item) => (
+                    <li key={item.href}>
+                      <Link href={item.href} className="display block py-2 text-2xl">
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </details>
+          </div>
         </div>
       </div>
     </header>
