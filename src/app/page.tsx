@@ -3,7 +3,7 @@ import { AsiaMap } from "@/components/AsiaMap";
 import { CartIconButton } from "@/components/CartIconButton";
 import { FlowerPanel } from "@/components/FlowerPanel";
 import { PhotoSlot } from "@/components/PhotoSlot";
-import { VietnamMap } from "@/components/VietnamMap";
+import { VietnamInset } from "@/components/VietnamInset";
 import { ArrowIcon, BotanicalSprig } from "@/components/icons";
 import { pricesConfirmed, products, type Product } from "@/content/catalog";
 import { formatMoney } from "@/lib/money";
@@ -175,14 +175,7 @@ export default function Home() {
             <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold">
               <Link href={`/shop/${vietnamese.slug}`} tabIndex={-1} aria-hidden className="relative block aspect-[4/3]">
                 <PhotoSlot photo={vietnamese.photos[0]} quiet className="absolute inset-0" sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw" />
-                <span className="frame absolute right-2.5 top-2.5 block w-[24%] bg-night/85 p-1 shadow-[0_6px_24px_rgb(0_0_0_/_0.55)]">
-                  <span className="relative block aspect-[600/860] overflow-hidden bg-black">
-                    <VietnamMap label={false} className="absolute inset-0 h-full w-full" />
-                  </span>
-                  <span className="eyebrow eyebrow-gold block pt-1 text-center !text-[0.45rem] !tracking-[0.25em]">
-                    Vietnam
-                  </span>
-                </span>
+                <VietnamInset />
               </Link>
               <ProductBody product={vietnamese} />
             </article>

@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { pricesConfirmed, type Product } from "@/content/catalog";
 import { cart } from "@/lib/cart";
@@ -8,17 +9,18 @@ import { CartIcon } from "./icons";
 import { PhotoSlot } from "./PhotoSlot";
 
 /** Framed product tile: photo, small-caps name, gold sub-label, price and a gold cart button. */
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product, inset }: { product: Product; inset?: ReactNode }) {
   const soldOut = product.stock === 0;
   return (
     <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold">
-      <Link href={`/shop/${product.slug}`} className="block" tabIndex={-1} aria-hidden>
+      <Link href={`/shop/${product.slug}`} className="relative block" tabIndex={-1} aria-hidden>
         <PhotoSlot
           photo={product.photos[0]}
           quiet
           className="aspect-[5/4] w-full"
           sizes="(min-width: 1024px) 20vw, (min-width: 640px) 45vw, 100vw"
         />
+        {inset}
       </Link>
       <div className="flex flex-1 flex-col px-5 pb-5 pt-5">
         <h3 className="eyebrow !text-[0.68rem] leading-relaxed">
@@ -27,6 +29,7 @@ export function ProductCard({ product }: { product: Product }) {
           </Link>
         </h3>
         <p className="eyebrow eyebrow-gold mt-1 !text-[0.52rem]">{product.cardLabel}</p>
+        <p className="mt-3 text-[0.85rem] leading-relaxed text-ivory-soft">{product.summary}</p>
         <div className="mt-auto flex items-end justify-between gap-3 pt-5">
           <p className="font-[family-name:var(--font-display)] text-[1.45rem] leading-none tabular-nums">
             {formatMoney(product.priceCents)}
