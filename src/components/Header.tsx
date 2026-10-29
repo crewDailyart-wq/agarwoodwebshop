@@ -5,7 +5,8 @@ import { CartButton } from "./CartButton";
 import { nav } from "@/content/nav";
 import { NavLinks } from "./NavLinks";
 import { SearchIcon } from "./icons";
-import { AgarwoodBranch, BrocadeBand, StarLattice } from "./HeaderOrnament";
+import { AgarwoodBranch, StarLattice } from "./HeaderOrnament";
+import { StripSmoke } from "./StripSmoke";
 import logo from "@/assets/aluwwah-logo.png";
 
 export function Logo({ small = false }: { small?: boolean }) {
@@ -28,8 +29,8 @@ export function Header() {
     <header className="relative z-30">
       {/* Announcement strip */}
       <div className="relative overflow-hidden border-b border-gold/50 bg-black">
-        <BrocadeBand className="absolute inset-0 h-full w-full opacity-55 [mask-image:linear-gradient(90deg,#000_0%,#000_8%,transparent_17%,transparent_83%,#000_92%,#000_100%)] sm:[mask-image:linear-gradient(90deg,#000_0%,#000_33%,transparent_42%,transparent_58%,#000_67%,#000_100%)]" />
-        <p className="relative flex h-9 items-center justify-center gap-3 font-[family-name:var(--font-caps)] text-[0.68rem] font-semibold uppercase tracking-[0.34em] text-gold-bright sm:text-[0.74rem]">
+        <StripSmoke />
+        <p className="relative flex h-9 items-center justify-center gap-3 [text-shadow:0_0_6px_#000,0_0_12px_#000] font-[family-name:var(--font-caps)] text-[0.68rem] font-semibold uppercase tracking-[0.34em] text-gold-bright sm:text-[0.74rem]">
           <span aria-hidden className="h-1 w-1 rotate-45 bg-gold" />
           Worldwide shipping
           <span aria-hidden className="h-1 w-1 rotate-45 bg-gold" />

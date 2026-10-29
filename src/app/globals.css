@@ -274,3 +274,43 @@ body {
     transition: none;
   }
 }
+
+/* ---------- Bakhoor smoke in the announcement strip ----------
+   Wisps drift slowly from left to right, rising a little and fading in and
+   out. Only transform and opacity animate. */
+.strip-wisp {
+  position: absolute;
+  left: 0;
+  height: 230%;
+  min-width: 260px;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: strip-drift var(--d) linear var(--delay) infinite;
+}
+.strip-wisp svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+@keyframes strip-drift {
+  0% {
+    opacity: 0;
+    transform: translate3d(-45vw, 12%, 0) scaleY(0.8);
+  }
+  15% {
+    opacity: var(--o);
+  }
+  80% {
+    opacity: var(--o);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(110vw, -14%, 0) scaleY(1.25);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .strip-wisp {
+    animation: none;
+    opacity: calc(var(--o) * 0.6);
+  }
+}
