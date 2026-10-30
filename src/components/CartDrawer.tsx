@@ -77,7 +77,7 @@ export function CartDrawer() {
                         >
                           {product.name}
                         </Link>
-                        <p className="text-sm text-ivory-faint">{product.subtitle}</p>
+                        {product.subtitle && <p className="text-sm text-ivory-faint">{product.subtitle}</p>}
                       </div>
                       <p className="tabular-nums">{formatMoney(product.priceCents * line.quantity)}</p>
                     </div>

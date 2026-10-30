@@ -28,8 +28,10 @@ export type Product = {
   id: ProductId;
   slug: ProductId;
   name: string;
-  /** One line under the name. */
-  subtitle: string;
+  /** Optional small line above the name on the product page and under it in the cart. */
+  subtitle?: string;
+  /** Show a small satellite map of the country of origin on the main product photo. */
+  originMap?: "vietnam";
   /** Short gold small-caps label on product cards. Must stay factual. */
   cardLabel: string;
   summary: string;
@@ -61,7 +63,7 @@ export const products: Record<ProductId, Product> = {
     id: "agarwood-chips",
     slug: "agarwood-chips",
     name: "High Grade Vietnamese Agarwood Chips",
-    subtitle: "Genuine agarwood from Vietnam, for burning",
+    originMap: "vietnam",
     cardLabel: "Resin-rich heartwood",
     summary:
       "Resin-rich agarwood chips, selected to be warmed slowly and enjoyed as the fragrance unfolds.",

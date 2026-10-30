@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AddToCart } from "@/components/AddToCart";
+import { NarrationCarousel } from "@/components/NarrationCarousel";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { QuantityOptions } from "@/components/QuantityOptions";
 import { Price } from "@/components/Price";
+import { VietnamInset } from "@/components/VietnamInset";
 import { getProduct, productList, products } from "@/content/catalog";
 import { site } from "@/content/site";
 
@@ -58,12 +60,15 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
       <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
         {/* Photographs */}
         <div className="space-y-4">
-          <PhotoSlot
-            photo={product.photos[0]}
-            priority
-            className="aspect-[4/5] w-full"
-            sizes="(min-width: 1024px) 55vw, 100vw"
-          />
+          <div className="relative">
+            <PhotoSlot
+              photo={product.photos[0]}
+              priority
+              className="aspect-[4/5] w-full"
+              sizes="(min-width: 1024px) 55vw, 100vw"
+            />
+            {product.originMap === "vietnam" && <VietnamInset />}
+          </div>
           {product.photos.length > 1 && (
             <div className="grid grid-cols-2 gap-4">
               {product.photos.slice(1).map((photo) => (
@@ -80,9 +85,19 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
 
         {/* Purchase */}
         <div className="lg:sticky lg:top-28 lg:self-start">
-          <p className="eyebrow mb-4">{product.subtitle}</p>
-          <h1 className="display text-5xl sm:text-6xl">{product.name}</h1>
-          <Price cents={product.priceCents} className="mt-6 block text-xl tabular-nums" />
+          {product.subtitle && <p className="eyebrow mb-4">{product.subtitle}</p>}
+          {/* The name always stays on one line: its size follows the width of this column. */}
+          <div className="@container">
+            <h1
+              className="display whitespace-nowrap"
+              style={{ fontSize: "clamp(1.05rem, 5.9cqw, 3.5rem)" }}
+            >
+              {product.name}
+            </h1>
+          </div>
+          <Price cents={product.priceCents} className="mt-5 block text-xl tabular-nums" />
+
+          <NarrationCarousel className="mt-6" />
 
           <div className="mt-8 space-y-4 text-ivory-soft">
             {product.bismillah && (
