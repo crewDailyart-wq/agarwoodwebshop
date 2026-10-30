@@ -34,6 +34,8 @@ export type Product = {
   cardLabel: string;
   summary: string;
   description: string[];
+  /** Open the product text with the Basmala. */
+  bismillah?: boolean;
   priceCents: number;
   /** Units in stock. `null` = not tracked (always available). `0` = sold out. */
   stock: number | null;
@@ -63,9 +65,9 @@ export const products: Record<ProductId, Product> = {
     cardLabel: "Resin-rich heartwood",
     summary:
       "Resin-rich agarwood chips, selected to be warmed slowly and enjoyed as the fragrance unfolds.",
+    bismillah: true,
     description: [
-      "Agarwood forms when a tree, wounded or infected, answers with a dark, fragrant resin. Over years it saturates the wood — and the chips we offer are cut from that resinous heartwood.",
-      "Warmed gently, never lit, a single small chip releases a scent that moves from the first woody warmth to something deeper, sweeter, and longer-lasting.",
+      "We hereby offer our high grade Vietnamese agarwood chips. You can use them as incense to perfume yourself and your surroundings.",
     ],
     priceCents: 9500, // PLACEHOLDER
     stock: null,

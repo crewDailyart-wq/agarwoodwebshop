@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AddToCart } from "@/components/AddToCart";
 import { PhotoSlot } from "@/components/PhotoSlot";
+import { QuantityOptions } from "@/components/QuantityOptions";
 import { Price } from "@/components/Price";
 import { getProduct, productList, products } from "@/content/catalog";
 import { site } from "@/content/site";
@@ -47,6 +48,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
   };
 
   return (
+    <div className="velvet">
     <article className="mx-auto max-w-7xl px-5 pb-12 pt-10 sm:px-8 sm:pt-14">
       <script
         type="application/ld+json"
@@ -83,6 +85,14 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
           <Price cents={product.priceCents} className="mt-6 block text-xl tabular-nums" />
 
           <div className="mt-8 space-y-4 text-ivory-soft">
+            {product.bismillah && (
+              <p className="pb-1">
+                <span lang="ar" dir="rtl" className="quran block text-[1.7rem] leading-[1.8]">
+                  بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                </span>
+                <span className="mt-1 block italic text-ivory">(Bismillah Ar-Rahman Ar-Rahiem)</span>
+              </p>
+            )}
             {product.description.map((p) => (
               <p key={p}>{p}</p>
             ))}
@@ -104,6 +114,10 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
           )}
 
           <div className="mt-8">
+            <QuantityOptions product={product} />
+          </div>
+
+          <div className="mt-5">
             <AddToCart id={product.id} soldOut={soldOut} />
           </div>
 
@@ -162,5 +176,6 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
         </aside>
       )}
     </article>
+    </div>
   );
 }
