@@ -87,7 +87,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
           <div className="mt-8 space-y-4 text-ivory-soft">
             {product.bismillah && (
               <p className="pb-1">
-                <span lang="ar" dir="rtl" className="quran block text-[1.7rem] leading-[1.8]">
+                <span lang="ar" dir="rtl" className="quran block text-left text-[1.7rem] leading-[1.8]">
                   بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
                 </span>
                 <span className="mt-1 block italic text-ivory">(Bismillah Ar-Rahman Ar-Rahiem)</span>
