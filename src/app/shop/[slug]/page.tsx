@@ -85,6 +85,8 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
 
         {/* Purchase */}
         <div className="lg:sticky lg:top-28 lg:self-start">
+          <NarrationCarousel className="mb-8" />
+
           {product.subtitle && <p className="eyebrow mb-4">{product.subtitle}</p>}
           {/* The name always stays on one line: its size follows the width of this column. */}
           <div className="@container">
@@ -96,8 +98,6 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             </h1>
           </div>
           <Price cents={product.priceCents} className="mt-5 block text-xl tabular-nums" />
-
-          <NarrationCarousel className="mt-6" />
 
           <div className="mt-8 space-y-4 text-ivory-soft">
             {product.bismillah && (

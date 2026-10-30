@@ -10,14 +10,14 @@ import { formatMoney } from "@/lib/money";
 
 function ProductBody({ product }: { product: Product }) {
   return (
-    <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
-      <h3 className="eyebrow !text-[0.7rem] leading-relaxed">
-        <Link href={`/shop/${product.slug}`} className="hover:text-gold-bright">
+    <div className="paper flex flex-1 flex-col border-t border-gold px-5 pb-5 pt-4">
+      <h3 className="eyebrow !text-[0.7rem] !text-gold-ink leading-relaxed">
+        <Link href={`/shop/${product.slug}`} className="hover:text-gold-deep">
           {product.name}
         </Link>
       </h3>
-      <p className="eyebrow eyebrow-gold mt-1 !text-[0.5rem] leading-loose">{product.cardLabel}</p>
-      <p className="mt-3 text-[0.8rem] leading-relaxed text-ivory-soft">{product.summary}</p>
+      <p className="eyebrow mt-1 !text-[0.5rem] !text-gold-deep leading-loose">{product.cardLabel}</p>
+      <p className="mt-3 text-[0.8rem] leading-relaxed">{product.summary}</p>
       <div className="mt-auto flex items-end justify-between gap-3 pt-4">
         <CardPrice cents={product.priceCents} />
         <CartIconButton id={product.id} name={product.name} soldOut={product.stock === 0} />
@@ -31,7 +31,7 @@ function CardPrice({ cents }: { cents: number }) {
     <p className="font-[family-name:var(--font-display)] text-[1.5rem] leading-none tabular-nums">
       {formatMoney(cents)}
       {!pricesConfirmed && (
-        <span className="eyebrow mt-1 block !text-[0.48rem] !text-ivory-faint">preview price</span>
+        <span className="eyebrow mt-1 block !text-[0.48rem] !text-gold-deep">preview price</span>
       )}
     </p>
   );

@@ -18,6 +18,8 @@
   /* the green field of the ALUWWAH logo, and gold readable on white */
   --color-emerald: #002e0a;
   --color-gold-deep: #9a6d1c;
+  /* deepest antique gold: body lettering on the noble-white panels */
+  --color-gold-ink: #6f4e12;
 
   --color-ivory: #efe4d3;
   --color-ivory-soft: rgb(239 228 211 / 0.8);
@@ -118,6 +120,12 @@ body {
     radial-gradient(120% 90% at 85% 10%, rgb(28 110 62 / 0.42), transparent 60%),
     radial-gradient(90% 80% at 0% 100%, rgb(20 82 50 / 0.5), transparent 65%),
     linear-gradient(160deg, #0d2e1d 0%, #05170d 100%);
+}
+
+/* Noble-white panel, as in the header bar: warm white with deep-gold lettering. */
+.paper {
+  background: linear-gradient(180deg, #fffefb 0%, #f8f2e5 100%);
+  color: var(--color-gold-ink);
 }
 
 /* Buttons */
