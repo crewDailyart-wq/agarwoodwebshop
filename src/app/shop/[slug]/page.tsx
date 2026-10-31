@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AddToCart } from "@/components/AddToCart";
+import { NarrationBody, withSalutation } from "@/components/NarrationBody";
 import { NarrationCarousel } from "@/components/NarrationCarousel";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { QuantityOptions } from "@/components/QuantityOptions";
 import { Price } from "@/components/Price";
 import { VietnamInset } from "@/components/VietnamInset";
 import { getProduct, productList, products } from "@/content/catalog";
+import { getNarration } from "@/content/narrations";
 import { site } from "@/content/site";
 
 export function generateStaticParams() {
@@ -108,9 +110,16 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
                 <span className="mt-1 block italic text-ivory">(Bismillah Ar-Rahman Ar-Rahiem)</span>
               </p>
             )}
-            {product.description.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
+            {product.description.map((block, i) => {
+              if (typeof block === "string") return <p key={i}>{withSalutation(block)}</p>;
+              const narration = getNarration(block.narration);
+              if (!narration) return null;
+              return (
+                <figure key={i} className="my-6 border-y border-gold-line py-5 text-center">
+                  <NarrationBody narration={narration} />
+                </figure>
+              );
+            })}
           </div>
 
           {product.includes && (

@@ -24,6 +24,18 @@ export type Narration = {
 
 export const narrations: Narration[] = [
   {
+    id: "bukhari-6689",
+    reference: "Sahih al-Bukhari 6689",
+    parts: [
+      {
+        arabic:
+          "إِنَّمَا الْأَعْمَالُ بِالنِّيَّةِ، وَإِنَّمَا لِامْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ إِلَى دُنْيَا يُصِيبُهَا، أَوِ امْرَأَةٍ يَتَزَوَّجُهَا، فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ",
+        english:
+          "\u2018Umar ibn al-Khattab reported: I heard the Messenger of Allah \uFDFA say: \u201CActions are only by intentions, and every person will have only what he intended. So whoever\u2019s migration was to Allah and His Messenger, his migration is to Allah and His Messenger; and whoever\u2019s migration was for some worldly gain he would get, or a woman he would marry, his migration is to that for which he migrated.\u201D",
+      },
+    ],
+  },
+  {
     id: "muslim-223",
     reference: "Sahih Muslim 223",
     parts: [
@@ -52,3 +64,7 @@ export const narrations: Narration[] = [
     ],
   },
 ];
+
+export function getNarration(id: string): Narration | undefined {
+  return narrations.find((n) => n.id === id);
+}

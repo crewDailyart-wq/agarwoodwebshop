@@ -35,7 +35,8 @@ export type Product = {
   /** Short gold small-caps label on product cards. Must stay factual. */
   cardLabel: string;
   summary: string;
-  description: string[];
+  /** Paragraphs; `{ narration }` drops a narration (by id, see narrations.ts) in between them. */
+  description: (string | { narration: string })[];
   /** Open the product text with the Basmala. */
   bismillah?: boolean;
   priceCents: number;
@@ -70,6 +71,9 @@ export const products: Record<ProductId, Product> = {
     bismillah: true,
     description: [
       "We hereby offer our high grade Vietnamese agarwood chips. You can use them as incense to perfume yourself and your surroundings.",
+      "The smoke of agarwood/aloeswood incense is said to have many benefits, including physical health benefits. The difference between quality of agarwood chips can be likened to the difference in fruits when they ripen, no doubt that when a fruit ripens more, it becomes more pleasing to us and is generally better for us. Prophet Muhammad \uFDFA used it to perfume himself as mentioned in the narration we put on our homepage. We know from the following narration that our deeds are by their intention:",
+      { narration: "bukhari-6689" },
+      "So whomsoever uses the agarwood to follow the tradition of Prophet Muhammad \uFDFA then he will be rewarded for it beyond the benefit he already gets by using it in the first place, but whomsoever uses it only for his own satisfaction then that will be his reward. As such we must try to set our intention straight with everything we do in our lives. Cleanliness and personal hygiene are highly encouraged in Islam.",
     ],
     priceCents: 9500, // PLACEHOLDER
     stock: null,
