@@ -109,31 +109,7 @@ export const products: Record<ProductId, Product> = {
       { label: "Grade", value: null },
       { label: "Growth", value: null }, // e.g. plantation / wild — never assume
     ],
-    sections: [
-      {
-        title: "Fragrance",
-        body: [
-          "A woody, resinous warmth that evolves while it heats. Agarwood is a natural material: no two chips smell exactly alike, and the character changes with temperature and time.",
-        ],
-      },
-      {
-        title: "How to burn",
-        body: [
-          "Agarwood is warmed, not burned. Heat the burner indirectly, place a small chip on the plate or mica, and let the aromatic resin release slowly.",
-          "Start with one small chip. Remove it when the scent fades; chips can be reused.",
-        ],
-      },
-      {
-        title: "Storage",
-        body: [
-          "Keep in a closed container, away from direct sunlight, heat, and moisture. Store apart from other strong scents.",
-        ],
-      },
-      {
-        title: "Shipping",
-        body: ["Shipping rules and delivery times are shown at checkout."],
-      },
-    ],
+    sections: [], // the Fragrance / How to burn / Storage / Shipping panel was removed (owner, Oct 2026)
     related: ["incense-burner"],
     seo: {
       title: "High Grade Vietnamese Agarwood Chips",

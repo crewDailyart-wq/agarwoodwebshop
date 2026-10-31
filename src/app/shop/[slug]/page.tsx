@@ -83,6 +83,12 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
               ))}
             </div>
           )}
+
+          {/* Quantity and add to cart sit directly under the pictures. */}
+          <div className="space-y-5 border-t border-gold-line pt-8">
+            <QuantityOptions product={product} />
+            <AddToCart id={product.id} soldOut={soldOut} />
+          </div>
         </div>
 
         {/* Purchase */}
@@ -137,14 +143,6 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             </ul>
           )}
 
-          <div className="mt-8">
-            <QuantityOptions product={product} />
-          </div>
-
-          <div className="mt-5">
-            <AddToCart id={product.id} soldOut={soldOut} />
-          </div>
-
           {facts.length > 0 && (
             <dl className="mt-10 divide-y divide-gold-line border-y border-gold-line text-sm">
               {facts.map((f) => (
@@ -156,6 +154,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             </dl>
           )}
 
+          {product.sections.length > 0 && (
           <div className="mt-10 divide-y divide-gold-line border-y border-gold-line">
             {product.sections.map((s) => (
               <details key={s.title} className="group py-4">
@@ -173,6 +172,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
               </details>
             ))}
           </div>
+          )}
         </div>
       </div>
 
