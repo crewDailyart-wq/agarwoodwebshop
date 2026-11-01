@@ -8,6 +8,7 @@ import { PhotoSlot } from "@/components/PhotoSlot";
 import { QuantityOptions } from "@/components/QuantityOptions";
 import { Price } from "@/components/Price";
 import { VietnamInset } from "@/components/VietnamInset";
+import { VietnamLogs } from "@/components/VietnamLogs";
 import { getProduct, productList, products } from "@/content/catalog";
 import { getNarration } from "@/content/narrations";
 import { site } from "@/content/site";
@@ -89,6 +90,8 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             <QuantityOptions product={product} />
             <AddToCart id={product.id} soldOut={soldOut} />
           </div>
+
+          {product.originMap === "vietnam" && <VietnamLogs />}
         </div>
 
         {/* Purchase */}
