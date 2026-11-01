@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AsiaMap } from "@/components/AsiaMap";
 import { CartIconButton } from "@/components/CartIconButton";
+import { CharitySection } from "@/components/CharitySection";
 import { FlowerPanel } from "@/components/FlowerPanel";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { VietnamInset } from "@/components/VietnamInset";
@@ -213,6 +214,8 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ───────── Giving in charity ───────── */}
+      <CharitySection />
     </>
   );
 }
