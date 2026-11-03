@@ -65,6 +65,53 @@ export const narrations: Narration[] = [
   },
 ];
 
+/**
+ * Narrations on camphor, shown on the Pure Camphor page (/camphor) only — they are
+ * kept apart from `narrations` above so they do not appear in the carousel of every
+ * product. All three are Umm ‘Atiyyah’s account of washing the Prophet’s daughter.
+ *
+ * Arabic wording was taken from sunnah.com (Sunan an-Nasa’i 1890, Sahih al-Bukhari 1253,
+ * Sahih Muslim 939a), without the chain of narrators. English is a plain translation.
+ */
+export const camphorNarrations: Narration[] = [
+  {
+    id: "nasai-1890",
+    reference: "Sunan an-Nasa\u2019i 1890",
+    parts: [
+      {
+        arabic:
+          "عَنْ أُمِّ عَطِيَّةَ، قَالَتْ: دَخَلَ عَلَيْنَا رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ وَنَحْنُ نَغْسِلُ ابْنَتَهُ فَقَالَ «اغْسِلْنَهَا ثَلاَثًا أَوْ خَمْسًا أَوْ أَكْثَرَ مِنْ ذَلِكِ إِنْ رَأَيْتُنَّ ذَلِكِ بِمَاءٍ وَسِدْرٍ وَاجْعَلْنَ فِي الآخِرَةِ كَافُورًا أَوْ شَيْئًا مِنْ كَافُورٍ فَإِذَا فَرَغْتُنَّ فَآذِنَّنِي». فَلَمَّا فَرَغْنَا آذَنَّاهُ فَأَلْقَى إِلَيْنَا حَقْوَهُ وَقَالَ «أَشْعِرْنَهَا إِيَّاهُ»",
+        english:
+          "Umm \u2018Atiyyah reported: The Messenger of Allah \uFDFA came to us while we were washing his daughter, and said: \u201CWash her three times, or five, or more than that if you see fit, with water and lotus leaves, and in the last wash put camphor, or a little camphor. When you have finished, let me know.\u201D When we had finished, we told him, and he threw his waist-wrapper to us and said: \u201CPlace it next to her body.\u201D",
+      },
+    ],
+  },
+  {
+    id: "bukhari-1253",
+    reference: "Sahih al-Bukhari 1253",
+    parts: [
+      {
+        arabic:
+          "عَنْ أُمِّ عَطِيَّةَ، قَالَتْ: دَخَلَ عَلَيْنَا رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ حِينَ تُوُفِّيَتِ ابْنَتُهُ فَقَالَ «اغْسِلْنَهَا ثَلاَثًا أَوْ خَمْسًا أَوْ أَكْثَرَ مِنْ ذَلِكَ إِنْ رَأَيْتُنَّ ذَلِكَ بِمَاءٍ وَسِدْرٍ، وَاجْعَلْنَ فِي الآخِرَةِ كَافُورًا أَوْ شَيْئًا مِنْ كَافُورٍ، فَإِذَا فَرَغْتُنَّ فَآذِنَّنِي». فَلَمَّا فَرَغْنَا آذَنَّاهُ فَأَعْطَانَا حِقْوَهُ فَقَالَ «أَشْعِرْنَهَا إِيَّاهُ». تَعْنِي إِزَارَهُ.",
+        english:
+          "Umm \u2018Atiyyah reported: The Messenger of Allah \uFDFA came to us when his daughter died, and said: \u201CWash her three times, or five, or more than that if you see fit, with water and lotus leaves, and in the last wash put camphor, or a little camphor. When you have finished, let me know.\u201D When we had finished, we told him, and he gave us his waist-wrapper and said: \u201CPlace it next to her body\u201D \u2014 meaning his lower garment.",
+      },
+    ],
+  },
+  {
+    id: "muslim-939a",
+    reference: "Sahih Muslim 939a",
+    parts: [
+      {
+        arabic:
+          "عَنْ أُمِّ عَطِيَّةَ، قَالَتْ: دَخَلَ عَلَيْنَا النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ وَنَحْنُ نَغْسِلُ ابْنَتَهُ فَقَالَ «اغْسِلْنَهَا ثَلاَثًا أَوْ خَمْسًا أَوْ أَكْثَرَ مِنْ ذَلِكَ إِنْ رَأَيْتُنَّ ذَلِكَ بِمَاءٍ وَسِدْرٍ وَاجْعَلْنَ فِي الآخِرَةِ كَافُورًا أَوْ شَيْئًا مِنْ كَافُورٍ فَإِذَا فَرَغْتُنَّ فَآذِنَّنِي». فَلَمَّا فَرَغْنَا آذَنَّاهُ فَأَلْقَى إِلَيْنَا حِقْوَهُ فَقَالَ «أَشْعِرْنَهَا إِيَّاهُ»",
+        english:
+          "Umm \u2018Atiyyah reported: The Prophet \uFDFA came to us while we were washing his daughter, and said: \u201CWash her three times, or five, or more than that if you see fit, with water and lotus leaves, and in the last wash put camphor, or a little camphor. When you have finished, let me know.\u201D When we had finished, we told him, and he gave us his waist-wrapper and said: \u201CPlace it next to her body.\u201D",
+      },
+    ],
+  },
+];
+
 export function getNarration(id: string): Narration | undefined {
   return narrations.find((n) => n.id === id);
 }

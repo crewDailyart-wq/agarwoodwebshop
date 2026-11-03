@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { AddToCart } from "@/components/AddToCart";
 import { NarrationBody, withSalutation } from "@/components/NarrationBody";
 import { NarrationCarousel } from "@/components/NarrationCarousel";
@@ -14,13 +14,13 @@ import { getNarration } from "@/content/narrations";
 import { site } from "@/content/site";
 
 export function generateStaticParams() {
-  return productList.map((p) => ({ slug: p.slug }));
+  return productList.filter((p) => !p.href).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata(props: PageProps<"/shop/[slug]">): Promise<Metadata> {
   const { slug } = await props.params;
   const product = getProduct(slug);
-  if (!product) return {};
+  if (!product || product.href) return {};
   return {
     title: product.seo.title,
     description: product.seo.description,
@@ -32,6 +32,8 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
   const { slug } = await props.params;
   const product = getProduct(slug);
   if (!product) notFound();
+  // A product with a page of its own (Pure Camphor) lives there, not here.
+  if (product.href) permanentRedirect(product.href);
 
   const soldOut = product.stock === 0;
   const facts = product.facts.filter((f) => f.value);

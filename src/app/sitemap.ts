@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
-import { productList } from "@/content/catalog";
+import { productHref, productList } from "@/content/catalog";
 import { site } from "@/content/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["", "/collection", "/craft", "/state-of-our-ummah", "/origins", "/ritual", "/our-story", "/contact", "/shipping-returns", "/privacy"];
+  const pages = ["", "/camphor", "/collection", "/craft", "/state-of-our-ummah", "/origins", "/ritual", "/our-story", "/contact", "/shipping-returns", "/privacy"];
   return [
     ...pages.map((p) => ({ url: `${site.url}${p}` })),
-    ...productList.map((p) => ({ url: `${site.url}/shop/${p.slug}` })),
+    ...productList.filter((p) => !p.href).map((p) => ({ url: `${site.url}${productHref(p)}` })),
   ];
 }

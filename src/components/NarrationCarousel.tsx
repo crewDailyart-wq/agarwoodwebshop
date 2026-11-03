@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { narrations } from "@/content/narrations";
+import { useState, type ReactNode } from "react";
+import { narrations as allNarrations, type Narration } from "@/content/narrations";
 import { ArrowIcon } from "./icons";
 import { NarrationBody } from "./NarrationBody";
 
@@ -9,15 +9,29 @@ import { NarrationBody } from "./NarrationBody";
  * Framed panel that shows one narration at a time with a button for the next.
  * Every narration sits in the same grid cell, so the panel keeps the height of the
  * tallest one and the page never jumps when you switch.
+ *
+ * By default it shows every product-page narration. Pass `items` to show another set,
+ * and `children` for text that stays fixed underneath whichever narration is showing.
  */
-export function NarrationCarousel({ className = "" }: { className?: string }) {
+export function NarrationCarousel({
+  className = "",
+  items = allNarrations,
+  label = "Narrations",
+  children,
+}: {
+  className?: string;
+  items?: Narration[];
+  label?: string;
+  children?: ReactNode;
+}) {
+  const narrations = items;
   const [index, setIndex] = useState(0);
   const count = narrations.length;
 
   return (
     <section
       aria-roledescription="carousel"
-      aria-label="Narrations"
+      aria-label={label}
       className={`frame relative bg-night/45 px-5 pb-2 pt-5 sm:px-7 ${className}`}
     >
       <span aria-hidden className="pointer-events-none absolute inset-1.5 border border-gold-hair" />
@@ -42,7 +56,7 @@ export function NarrationCarousel({ className = "" }: { className?: string }) {
         })}
       </div>
 
-      <div className="relative mt-3 flex items-center justify-between gap-3 border-t border-gold-hair pt-2">
+      <div className="relative mt-3 flex flex-wrap items-center justify-between gap-x-3 border-t border-gold-hair pt-2">
         <div role="group" aria-label="Choose a narration" className="flex items-center">
           {narrations.map((narration, i) => (
             <button
@@ -71,6 +85,8 @@ export function NarrationCarousel({ className = "" }: { className?: string }) {
           <ArrowIcon className="h-4 w-4 transition-transform group-hover/next:translate-x-0.5" />
         </button>
       </div>
+
+      {children && <div className="relative mt-4 border-t border-gold-line py-5">{children}</div>}
     </section>
   );
 }

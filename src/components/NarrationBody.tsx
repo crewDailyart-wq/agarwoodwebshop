@@ -1,25 +1,32 @@
 import type { ReactNode } from "react";
 import type { Narration } from "@/content/narrations";
 
-const SALUTATION = "ﷺ";
+/**
+ * The two prayers after a name: for the Prophet (the sign U+FDFA) and for a Companion
+ * (U+0613, which is a combining mark and cannot stand alone, so it is written out).
+ */
+const SIGNS: Record<string, { label: string; text: string; size: string }> = {
+  "ﷺ": { label: "peace and blessings be upon him", text: "ﷺ", size: "text-[1.35em]" },
+  "ؓ": { label: "may Allah be pleased with him", text: "رَضِيَ اللَّهُ عَنْهُ", size: "text-[1.1em]" },
+};
 
-/** Draws the salutation glyph after the Prophet's name a little larger, in the Arabic typeface. */
+/** Draws each prayer a little larger, in the Arabic typeface. */
 export function withSalutation(text: string): ReactNode {
-  const chunks = text.split(SALUTATION);
-  return chunks.flatMap((chunk, i) =>
-    i < chunks.length - 1
-      ? [
-          chunk,
-          <span
-            key={i}
-            aria-label="peace and blessings be upon him"
-            className="quran mx-0.5 inline-block align-middle not-italic text-[1.35em] leading-none !text-gold-bright"
-          >
-            {SALUTATION}
-          </span>,
-        ]
-      : [chunk],
-  );
+  return text.split(/([ﷺؓ])/).map((chunk, i) => {
+    const sign = SIGNS[chunk];
+    return sign ? (
+      <span
+        key={i}
+        lang="ar"
+        aria-label={sign.label}
+        className={`quran mx-0.5 inline-block align-middle not-italic ${sign.size} leading-none !text-gold-bright`}
+      >
+        {sign.text}
+      </span>
+    ) : (
+      chunk
+    );
+  });
 }
 
 /** The text of one narration (Arabic, English, source line). Place it inside a <figure>. */

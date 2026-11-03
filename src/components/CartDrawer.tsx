@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { getProduct } from "@/content/catalog";
+import { getProduct, productHref } from "@/content/catalog";
 import { cart, cartSubtotalCents, useCartLines, useCartOpen } from "@/lib/cart";
 import { formatMoney } from "@/lib/money";
 
@@ -71,7 +71,7 @@ export function CartDrawer() {
                     <div className="flex justify-between gap-4">
                       <div>
                         <Link
-                          href={`/shop/${product.slug}`}
+                          href={productHref(product)}
                           onClick={() => cart.closeDrawer()}
                           className="display text-xl hover:text-gold"
                         >

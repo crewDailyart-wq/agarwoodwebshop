@@ -1,8 +1,9 @@
 /**
  * The product catalog — the single source of truth for what is sold.
  *
- * At launch there are exactly TWO products plus ONE bundle. Do not add others
- * without the owner's say-so.
+ * At launch there are exactly TWO products plus ONE bundle, and Pure Camphor
+ * (added Nov 2026 on the owner's say-so, with its own page at /camphor).
+ * Do not add others without the owner's say-so.
  *
  * Facts that need verification (origin, species, certificates, dimensions,
  * weight) are `null` until the owner supplies them. The UI only shows a fact
@@ -12,7 +13,7 @@
  * real prices; while false, every price on the site is labelled "preview price".
  */
 
-export type ProductId = "agarwood-chips" | "incense-burner" | "the-complete-ritual";
+export type ProductId = "agarwood-chips" | "incense-burner" | "the-complete-ritual" | "pure-camphor";
 
 export type Photo = {
   /** Path under /public, e.g. "/photos/chips-hero.jpg". `null` = placeholder shown. */
@@ -32,6 +33,8 @@ export type Product = {
   subtitle?: string;
   /** Show a small satellite map of the country of origin on the main product photo. */
   originMap?: "vietnam";
+  /** A product with a page of its own (e.g. "/camphor") instead of /shop/<slug>. */
+  href?: string;
   /** Short gold small-caps label on product cards. Must stay factual. */
   cardLabel: string;
   summary: string;
@@ -221,9 +224,49 @@ export const products: Record<ProductId, Product> = {
       description: "Agarwood of your choice with the incense burner — all you need to use it.",
     },
   },
+
+  "pure-camphor": {
+    id: "pure-camphor",
+    slug: "pure-camphor",
+    href: "/camphor",
+    name: "Pure Camphor",
+    cardLabel: "For mixing with agarwood",
+    summary: "Pure camphor, to be mixed with agarwood in the tradition of Prophet Muhammad \uFDFA.",
+    description: [
+      "Pure camphor, to be mixed with agarwood/aloeswood as Prophet Muhammad \uFDFA used to do.",
+    ],
+    priceCents: 1200, // PLACEHOLDER
+    stock: null,
+    variants: [],
+    photos: [
+      {
+        src: null,
+        alt: "Pure camphor",
+        brief: "Pure camphor crystals on a dark, warm surface, soft side light.",
+        width: 1200,
+        height: 1500,
+      },
+    ],
+    facts: [
+      { label: "Net weight", value: null },
+      { label: "Origin", value: null },
+    ],
+    sections: [],
+    related: [],
+    seo: {
+      title: "Pure Camphor",
+      description:
+        "Pure camphor to mix with agarwood, with the narrations of Prophet Muhammad \uFDFA and the verse of the Qur\u2019an that mention it.",
+    },
+  },
 };
 
 export const productList = Object.values(products);
+
+/** Where a product's page lives. */
+export function productHref(product: Pick<Product, "slug" | "href">): string {
+  return product.href ?? `/shop/${product.slug}`;
+}
 
 export function getProduct(id: string): Product | undefined {
   return (products as Record<string, Product>)[id];
