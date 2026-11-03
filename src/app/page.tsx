@@ -6,14 +6,21 @@ import { FlowerPanel } from "@/components/FlowerPanel";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { VietnamInset } from "@/components/VietnamInset";
 import { ArrowIcon, BotanicalSprig } from "@/components/icons";
-import { pricesConfirmed, products, type Product } from "@/content/catalog";
+import { pricesConfirmed, productHref, products, type Product } from "@/content/catalog";
 import { formatMoney } from "@/lib/money";
 
-function ProductBody({ product }: { product: Product }) {
+function ProductBody({
+  product,
+  action,
+}: {
+  product: Product;
+  /** Optional button shown at the very end of the card. */
+  action?: { href: string; label: string };
+}) {
   return (
     <div className="paper flex flex-1 flex-col border-t border-gold px-5 pb-5 pt-4">
       <h3 className="eyebrow !text-[0.7rem] !text-gold-ink leading-relaxed">
-        <Link href={`/shop/${product.slug}`} className="hover:text-gold-deep">
+        <Link href={productHref(product)} className="hover:text-gold-deep">
           {product.name}
         </Link>
       </h3>
@@ -23,6 +30,14 @@ function ProductBody({ product }: { product: Product }) {
         <CardPrice cents={product.priceCents} />
         <CartIconButton id={product.id} name={product.name} soldOut={product.stock === 0} />
       </div>
+      {action && (
+        <Link
+          href={action.href}
+          className="btn btn-solid mt-4 !min-h-[2.6rem] w-full !gap-3 !px-4 !text-[0.62rem]"
+        >
+          {action.label} <ArrowIcon className="h-4 w-4" />
+        </Link>
+      )}
     </div>
   );
 }
@@ -92,6 +107,7 @@ function Signs() {
 export default function Home() {
   const vietnamese = products["agarwood-chips"];
   const set = products["the-complete-ritual"];
+  const camphor = products["pure-camphor"];
 
   return (
     <>
@@ -185,31 +201,16 @@ export default function Home() {
               <Link href={`/shop/${set.slug}`} tabIndex={-1} aria-hidden className="relative block aspect-[4/3]">
                 <PhotoSlot photo={set.photos[0]} quiet className="absolute inset-0" sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw" />
               </Link>
-              <ProductBody product={set} />
+              <ProductBody product={set} action={{ href: "/collection", label: "Go to our assortment" }} />
             </article>
 
-            <Link
-              href="/collection"
-              className="frame velvet group relative flex min-h-64 flex-col justify-between overflow-hidden p-6"
-            >
-              <BotanicalSprig className="absolute -right-8 -top-10 h-80 w-28 rotate-12 text-gold/25" />
-              <p className="font-[family-name:var(--font-caps)] text-[1.15rem] uppercase leading-snug tracking-[0.14em] text-ivory">
-                Our Creator&rsquo;s
-                <br />
-                favor upon us
-              </p>
-              <span aria-hidden className="h-px w-10 bg-gold" />
-              <span className="flex items-center justify-between gap-4">
-                <span className="eyebrow eyebrow-gold !text-[0.55rem] leading-loose">
-                  Discover
-                  <br />
-                  all products
-                </span>
-                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold text-gold transition-colors group-hover:bg-gold group-hover:text-ink">
-                  <ArrowIcon className="h-4 w-4" />
-                </span>
-              </span>
-            </Link>
+            {/* Pure Camphor: replaces the former "Our Creator's favor upon us" card. */}
+            <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold">
+              <Link href={productHref(camphor)} tabIndex={-1} aria-hidden className="relative block aspect-[4/3]">
+                <PhotoSlot photo={camphor.photos[0]} quiet className="absolute inset-0" sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw" />
+              </Link>
+              <ProductBody product={camphor} action={{ href: "/camphor", label: "Go to camphor page" }} />
+            </article>
           </div>
         </div>
       </section>
