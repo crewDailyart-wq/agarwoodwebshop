@@ -30,7 +30,7 @@ export function Header() {
       {/* Announcement strip */}
       <div className="relative overflow-hidden border-b border-gold/50 bg-black">
         <StripSmoke />
-        <p className="relative flex h-9 items-center justify-center gap-2 [text-shadow:0_0_6px_#000,0_0_12px_#000] font-[family-name:var(--font-caps)] text-[0.58rem] font-semibold uppercase tracking-[0.12em] text-gold-bright min-[420px]:gap-3 min-[420px]:text-[0.68rem] min-[420px]:tracking-[0.22em] sm:gap-4 sm:text-[0.74rem] sm:tracking-[0.34em]">
+        <p className="relative flex h-9 items-center justify-center gap-2 [text-shadow:0_0_3px_#000,0_0_7px_#000,0_0_14px_#000,0_0_22px_#000] font-[family-name:var(--font-caps)] text-[0.58rem] font-semibold uppercase tracking-[0.12em] text-gold-bright min-[420px]:gap-3 min-[420px]:text-[0.68rem] min-[420px]:tracking-[0.22em] sm:gap-4 sm:text-[0.74rem] sm:tracking-[0.34em]">
           <span aria-hidden className="h-1 w-1 shrink-0 rotate-45 bg-gold" />
           <span className="whitespace-nowrap">Worldwide shipping</span>
           <span aria-hidden className="h-1 w-1 shrink-0 rotate-45 bg-gold" />
