@@ -344,15 +344,13 @@ body {
 }
 
 /* ---------- Charity section: the foundation's own look ----------
-   Deep teal-green, a serif headline with a gold italic, and gold pill buttons,
-   following the hero of the foundation's website. Used only by the left half of the
-   homepage charity section (CharitySection.tsx); the narrations next to it keep the
-   shop's own style. */
+   The warm cream (#efede4), dark green headline with a gold italic, white program cards
+   and gold pill buttons of the foundation's website, so the section stands out from the
+   green shop around it. Used by the left half of the charity section (CharitySection.tsx);
+   the narrations next to it keep the shop's own dark green frames. */
 .mgf {
-  background:
-    radial-gradient(60% 55% at 0% 0%, rgb(52 150 112 / 0.2), transparent 62%),
-    radial-gradient(55% 50% at 100% 100%, rgb(52 150 112 / 0.14), transparent 65%),
-    linear-gradient(180deg, #0f2e26 0%, #0a211b 100%);
+  background: #efede4;
+  color: #17251e;
 }
 .mgf-sans {
   font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -362,7 +360,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: #80601a;
 }
 .mgf-title {
   font-family: var(--font-serif);
@@ -370,20 +368,36 @@ body {
   font-size: clamp(2.4rem, 5vw, 3.9rem);
   line-height: 1.06;
   letter-spacing: -0.005em;
-  color: #f6f0e0;
+  color: #17251e;
   text-wrap: balance;
 }
 .mgf-title em {
   font-style: italic;
   font-weight: 500;
-  color: var(--color-gold-bright);
-  background-image: linear-gradient(180deg, #f3d995 0%, #d4ad62 100%);
+  color: #8f6420;
+  background-image: linear-gradient(180deg, #b98a2e 0%, #8f6420 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+/* The left half follows you while the longer right half scrolls, but only when the screen is
+   tall enough to hold all of it (about 940px); on a shorter screen it scrolls normally. */
+@media (min-width: 1024px) and (min-height: 980px) {
+  .mgf-stick {
+    position: sticky;
+    top: 1.5rem;
+  }
+}
+.mgf-prog {
+  padding: 1.5rem 1.5rem 1.25rem;
+  border: 1px solid #e2dccb;
+  border-radius: 1.25rem;
+  background: #fff;
+  box-shadow: 0 18px 40px -28px rgb(23 37 30 / 0.4);
+}
 .mgf-pill,
-.mgf-pill-line {
+.mgf-pill-line,
+.mgf-round {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -396,31 +410,42 @@ body {
 .mgf-pill {
   gap: 0.7rem;
   min-height: 3rem;
-  padding: 0 1.9rem;
+  padding: 0 1.7rem;
   background: linear-gradient(135deg, #efd492 0%, #c9a05a 100%);
   color: #17281d;
   font-size: 0.95rem;
   font-weight: 600;
 }
 .mgf-pill:hover {
-  filter: brightness(1.07);
+  filter: brightness(1.05);
 }
 .mgf-pill-line {
   gap: 0.6rem;
   min-height: 2.75rem;
   padding: 0 1.3rem;
-  border: 1px solid rgb(212 173 98 / 0.55);
-  color: var(--color-ivory);
+  border: 1px solid rgb(23 37 30 / 0.35);
+  color: #17251e;
   font-size: 0.88rem;
   font-weight: 500;
 }
 .mgf-pill-line:hover {
-  border-color: var(--color-gold-bright);
-  background: rgb(212 173 98 / 0.14);
+  border-color: #17251e;
+  background: rgb(23 37 30 / 0.06);
+}
+.mgf-round {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgb(23 37 30 / 0.28);
+  color: #17251e;
+}
+.mgf-round:hover {
+  border-color: #0e5a41;
+  background: #e4ece4;
 }
 @media (prefers-reduced-motion: reduce) {
   .mgf-pill,
-  .mgf-pill-line {
+  .mgf-pill-line,
+  .mgf-round {
     transition: none;
   }
 }

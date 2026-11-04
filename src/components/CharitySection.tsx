@@ -1,3 +1,4 @@
+import { CharityPrograms } from "@/components/CharityPrograms";
 import { ArrowIcon } from "@/components/icons";
 import { NarrationBody, withSalutation } from "@/components/NarrationBody";
 import { NarrationCarousel } from "@/components/NarrationCarousel";
@@ -8,18 +9,22 @@ import {
   kinText,
   kinVerses,
 } from "@/content/charity";
+import { charityPrograms } from "@/content/charity-programs";
 import { site } from "@/content/site";
 
 /**
- * Homepage section about Madinah Global Foundation.
+ * Homepage section about Madinah Global Foundation, also shown on its own page (/charity).
  *
- * Two halves: on the left (first on a phone) the foundation, laid out like the hero of its
- * own homepage — deep green, a serif headline with a gold italic, an Arabic line, a short
- * paragraph and two pill buttons (`.mgf-*` in globals.css). On the right, the verses and
- * narrations in the shop's own style: the narration carousel, then the right of kith and kin.
+ * The background is the warm cream of the foundation's own website, so the section stands
+ * out from the green shop around it. Two halves:
+ *  - left (first on a phone): the foundation, laid out like the hero of its homepage (serif
+ *    headline with a gold italic, an Arabic line, a short paragraph, pill buttons), then its
+ *    six programs one at a time with a button to switch and one to donate (`.mgf-*` in
+ *    globals.css);
+ *  - right: the verses and narrations, in the shop's own dark green frames — the narration
+ *    carousel, then the right of kith and kin.
  *
- * Shown on the homepage and on its own page (/charity); on that page `standalone` makes the
- * foundation's name the page's h1.
+ * On /charity, `standalone` makes the foundation's name the page's h1.
  */
 export function CharitySection({ standalone = false }: { standalone?: boolean }) {
   const { name, url } = site.charity;
@@ -32,8 +37,8 @@ export function CharitySection({ standalone = false }: { standalone?: boolean })
     >
       <div className="mx-auto max-w-[1240px] px-5 py-12 sm:px-8 sm:py-14">
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12">
-          {/* ───────── Left half: the foundation ───────── */}
-          <div className="lg:sticky lg:top-8">
+          {/* ───────── Left half: the foundation and its programs ───────── */}
+          <div className="mgf-stick">
             <p className="mgf-eyebrow mgf-sans">Giving in charity &middot; U.S. certified nonprofit</p>
 
             <Heading id="charity-heading" className="mgf-title mt-5">
@@ -41,17 +46,17 @@ export function CharitySection({ standalone = false }: { standalone?: boolean })
               <em className="block">Foundation</em>
             </Heading>
 
-            <p lang="ar" dir="rtl" className="quran mt-4 text-left text-[2.1rem] leading-[1.6]">
+            <p lang="ar" dir="rtl" className="quran mt-4 text-left text-[2.1rem] leading-[1.6] !text-[#8f6420]">
               صَدَقَةٌ جَارِيَةٌ
             </p>
 
-            <p className="mgf-sans mt-5 max-w-[32rem] text-[1.05rem] leading-[1.8] text-ivory-soft">
+            <p className="mgf-sans mt-5 max-w-[32rem] text-[1.05rem] leading-[1.8] text-[#4f5d57]">
               {name} places Qur&rsquo;ans in open hands, digs wells where water is scarce, raises
               orphans with dignity in Bangladesh, carries relief to families in crisis and prepares
               resting places with honor.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap gap-3">
               <a
                 href={`${url}#donate`}
                 target="_blank"
@@ -69,11 +74,23 @@ export function CharitySection({ standalone = false }: { standalone?: boolean })
                 Explore their work <ArrowIcon className="h-4 w-4" />
               </a>
             </div>
+
+            <div className="mt-9">
+              <CharityPrograms
+                programs={charityPrograms}
+                donateHref={`${url}#donate`}
+                eyebrow="Six ways to give"
+              />
+            </div>
           </div>
 
           {/* ───────── Right half: verses and narrations, in the shop's own style ───────── */}
           <div className="flex flex-col gap-5">
-            <NarrationCarousel items={charityNarrations} label="Verses and narrations on giving in charity">
+            <NarrationCarousel
+              items={charityNarrations}
+              label="Verses and narrations on giving in charity"
+              className="velvet shadow-[0_22px_44px_-26px_rgb(4_19_11/0.75)]"
+            >
               <p className="text-center font-[family-name:var(--font-display)] text-[1.25rem] font-medium italic leading-snug text-ivory sm:text-[1.4rem]">
                 {charityTeaching}
               </p>
@@ -81,7 +98,7 @@ export function CharitySection({ standalone = false }: { standalone?: boolean })
 
             <section
               aria-labelledby="kin-heading"
-              className="frame relative bg-night/45 px-5 py-5 sm:px-7"
+              className="frame velvet relative px-5 py-5 shadow-[0_22px_44px_-26px_rgb(4_19_11/0.75)] sm:px-7"
             >
               <span aria-hidden className="pointer-events-none absolute inset-1.5 border border-gold-hair" />
               <div className="relative">
