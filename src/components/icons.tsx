@@ -118,3 +118,72 @@ export function BotanicalSprig({ className = "" }: P) {
     </svg>
   );
 }
+
+/**
+ * An ivy vine climbing the right edge of a white product panel: a wavy stem with lobed leaves
+ * (deep green, a few in old gold), curling tendrils and small berries. Purely decorative; the
+ * panel puts it behind the text (`.paper-ivy`).
+ */
+export function IvyVine({ className = "" }: P) {
+  const leafPath =
+    "M0 0C-4-3-13-2-14-10-9-10-7-13-10-18-4-16-3-20 0-32 3-20 4-16 10-18 7-13 9-10 14-10 13-2 4-3 0 0Z";
+  // x, y, rotation, scale, gold
+  const leaves: [number, number, number, number, boolean][] = [
+    [88, 196, -40, 0.9, false],
+    [72, 182, 80, 0.8, true],
+    [92, 164, -10, 1.0, false],
+    [66, 148, 100, 0.9, false],
+    [90, 130, 30, 0.9, true],
+    [64, 112, 85, 1.0, false],
+    [88, 94, -25, 0.9, false],
+    [62, 76, 110, 0.8, true],
+    [90, 58, 10, 1.0, false],
+    [68, 40, 95, 0.9, false],
+    [88, 22, -20, 0.8, false],
+    [72, 6, 60, 0.7, true],
+  ];
+  return (
+    <svg
+      viewBox="0 0 112 200"
+      preserveAspectRatio="xMaxYMax meet"
+      className={className}
+      aria-hidden
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path
+        d="M96 200C76 188 92 170 80 154S66 128 82 112 94 84 78 68 70 36 84 20 80 6 80 0"
+        stroke="#4d6b3a"
+        strokeWidth="1.6"
+      />
+      <path
+        d="M80 154c-12-4-20 0-22 8M82 112c12-2 20 4 20 12M78 68c-12-2-18 4-18 12M84 20c10-2 16 4 16 10"
+        stroke="#4d6b3a"
+        strokeWidth="0.8"
+      />
+      {leaves.map(([x, y, r, k, gold], i) => (
+        <g key={i} transform={`translate(${x} ${y}) rotate(${r}) scale(${k})`}>
+          <path
+            d={leafPath}
+            fill={gold ? "#c9a05a" : "#3f7a4f"}
+            fillOpacity={gold ? 0.4 : 0.34}
+            stroke={gold ? "#9a6d1c" : "#2d5a3a"}
+            strokeWidth="0.8"
+          />
+          <path
+            d="M0 -2V-27M0-10l-6-4M0-10l6-4M0-18l-5-4M0-18l5-4"
+            stroke={gold ? "#9a6d1c" : "#2d5a3a"}
+            strokeWidth="0.5"
+          />
+        </g>
+      ))}
+      <g fill="#3a4f2c" fillOpacity="0.7">
+        <circle cx="58" cy="162" r="2" />
+        <circle cx="102" cy="124" r="2" />
+        <circle cx="60" cy="80" r="2" />
+        <circle cx="100" cy="30" r="1.8" />
+      </g>
+    </svg>
+  );
+}

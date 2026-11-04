@@ -124,8 +124,21 @@ body {
 
 /* Noble-white panel, as in the header bar: warm white with deep-gold lettering. */
 .paper {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background: linear-gradient(180deg, #fffefb 0%, #f8f2e5 100%);
   color: var(--color-gold-ink);
+}
+/* The ivy sits behind the lettering, climbing the right edge of the white panel. */
+.paper-ivy {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  width: 10.5rem;
+  height: 100%;
+  pointer-events: none;
 }
 
 /* Buttons */

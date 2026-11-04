@@ -5,7 +5,7 @@ import { CharitySection } from "@/components/CharitySection";
 import { FlowerPanel } from "@/components/FlowerPanel";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { VietnamInset } from "@/components/VietnamInset";
-import { ArrowIcon, BotanicalSprig } from "@/components/icons";
+import { ArrowIcon, BotanicalSprig, IvyVine } from "@/components/icons";
 import { pricesConfirmed, productHref, products, type Product } from "@/content/catalog";
 import { formatMoney } from "@/lib/money";
 
@@ -19,13 +19,14 @@ function ProductBody({
 }) {
   return (
     <div className="paper flex flex-1 flex-col border-t border-gold px-5 pb-5 pt-4">
-      <h3 className="eyebrow !text-[0.7rem] !text-gold-ink leading-relaxed">
+      <IvyVine className="paper-ivy" />
+      <h3 className="eyebrow !text-[0.74rem] !font-bold !text-gold-ink leading-relaxed">
         <Link href={productHref(product)} className="hover:text-gold-deep">
           {product.name}
         </Link>
       </h3>
-      <p className="eyebrow mt-1 !text-[0.5rem] !text-gold-deep leading-loose">{product.cardLabel}</p>
-      <p className="mt-3 text-[0.8rem] leading-relaxed">{product.summary}</p>
+      <p className="eyebrow mt-1 !text-[0.56rem] !font-bold !text-gold-deep leading-loose">{product.cardLabel}</p>
+      <p className="mt-3 text-[0.9rem] font-semibold leading-relaxed text-[#3d2a06]">{product.summary}</p>
       <div className="mt-auto flex items-end justify-between gap-3 pt-4">
         <CardPrice cents={product.priceCents} />
         <CartIconButton id={product.id} name={product.name} soldOut={product.stock === 0} />
@@ -44,10 +45,10 @@ function ProductBody({
 
 function CardPrice({ cents }: { cents: number }) {
   return (
-    <p className="font-[family-name:var(--font-display)] text-[1.5rem] leading-none tabular-nums">
+    <p className="font-[family-name:var(--font-display)] text-[1.6rem] font-bold leading-none tabular-nums">
       {formatMoney(cents)}
       {!pricesConfirmed && (
-        <span className="eyebrow mt-1 block !text-[0.48rem] !text-gold-deep">preview price</span>
+        <span className="eyebrow mt-1 block !text-[0.52rem] !font-bold !text-gold-deep">preview price</span>
       )}
     </p>
   );
@@ -194,7 +195,7 @@ export default function Home() {
                 <PhotoSlot photo={vietnamese.photos[0]} quiet className="absolute inset-0" sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw" />
                 <VietnamInset />
               </Link>
-              <ProductBody product={vietnamese} />
+              <ProductBody product={vietnamese} action={{ href: "/collection", label: "Go to our assortment" }} />
             </article>
 
             <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold">
