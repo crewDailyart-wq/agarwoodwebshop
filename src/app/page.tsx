@@ -155,7 +155,7 @@ export default function Home() {
         <div className="mx-auto max-w-[1400px] px-5 py-14 sm:px-8">
           {/* Two halves, each centred over two of the four cards below. */}
           <div className="mx-auto grid max-w-sm items-center gap-6 sm:max-w-2xl lg:max-w-[1240px] lg:grid-cols-2 lg:gap-5">
-            <header className="frame relative isolate flex min-h-[13rem] flex-col items-center justify-center px-4 pb-9 pt-5 text-center">
+            <header className="frame relative isolate flex min-h-[13rem] [text-shadow:0_1px_12px_rgb(4_19_11/0.95),0_0_3px_rgb(4_19_11/0.8)] flex-col items-center justify-center px-4 pb-9 pt-5 text-center">
               <SpeciesBackdrop slides={speciesSlides} />
               <p className="eyebrow eyebrow-gold">Choose which agarwood region</p>
               <div className="mt-3 flex items-center justify-center gap-4 sm:gap-5">

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { flagArt } from "./CountryFlags";
 import { silhouettes } from "@/content/species-silhouettes";
 import type { SpeciesSlide } from "@/content/species";
 
@@ -51,20 +52,32 @@ export function SpeciesBackdrop({ slides }: { slides: SpeciesSlide[] }) {
                   preserveAspectRatio="xMidYMid meet"
                   className={`absolute inset-0 h-full w-full ${active ? "species-drift" : ""}`}
                 >
+                  <defs>
+                    <clipPath id={`species-clip-${slide.id}`}>
+                      <path d={shape.d} />
+                    </clipPath>
+                  </defs>
+                  {/* The country's flag fills its outline. */}
+                  <g clipPath={`url(#species-clip-${slide.id})`} opacity="0.5">
+                    <g
+                      transform={`translate(${shape.box[0] + shape.box[2] / 2} ${shape.box[1] + shape.box[3] / 2}) scale(${Math.max(shape.box[2] / 30, shape.box[3] / 20)}) translate(-15 -10)`}
+                    >
+                      {flagArt[slide.region]}
+                    </g>
+                  </g>
                   <path
                     d={shape.d}
-                    fill="#c9a05a"
-                    fillOpacity="0.2"
-                    stroke="#e7c47a"
-                    strokeOpacity="0.65"
-                    strokeWidth="0.9"
+                    fill="none"
+                    stroke="#f3d68f"
+                    strokeOpacity="0.8"
+                    strokeWidth="1.2"
                     vectorEffect="non-scaling-stroke"
                   />
                 </svg>
               )
             )}
             {/* Keeps the heading readable over any photograph. */}
-            <div className="absolute inset-0 bg-[radial-gradient(70%_80%_at_50%_45%,rgb(4_19_11/0.78),rgb(4_19_11/0.35))]" />
+            <div className="absolute inset-0 bg-[radial-gradient(70%_80%_at_50%_45%,rgb(4_19_11/0.62),rgb(4_19_11/0.12))]" />
             <p
               className={`eyebrow eyebrow-gold absolute inset-x-0 bottom-3 px-3 text-center !text-[0.55rem] !tracking-[0.22em] transition-opacity motion-reduce:transition-none ${
                 active ? "opacity-100 delay-500 duration-500" : "opacity-0 duration-200"
