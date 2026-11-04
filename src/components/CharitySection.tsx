@@ -17,9 +17,13 @@ import { site } from "@/content/site";
  * own homepage — deep green, a serif headline with a gold italic, an Arabic line, a short
  * paragraph and two pill buttons (`.mgf-*` in globals.css). On the right, the verses and
  * narrations in the shop's own style: the narration carousel, then the right of kith and kin.
+ *
+ * Shown on the homepage and on its own page (/charity); on that page `standalone` makes the
+ * foundation's name the page's h1.
  */
-export function CharitySection() {
+export function CharitySection({ standalone = false }: { standalone?: boolean }) {
   const { name, url } = site.charity;
+  const Heading = standalone ? "h1" : "h2";
 
   return (
     <section
@@ -32,10 +36,10 @@ export function CharitySection() {
           <div className="lg:sticky lg:top-8">
             <p className="mgf-eyebrow mgf-sans">Giving in charity &middot; U.S. certified nonprofit</p>
 
-            <h2 id="charity-heading" className="mgf-title mt-5">
+            <Heading id="charity-heading" className="mgf-title mt-5">
               <span className="block">Madinah Global</span>
               <em className="block">Foundation</em>
-            </h2>
+            </Heading>
 
             <p lang="ar" dir="rtl" className="quran mt-4 text-left text-[2.1rem] leading-[1.6]">
               صَدَقَةٌ جَارِيَةٌ

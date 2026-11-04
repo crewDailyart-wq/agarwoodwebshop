@@ -4,8 +4,8 @@
  */
 export const nav: { href: string; label: string; lines: [string] | [string, string] }[] = [
   { href: "/", label: "Homepage", lines: ["Homepage"] },
+  { href: "/charity", label: "Charity", lines: ["Charity"] },
   { href: "/camphor", label: "Pure Camphor", lines: ["Pure", "Camphor"] },
-  { href: "/origins", label: "Aluwwah (Agarwood)", lines: ["Aluwwah", "(Agarwood)"] },
   { href: "/collection", label: "Our Agarwood Assortment", lines: ["Our Agarwood", "Assortment"] },
   { href: "/state-of-our-ummah", label: "State of Our Ummah", lines: ["State of", "Our Ummah"] },
   { href: "/contact", label: "Contact", lines: ["Contact"] },
