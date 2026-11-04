@@ -4,9 +4,11 @@ import { CartIconButton } from "@/components/CartIconButton";
 import { CharitySection } from "@/components/CharitySection";
 import { FlowerPanel } from "@/components/FlowerPanel";
 import { PhotoSlot } from "@/components/PhotoSlot";
+import { SpeciesBackdrop } from "@/components/SpeciesBackdrop";
 import { VietnamInset } from "@/components/VietnamInset";
 import { ArrowIcon, BotanicalSprig, IvyVine } from "@/components/icons";
 import { pricesConfirmed, productHref, products, type Product } from "@/content/catalog";
+import { speciesSlides } from "@/content/species";
 import { formatMoney } from "@/lib/money";
 
 function ProductBody({
@@ -153,7 +155,8 @@ export default function Home() {
         <div className="mx-auto max-w-[1400px] px-5 py-14 sm:px-8">
           {/* Two halves, each centred over two of the four cards below. */}
           <div className="mx-auto grid max-w-sm items-center gap-6 sm:max-w-2xl lg:max-w-[1240px] lg:grid-cols-2 lg:gap-5">
-            <header className="text-center">
+            <header className="frame relative isolate flex min-h-[13rem] flex-col items-center justify-center px-4 pb-9 pt-5 text-center">
+              <SpeciesBackdrop slides={speciesSlides} />
               <p className="eyebrow eyebrow-gold">Choose which agarwood region</p>
               <div className="mt-3 flex items-center justify-center gap-4 sm:gap-5">
                 <span aria-hidden className="h-px w-8 bg-gold sm:w-12" />

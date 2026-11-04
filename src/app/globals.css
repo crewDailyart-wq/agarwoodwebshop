@@ -462,3 +462,21 @@ body {
     transition: none;
   }
 }
+
+/* Slow drift on the active slide of the species slideshow. */
+@keyframes species-drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+.species-drift {
+  animation: species-drift 2.9s ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .species-drift {
+    animation: none;
+  }
+}
