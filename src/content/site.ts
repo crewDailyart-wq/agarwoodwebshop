@@ -16,6 +16,12 @@ export const site = {
   social: [] as { label: string; href: string }[], // TODO: owner to supply
   currency: "EUR" as const,
   locale: "en-NL",
+  /** The charity ALUWWAH sponsors, shown in the homepage charity section. */
+  charity: {
+    name: "Madinah Global Foundation",
+    /** The foundation's own website. The "Visit" button appears once this is set. */
+    url: null as string | null, // TODO: owner to supply
+  },
 };
 
 /**

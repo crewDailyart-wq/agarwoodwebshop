@@ -342,3 +342,112 @@ body {
     transform: translate3d(0, 30%, 0);
   }
 }
+
+/* ---------- Charity section: the sponsored foundation's own look ----------
+   Deep teal-green, a bold ivory serif headline with a gold italic, soft rounded
+   cards and gold pill buttons, following the foundation's website. Used only by
+   the homepage charity section (CharitySection.tsx); the shop keeps its own style. */
+.mgf {
+  background:
+    radial-gradient(60% 55% at 0% 0%, rgb(52 150 112 / 0.2), transparent 62%),
+    radial-gradient(55% 50% at 100% 100%, rgb(52 150 112 / 0.14), transparent 65%),
+    linear-gradient(180deg, #0f2e26 0%, #0a211b 100%);
+}
+.mgf-sans {
+  font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.mgf-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+.mgf-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(2.3rem, 4.8vw, 3.7rem);
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  color: #f6f0e0;
+  text-wrap: balance;
+}
+.mgf-title em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-gold-bright);
+  background-image: linear-gradient(180deg, #f3d995 0%, #d4ad62 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.mgf-card {
+  border: 1px solid rgb(212 173 98 / 0.24);
+  border-radius: 1.25rem;
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.055), rgb(255 255 255 / 0.025));
+  box-shadow: 0 18px 50px -28px rgb(0 0 0 / 0.7);
+}
+.mgf-pill,
+.mgf-pill-line,
+.mgf-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  transition:
+    filter 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+.mgf-pill {
+  gap: 0.7rem;
+  min-height: 3rem;
+  padding: 0 1.7rem;
+  background: linear-gradient(135deg, #efd492 0%, #c9a05a 100%);
+  color: #17281d;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.mgf-pill:hover {
+  filter: brightness(1.07);
+}
+.mgf-pill-line {
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  padding: 0 1.3rem;
+  border: 1px solid rgb(212 173 98 / 0.55);
+  color: var(--color-ivory);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+.mgf-pill-line:hover {
+  border-color: var(--color-gold-bright);
+  background: rgb(212 173 98 / 0.14);
+}
+.mgf-chip {
+  min-height: 2.75rem;
+  padding: 0 1.05rem;
+  border: 1px solid rgb(212 173 98 / 0.32);
+  color: var(--color-ivory);
+  font-size: 0.84rem;
+  font-weight: 500;
+}
+.mgf-chip:hover {
+  border-color: var(--color-gold);
+  background: rgb(212 173 98 / 0.1);
+}
+.mgf-chip-on,
+.mgf-chip-on:hover {
+  border-color: transparent;
+  background: linear-gradient(135deg, #efd492 0%, #c9a05a 100%);
+  color: #17281d;
+  font-weight: 600;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mgf-pill,
+  .mgf-pill-line,
+  .mgf-chip {
+    transition: none;
+  }
+}
