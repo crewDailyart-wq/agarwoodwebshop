@@ -1,104 +1,104 @@
-import { CharityCarousel } from "@/components/CharityCarousel";
-import { CharityQuote, CharityQuotes, Ornament } from "@/components/CharityQuote";
 import { ArrowIcon } from "@/components/icons";
-import { withSalutation } from "@/components/NarrationBody";
-import { charitySlides, charityTeaching, kinNarration, kinText, kinVerses } from "@/content/charity";
+import { NarrationBody, withSalutation } from "@/components/NarrationBody";
+import { NarrationCarousel } from "@/components/NarrationCarousel";
+import {
+  charityNarrations,
+  charityTeaching,
+  kinNarration,
+  kinText,
+  kinVerses,
+} from "@/content/charity";
 import { site } from "@/content/site";
 
-/** What the foundation does, as it describes its own work. */
-const works = [
-  "Qur’ans placed in open hands",
-  "Wells dug where water is scarce",
-  "Orphans raised with dignity in Bangladesh",
-  "Relief carried to families in crisis",
-  "A resting place prepared with honor",
-];
-
 /**
- * Homepage section: ALUWWAH sponsors Madinah Global Foundation.
+ * Homepage section about Madinah Global Foundation.
  *
- * Laid out in two halves: the foundation on the left (first on a phone), and on the right
- * the verses and narrations on giving, then the right of kith and kin. The look follows the
- * foundation's own website — deep green, a bold serif headline with a gold italic, soft
- * rounded cards and gold pill buttons (`.mgf-*` in globals.css) — so it reads as its own place
- * apart from the shop.
+ * Two halves: on the left (first on a phone) the foundation, laid out like the hero of its
+ * own homepage — deep green, a serif headline with a gold italic, an Arabic line, a short
+ * paragraph and two pill buttons (`.mgf-*` in globals.css). On the right, the verses and
+ * narrations in the shop's own style: the narration carousel, then the right of kith and kin.
  */
 export function CharitySection() {
+  const { name, url } = site.charity;
+
   return (
     <section
       aria-labelledby="charity-heading"
       className="mgf relative isolate overflow-hidden border-y border-gold-line"
     >
-      <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-8 sm:py-20">
-        <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14">
+      <div className="mx-auto max-w-[1240px] px-5 py-12 sm:px-8 sm:py-14">
+        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12">
           {/* ───────── Left half: the foundation ───────── */}
           <div className="lg:sticky lg:top-8">
-            <p className="mgf-eyebrow mgf-sans">Giving in charity</p>
-            <h2 id="charity-heading" className="mgf-title mt-4">
-              <span className="block">We sponsor</span>
-              <em className="block">{site.charity.name}</em>
+            <p className="mgf-eyebrow mgf-sans">Giving in charity &middot; U.S. certified nonprofit</p>
+
+            <h2 id="charity-heading" className="mgf-title mt-5">
+              <span className="block">Madinah Global</span>
+              <em className="block">Foundation</em>
             </h2>
 
-            <span aria-hidden className="mt-6 flex items-center gap-3">
-              <span className="h-px w-14 bg-gold" />
-              <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
-            </span>
-
-            <p className="mgf-sans mt-6 max-w-[34rem] text-[1.05rem] leading-[1.75] text-ivory-soft">
-              ALUWWAH proudly sponsors{" "}
-              <strong className="font-semibold text-ivory">{site.charity.name}</strong>, a nonprofit that
-              describes itself as U.S. certified. Its work, as it describes it:
+            <p lang="ar" dir="rtl" className="quran mt-4 text-left text-[2.1rem] leading-[1.6]">
+              صَدَقَةٌ جَارِيَةٌ
             </p>
 
-            <ul className="mgf-card mgf-sans mt-6 max-w-[34rem] divide-y divide-gold-hair px-5 py-2 sm:px-6">
-              {works.map((work) => (
-                <li key={work} className="flex items-start gap-4 py-3.5 text-[1rem] leading-snug text-ivory">
-                  <span aria-hidden className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rotate-45 bg-gold" />
-                  {work}
-                </li>
-              ))}
-            </ul>
+            <p className="mgf-sans mt-5 max-w-[32rem] text-[1.05rem] leading-[1.8] text-ivory-soft">
+              {name} places Qur&rsquo;ans in open hands, digs wells where water is scarce, raises
+              orphans with dignity in Bangladesh, carries relief to families in crisis and prepares
+              resting places with honor.
+            </p>
 
-            {site.charity.url && (
-              <div className="mt-8">
-                <a
-                  href={site.charity.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mgf-pill mgf-sans"
-                >
-                  Visit {site.charity.name} <ArrowIcon className="h-4 w-4" />
-                </a>
-              </div>
-            )}
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href={`${url}#donate`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mgf-pill mgf-sans"
+              >
+                Give now
+              </a>
+              <a
+                href={`${url}#work`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mgf-pill-line mgf-sans !min-h-12 !px-6 !text-[0.95rem]"
+              >
+                Explore their work <ArrowIcon className="h-4 w-4" />
+              </a>
+            </div>
           </div>
 
-          {/* ───────── Right half: verses, narrations and the right of kith and kin ───────── */}
-          <div className="flex flex-col gap-6">
-            <CharityCarousel
-              slides={charitySlides}
-              eyebrow="Verses and narrations on charity"
-              label="Verses and narrations on giving in charity"
-            >
-              <Ornament className="mb-5" />
-              <p className="mx-auto max-w-xl text-center font-[family-name:var(--font-display)] text-[1.4rem] font-medium italic leading-snug text-ivory sm:text-[1.6rem]">
+          {/* ───────── Right half: verses and narrations, in the shop's own style ───────── */}
+          <div className="flex flex-col gap-5">
+            <NarrationCarousel items={charityNarrations} label="Verses and narrations on giving in charity">
+              <p className="text-center font-[family-name:var(--font-display)] text-[1.25rem] font-medium italic leading-snug text-ivory sm:text-[1.4rem]">
                 {charityTeaching}
               </p>
-            </CharityCarousel>
+            </NarrationCarousel>
 
-            <section aria-labelledby="kin-heading" className="mgf-card px-5 py-6 sm:px-8 sm:py-8">
-              <p id="kin-heading" className="eyebrow eyebrow-gold text-center !text-[0.6rem]">
-                The right of kith and kin
-              </p>
+            <section
+              aria-labelledby="kin-heading"
+              className="frame relative bg-night/45 px-5 py-5 sm:px-7"
+            >
+              <span aria-hidden className="pointer-events-none absolute inset-1.5 border border-gold-hair" />
+              <div className="relative">
+                <p
+                  id="kin-heading"
+                  className="eyebrow eyebrow-gold mb-3 text-center !text-[0.58rem]"
+                >
+                  The right of kith and kin
+                </p>
 
-              <div className="mt-6">
-                <CharityQuotes quotes={kinVerses} />
-              </div>
+                <figure className="text-center">
+                  <NarrationBody narration={kinVerses} />
+                </figure>
 
-              <div className="mt-7 border-t border-gold-line pt-7">
-                <p className="text-[1.08rem] leading-relaxed text-ivory-soft">{withSalutation(kinText)}</p>
-                <div className="mt-6 rounded-2xl border border-gold-hair bg-black/20 px-4 py-6 sm:px-7">
-                  <CharityQuote quote={kinNarration} />
+                <div className="mt-4 border-t border-gold-line pt-4">
+                  <p className="text-[0.98rem] leading-relaxed text-ivory-soft">
+                    {withSalutation(kinText)}
+                  </p>
+                  <figure className="mt-4 border-t border-gold-hair pt-4 text-center">
+                    <NarrationBody narration={kinNarration} />
+                  </figure>
                 </div>
               </div>
             </section>

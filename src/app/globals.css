@@ -343,10 +343,11 @@ body {
   }
 }
 
-/* ---------- Charity section: the sponsored foundation's own look ----------
-   Deep teal-green, a bold ivory serif headline with a gold italic, soft rounded
-   cards and gold pill buttons, following the foundation's website. Used only by
-   the homepage charity section (CharitySection.tsx); the shop keeps its own style. */
+/* ---------- Charity section: the foundation's own look ----------
+   Deep teal-green, a serif headline with a gold italic, and gold pill buttons,
+   following the hero of the foundation's website. Used only by the left half of the
+   homepage charity section (CharitySection.tsx); the narrations next to it keep the
+   shop's own style. */
 .mgf {
   background:
     radial-gradient(60% 55% at 0% 0%, rgb(52 150 112 / 0.2), transparent 62%),
@@ -359,15 +360,15 @@ body {
 .mgf-eyebrow {
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.26em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--color-gold);
 }
 .mgf-title {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: clamp(2.3rem, 4.8vw, 3.7rem);
-  line-height: 1.08;
+  font-size: clamp(2.4rem, 5vw, 3.9rem);
+  line-height: 1.06;
   letter-spacing: -0.005em;
   color: #f6f0e0;
   text-wrap: balance;
@@ -381,15 +382,8 @@ body {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.mgf-card {
-  border: 1px solid rgb(212 173 98 / 0.24);
-  border-radius: 1.25rem;
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.055), rgb(255 255 255 / 0.025));
-  box-shadow: 0 18px 50px -28px rgb(0 0 0 / 0.7);
-}
 .mgf-pill,
-.mgf-pill-line,
-.mgf-chip {
+.mgf-pill-line {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -397,13 +391,12 @@ body {
   transition:
     filter 0.2s ease,
     background-color 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
+    border-color 0.2s ease;
 }
 .mgf-pill {
   gap: 0.7rem;
   min-height: 3rem;
-  padding: 0 1.7rem;
+  padding: 0 1.9rem;
   background: linear-gradient(135deg, #efd492 0%, #c9a05a 100%);
   color: #17281d;
   font-size: 0.95rem;
@@ -425,29 +418,9 @@ body {
   border-color: var(--color-gold-bright);
   background: rgb(212 173 98 / 0.14);
 }
-.mgf-chip {
-  min-height: 2.75rem;
-  padding: 0 1.05rem;
-  border: 1px solid rgb(212 173 98 / 0.32);
-  color: var(--color-ivory);
-  font-size: 0.84rem;
-  font-weight: 500;
-}
-.mgf-chip:hover {
-  border-color: var(--color-gold);
-  background: rgb(212 173 98 / 0.1);
-}
-.mgf-chip-on,
-.mgf-chip-on:hover {
-  border-color: transparent;
-  background: linear-gradient(135deg, #efd492 0%, #c9a05a 100%);
-  color: #17281d;
-  font-weight: 600;
-}
 @media (prefers-reduced-motion: reduce) {
   .mgf-pill,
-  .mgf-pill-line,
-  .mgf-chip {
+  .mgf-pill-line {
     transition: none;
   }
 }
