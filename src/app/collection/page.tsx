@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { ChinaInset } from "@/components/ChinaInset";
 import { ProductCard } from "@/components/ProductCard";
 import { VietnamInset } from "@/components/VietnamInset";
 import { products } from "@/content/catalog";
 
 export const metadata: Metadata = {
   title: "Our Agarwood Assortment",
-  description: "High Grade Vietnamese Agarwood Chips and the Complete Agarwood Set.",
+  description:
+    "High Grade Vietnamese Agarwood Chips, High Oil Agarwood Chips from Southern China (large chips, middle size chips and granules) and the Complete Agarwood Set.",
 };
 
 /** The word al-uluwwah (aloeswood, the brand's name), picked out in the texts. */
@@ -124,6 +126,10 @@ export default function CollectionPage() {
           </article>
 
           <ProductCard product={products["the-complete-ritual"]} />
+
+          <ProductCard product={products["china-chips-large"]} inset={<ChinaInset />} />
+          <ProductCard product={products["china-chips-medium"]} inset={<ChinaInset />} />
+          <ProductCard product={products["china-granules"]} inset={<ChinaInset />} />
         </div>
       </div>
     </div>

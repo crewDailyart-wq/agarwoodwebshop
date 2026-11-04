@@ -2,7 +2,9 @@
  * The product catalog — the single source of truth for what is sold.
  *
  * At launch there are exactly TWO products plus ONE bundle, and Pure Camphor
- * (added Nov 2026 on the owner's say-so, with its own page at /camphor).
+ * (added Nov 2026 on the owner's say-so, with its own page at /camphor), and the three
+ * High Oil Agarwood Chips from Southern China (large chips, middle size chips, granules;
+ * added Nov 2026 on the owner's say-so).
  * Do not add others without the owner's say-so.
  *
  * Facts that need verification (origin, species, certificates, dimensions,
@@ -13,7 +15,12 @@
  * real prices; while false, every price on the site is labelled "preview price".
  */
 
-export type ProductId = "agarwood-chips" | "incense-burner" | "the-complete-ritual" | "pure-camphor";
+export type ProductId =
+  | "agarwood-chips"
+  | "china-chips-large"
+  | "china-chips-medium"
+  | "china-granules"
+  | "incense-burner" | "the-complete-ritual" | "pure-camphor";
 
 export type Photo = {
   /** Path under /public, e.g. "/photos/chips-hero.jpg". `null` = placeholder shown. */
@@ -32,7 +39,7 @@ export type Product = {
   /** Optional small line above the name on the product page and under it in the cart. */
   subtitle?: string;
   /** Show a small satellite map of the country of origin on the main product photo. */
-  originMap?: "vietnam";
+  originMap?: "vietnam" | "china";
   /** A product with a page of its own (e.g. "/camphor") instead of /shop/<slug>. */
   href?: string;
   /** Short gold small-caps label on product cards. Must stay factual. */
@@ -118,6 +125,180 @@ export const products: Record<ProductId, Product> = {
       title: "High Grade Vietnamese Agarwood Chips",
       description:
         "Genuine Vietnamese agarwood chips for burning as incense — resin-rich, warmed slowly, never lit.",
+    },
+  },
+
+  "china-chips-large": {
+    id: "china-chips-large",
+    slug: "china-chips-large",
+    name: "High Oil Agarwood Chips from Southern China",
+    subtitle: "Large chips",
+    originMap: "china",
+    cardLabel: "Large chips",
+    summary:
+      "High oil agarwood chips, in large pieces from Southern China, selected to be warmed slowly and enjoyed as the fragrance unfolds.",
+    bismillah: true,
+    description: [
+      "We hereby offer our high oil agarwood chips, in large pieces from Southern China. You can use them as incense to perfume yourself and your surroundings.",
+      "The smoke of agarwood/aloeswood incense is said to have many benefits, including physical health benefits. The difference between quality of agarwood can be likened to the difference in fruits when they ripen, no doubt that when a fruit ripens more, it becomes more pleasing to us and is generally better for us. Prophet Muhammad \uFDFA used it to perfume himself as mentioned in the narration we put on our homepage. We know from the following narration that our deeds are by their intention:",
+      { narration: "bukhari-6689" },
+      "So whomsoever uses the agarwood to follow the tradition of Prophet Muhammad \uFDFA then he will be rewarded for it beyond the benefit he already gets by using it in the first place, but whomsoever uses it only for his own satisfaction then that will be his reward. As such we must try to set our intention straight with everything we do in our lives. Cleanliness and personal hygiene are highly encouraged in Islam.",
+    ],
+    priceCents: 9500, // PLACEHOLDER
+    stock: null,
+    variants: [],
+    photos: [
+      {
+        src: null,
+        alt: "Close-up of large, dark, oil-rich agarwood chips",
+        brief: "Macro of large agarwood chips on near-black plum. Warm side light, visible grain and glossy resin.",
+        width: 1200,
+        height: 1500,
+      },
+      {
+        src: null,
+        alt: "Agarwood in a handcrafted vessel",
+        brief: "The agarwood in a small handmade vessel, dramatic low light, deep plum shadows.",
+        width: 1200,
+        height: 1500,
+      },
+      {
+        src: null,
+        alt: "Macro of agarwood grain and resin",
+        brief: "Extreme macro: grain, resin veins, a freshly cut face.",
+        width: 1200,
+        height: 1500,
+      },
+    ],
+    facts: [
+      { label: "Country of origin", value: "Southern China" }, // owner, Nov 2026
+      { label: "Botanical species", value: null },
+      { label: "Net weight", value: null },
+      { label: "Grade", value: null },
+      { label: "Growth", value: null },
+    ],
+    sections: [],
+    related: ["incense-burner"],
+    seo: {
+      title: "High Oil Agarwood Chips from Southern China, Large chips",
+      description:
+        "High oil agarwood from Southern China, large chips, for burning as incense: warmed slowly, never lit.",
+    },
+  },
+
+  "china-chips-medium": {
+    id: "china-chips-medium",
+    slug: "china-chips-medium",
+    name: "High Oil Agarwood Chips from Southern China",
+    subtitle: "Middle size chips",
+    originMap: "china",
+    cardLabel: "Middle size chips",
+    summary:
+      "High oil agarwood chips, in middle size pieces from Southern China, selected to be warmed slowly and enjoyed as the fragrance unfolds.",
+    bismillah: true,
+    description: [
+      "We hereby offer our high oil agarwood chips, in middle size pieces from Southern China. You can use them as incense to perfume yourself and your surroundings.",
+      "The smoke of agarwood/aloeswood incense is said to have many benefits, including physical health benefits. The difference between quality of agarwood can be likened to the difference in fruits when they ripen, no doubt that when a fruit ripens more, it becomes more pleasing to us and is generally better for us. Prophet Muhammad \uFDFA used it to perfume himself as mentioned in the narration we put on our homepage. We know from the following narration that our deeds are by their intention:",
+      { narration: "bukhari-6689" },
+      "So whomsoever uses the agarwood to follow the tradition of Prophet Muhammad \uFDFA then he will be rewarded for it beyond the benefit he already gets by using it in the first place, but whomsoever uses it only for his own satisfaction then that will be his reward. As such we must try to set our intention straight with everything we do in our lives. Cleanliness and personal hygiene are highly encouraged in Islam.",
+    ],
+    priceCents: 9500, // PLACEHOLDER
+    stock: null,
+    variants: [],
+    photos: [
+      {
+        src: null,
+        alt: "Close-up of middle size, dark, oil-rich agarwood chips",
+        brief: "Macro of middle size agarwood chips on near-black plum. Warm side light, visible grain and glossy resin.",
+        width: 1200,
+        height: 1500,
+      },
+      {
+        src: null,
+        alt: "Agarwood in a handcrafted vessel",
+        brief: "The agarwood in a small handmade vessel, dramatic low light, deep plum shadows.",
+        width: 1200,
+        height: 1500,
+      },
+      {
+        src: null,
+        alt: "Macro of agarwood grain and resin",
+        brief: "Extreme macro: grain, resin veins, a freshly cut face.",
+        width: 1200,
+        height: 1500,
+      },
+    ],
+    facts: [
+      { label: "Country of origin", value: "Southern China" }, // owner, Nov 2026
+      { label: "Botanical species", value: null },
+      { label: "Net weight", value: null },
+      { label: "Grade", value: null },
+      { label: "Growth", value: null },
+    ],
+    sections: [],
+    related: ["incense-burner"],
+    seo: {
+      title: "High Oil Agarwood Chips from Southern China, Middle size chips",
+      description:
+        "High oil agarwood from Southern China, middle size chips, for burning as incense: warmed slowly, never lit.",
+    },
+  },
+
+  "china-granules": {
+    id: "china-granules",
+    slug: "china-granules",
+    name: "High Oil Agarwood Chips from Southern China",
+    subtitle: "Agarwood granules",
+    originMap: "china",
+    cardLabel: "Agarwood granules",
+    summary:
+      "High oil agarwood granules from Southern China, selected to be warmed slowly and enjoyed as the fragrance unfolds.",
+    bismillah: true,
+    description: [
+      "We hereby offer our high oil agarwood granules from Southern China. You can use them as incense to perfume yourself and your surroundings.",
+      "The smoke of agarwood/aloeswood incense is said to have many benefits, including physical health benefits. The difference between quality of agarwood can be likened to the difference in fruits when they ripen, no doubt that when a fruit ripens more, it becomes more pleasing to us and is generally better for us. Prophet Muhammad \uFDFA used it to perfume himself as mentioned in the narration we put on our homepage. We know from the following narration that our deeds are by their intention:",
+      { narration: "bukhari-6689" },
+      "So whomsoever uses the agarwood to follow the tradition of Prophet Muhammad \uFDFA then he will be rewarded for it beyond the benefit he already gets by using it in the first place, but whomsoever uses it only for his own satisfaction then that will be his reward. As such we must try to set our intention straight with everything we do in our lives. Cleanliness and personal hygiene are highly encouraged in Islam.",
+    ],
+    priceCents: 9500, // PLACEHOLDER
+    stock: null,
+    variants: [],
+    photos: [
+      {
+        src: null,
+        alt: "Close-up of dark, oil-rich agarwood granules",
+        brief: "Macro of agarwood granules on near-black plum. Warm side light, glossy resin, a thread of smoke.",
+        width: 1200,
+        height: 1500,
+      },
+      {
+        src: null,
+        alt: "Agarwood in a handcrafted vessel",
+        brief: "The agarwood in a small handmade vessel, dramatic low light, deep plum shadows.",
+        width: 1200,
+        height: 1500,
+      },
+      {
+        src: null,
+        alt: "Macro of agarwood grain and resin",
+        brief: "Extreme macro: grain, resin veins, a freshly cut face.",
+        width: 1200,
+        height: 1500,
+      },
+    ],
+    facts: [
+      { label: "Country of origin", value: "Southern China" }, // owner, Nov 2026
+      { label: "Botanical species", value: null },
+      { label: "Net weight", value: null },
+      { label: "Grade", value: null },
+      { label: "Growth", value: null },
+    ],
+    sections: [],
+    related: ["incense-burner"],
+    seo: {
+      title: "High Oil Agarwood Chips from Southern China, Agarwood granules",
+      description:
+        "High oil agarwood from Southern China, agarwood granules, for burning as incense: warmed slowly, never lit.",
     },
   },
 

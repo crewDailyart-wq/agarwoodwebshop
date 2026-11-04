@@ -7,6 +7,7 @@ import { NarrationCarousel } from "@/components/NarrationCarousel";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { QuantityOptions } from "@/components/QuantityOptions";
 import { Price } from "@/components/Price";
+import { ChinaInset } from "@/components/ChinaInset";
 import { VietnamInset } from "@/components/VietnamInset";
 import { VietnamLogs } from "@/components/VietnamLogs";
 import { getProduct, productList, products } from "@/content/catalog";
@@ -73,6 +74,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
               sizes="(min-width: 1024px) 55vw, 100vw"
             />
             {product.originMap === "vietnam" && <VietnamInset />}
+            {product.originMap === "china" && <ChinaInset />}
           </div>
           {product.photos.length > 1 && (
             <div className="grid grid-cols-2 gap-4">
