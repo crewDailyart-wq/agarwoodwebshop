@@ -98,7 +98,7 @@ export function ProductGallery({ photos, inset }: { photos: Photo[]; inset?: Rea
           0,
           "w-full",
           "(min-width: 1024px) 60vw, 100vw",
-          { aspectRatio: Math.max(hero.width / hero.height, 0.8) },
+          { aspectRatio: hero.heroRatio ?? Math.max(hero.width / hero.height, 0.8) },
           true,
         )}
         {inset && <div className="pointer-events-none absolute inset-0">{inset}</div>}

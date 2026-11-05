@@ -40,6 +40,7 @@ export function PhotoSlot({
           priority={priority}
           quality={quality}
           className="object-cover"
+          style={photo.focus ? { objectPosition: photo.focus } : undefined}
         />
       </div>
     );

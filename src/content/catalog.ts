@@ -30,6 +30,11 @@ export type Photo = {
   brief: string;
   width: number;
   height: number;
+  /** Shape (width / height) of the main picture on the product page, when this is the first photo.
+   *  The whole photo still opens in the enlarged view. */
+  heroRatio?: number;
+  /** CSS object-position for cropped views of this photo, e.g. "50% 52%". */
+  focus?: string;
 };
 
 export type Product = {
@@ -286,21 +291,23 @@ export const products: Record<ProductId, Product> = {
     variants: [],
     photos: [
       {
-        src: "/photos/china-granules-1.jpg",
+        src: "/photos/china-granules-hd-1.jpg",
         alt: "High oil agarwood granules from Southern China scattered around the ALUWWAH wooden box with its engraved gold tree logo",
         brief: "Granules around the engraved ALUWWAH box.",
         width: 1200,
         height: 1600,
+        heroRatio: 4 / 3,
+        focus: "50% 52%",
       },
       {
-        src: "/photos/china-granules-2.jpg",
+        src: "/photos/china-granules-hd-2.jpg",
         alt: "A thin agarwood granule held between the fingers, with the ALUWWAH box, cotton pouch and granules behind it",
         brief: "A single thin granule held in the hand for scale.",
         width: 1200,
         height: 1600,
       },
       {
-        src: "/photos/china-granules-3.jpg",
+        src: "/photos/china-granules-hd-3.jpg",
         alt: "A heap of high oil agarwood granules beside the ALUWWAH wooden box and cotton pouch",
         brief: "Overview heap of granules with the ALUWWAH box and pouch.",
         width: 1200,
