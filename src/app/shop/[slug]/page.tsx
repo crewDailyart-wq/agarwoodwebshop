@@ -70,11 +70,13 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             <PhotoSlot
               photo={product.photos[0]}
               priority
-              className="aspect-[4/5] w-full"
-              sizes="(min-width: 1024px) 55vw, 100vw"
+              quality={90}
+              className="w-full"
+              style={{ aspectRatio: `${product.photos[0].width} / ${product.photos[0].height}` }}
+              sizes="(min-width: 1024px) 60vw, 100vw"
             />
             {product.originMap === "vietnam" && <VietnamInset />}
-            {product.originMap === "china" && <ChinaInset />}
+            {product.originMap === "china" && <ChinaInset className="!w-[22%]" />}
           </div>
           {product.photos.length > 1 && (
             <div className="grid grid-cols-2 gap-4">

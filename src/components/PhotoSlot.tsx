@@ -12,6 +12,8 @@ export function PhotoSlot({
   sizes = "(min-width: 1024px) 50vw, 100vw",
   priority = false,
   quiet = false,
+  quality,
+  style,
 }: {
   photo: Photo;
   className?: string;
@@ -19,6 +21,9 @@ export function PhotoSlot({
   priority?: boolean;
   /** Hide the art-direction brief; show only a small "photograph to come" mark. */
   quiet?: boolean;
+  /** Image quality 1-100 (Next default 75). */
+  quality?: number;
+  style?: React.CSSProperties;
 }) {
   // Callers may pass `absolute` (full-bleed backgrounds); don't let our
   // `relative` override it, or the frame collapses to zero height.
@@ -26,13 +31,14 @@ export function PhotoSlot({
 
   if (photo.src) {
     return (
-      <div className={`${position} overflow-hidden bg-plum ${className}`}>
+      <div className={`${position} overflow-hidden bg-plum ${className}`} style={style}>
         <Image
           src={photo.src}
           alt={photo.alt}
           fill
           sizes={sizes}
           priority={priority}
+          quality={quality}
           className="object-cover"
         />
       </div>
@@ -45,6 +51,7 @@ export function PhotoSlot({
       aria-label={`${photo.alt} (photograph to come)`}
       className={`${position} overflow-hidden ${className}`}
       style={{
+        ...style,
         // Semi-transparent so the bakhoor smoke stays visible until a real photo is set.
         backgroundImage:
           "radial-gradient(120% 90% at 70% 15%, rgb(185 154 105 / 0.12), transparent 55%), radial-gradient(90% 70% at 20% 100%, rgb(73 51 41 / 0.4), transparent 60%), linear-gradient(160deg, rgb(14 51 33 / 0.55) 0%, rgb(8 32 21 / 0.35) 100%)",
