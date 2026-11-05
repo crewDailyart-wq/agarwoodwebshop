@@ -6,7 +6,7 @@ import { FlowerPanel } from "@/components/FlowerPanel";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { SpeciesBackdrop } from "@/components/SpeciesBackdrop";
 import { VietnamInset } from "@/components/VietnamInset";
-import { ArrowIcon, BotanicalSprig, IvyVine } from "@/components/icons";
+import { ArrowIcon, BotanicalSprig, GoldBranch } from "@/components/icons";
 import { pricesConfirmed, productHref, products, type Product } from "@/content/catalog";
 import { speciesSlides } from "@/content/species";
 import { formatMoney } from "@/lib/money";
@@ -21,7 +21,7 @@ function ProductBody({
 }) {
   return (
     <div className="paper flex flex-1 flex-col border-t border-gold px-5 pb-5 pt-4">
-      <IvyVine className="paper-ivy" />
+      <GoldBranch className="paper-branch" />
       <h3 className="eyebrow !text-[0.74rem] !font-bold !text-gold-ink leading-relaxed">
         <Link href={productHref(product)} className="hover:text-gold-deep">
           {product.name}

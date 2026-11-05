@@ -5,7 +5,7 @@ import Link from "next/link";
 import { pricesConfirmed, type Product } from "@/content/catalog";
 import { cart } from "@/lib/cart";
 import { formatMoney } from "@/lib/money";
-import { CartIcon, IvyVine } from "./icons";
+import { CartIcon, GoldBranch } from "./icons";
 import { PhotoSlot } from "./PhotoSlot";
 
 /** Framed product tile: photo, small-caps name, gold sub-label, price and a gold cart button. */
@@ -23,7 +23,7 @@ export function ProductCard({ product, inset }: { product: Product; inset?: Reac
         {inset}
       </Link>
       <div className="paper flex flex-1 flex-col border-t border-gold px-5 pb-5 pt-5">
-        <IvyVine className="paper-ivy" />
+        <GoldBranch className="paper-branch" />
         <h3 className="eyebrow !text-[0.74rem] !font-bold !text-gold-ink leading-relaxed">
           <Link href={`/shop/${product.slug}`} className="hover:text-gold-deep">
             {product.name}

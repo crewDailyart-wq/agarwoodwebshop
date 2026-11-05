@@ -130,8 +130,8 @@ body {
   background: linear-gradient(180deg, #fffefb 0%, #f8f2e5 100%);
   color: var(--color-gold-ink);
 }
-/* The ivy sits behind the lettering, climbing the right edge of the white panel. */
-.paper-ivy {
+/* The gold branch sits behind the lettering, climbing the right edge of the white panel. */
+.paper-branch {
   position: absolute;
   top: 0;
   right: 0;
