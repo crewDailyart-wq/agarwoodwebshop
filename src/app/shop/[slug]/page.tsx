@@ -4,7 +4,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { AddToCart } from "@/components/AddToCart";
 import { NarrationBody, withSalutation } from "@/components/NarrationBody";
 import { NarrationCarousel } from "@/components/NarrationCarousel";
-import { PhotoSlot } from "@/components/PhotoSlot";
+import { ProductGallery } from "@/components/ProductGallery";
 import { QuantityOptions } from "@/components/QuantityOptions";
 import { Price } from "@/components/Price";
 import { ChinaInset } from "@/components/ChinaInset";
@@ -66,29 +66,16 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
       <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
         {/* Photographs */}
         <div className="space-y-4">
-          <div className="relative">
-            <PhotoSlot
-              photo={product.photos[0]}
-              priority
-              className="w-full"
-              style={{ aspectRatio: `${product.photos[0].width} / ${product.photos[0].height}` }}
-              sizes="(min-width: 1024px) 60vw, 100vw"
-            />
-            {product.originMap === "vietnam" && <VietnamInset />}
-            {product.originMap === "china" && <ChinaInset className="!w-[22%]" />}
-          </div>
-          {product.photos.length > 1 && (
-            <div className="grid grid-cols-2 gap-4">
-              {product.photos.slice(1).map((photo) => (
-                <PhotoSlot
-                  key={photo.brief}
-                  photo={photo}
-                  className="aspect-square w-full"
-                  sizes="(min-width: 1024px) 27vw, 50vw"
-                />
-              ))}
-            </div>
-          )}
+          <ProductGallery
+            photos={product.photos}
+            inset={
+              product.originMap === "vietnam" ? (
+                <VietnamInset />
+              ) : product.originMap === "china" ? (
+                <ChinaInset className="!w-[22%]" />
+              ) : undefined
+            }
+          />
 
           {/* Quantity and add to cart sit directly under the pictures. */}
           <div className="space-y-5 border-t border-gold-line pt-8">

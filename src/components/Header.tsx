@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/content/site";
 import { CartButton } from "./CartButton";
-import { nav } from "@/content/nav";
+import { MobileMenu } from "./MobileMenu";
 import { NavLinks } from "./NavLinks";
 import { SearchIcon } from "./icons";
 import { AgarwoodBranch, StarLattice } from "./HeaderOrnament";
@@ -76,25 +76,7 @@ export function Header() {
               <SearchIcon className="h-6 w-6" />
             </Link>
             <CartButton />
-            <details className="relative lg:hidden">
-              <summary className="flex h-11 cursor-pointer list-none items-center px-2 font-[family-name:var(--font-caps)] text-[0.85rem] font-semibold tracking-[0.25em] text-gold-deep uppercase">
-                Menu
-              </summary>
-              <nav
-                aria-label="Mobile"
-                className="absolute right-0 top-12 w-64 border border-gold-line bg-night p-5"
-              >
-                <ul className="space-y-1">
-                  {nav.map((item) => (
-                    <li key={item.href}>
-                      <Link href={item.href} className="display block py-2 text-2xl">
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </details>
+            <MobileMenu />
           </div>
         </div>
       </div>
