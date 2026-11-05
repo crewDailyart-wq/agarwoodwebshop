@@ -70,7 +70,6 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             <PhotoSlot
               photo={product.photos[0]}
               priority
-              quality={90}
               className="w-full"
               style={{ aspectRatio: `${product.photos[0].width} / ${product.photos[0].height}` }}
               sizes="(min-width: 1024px) 60vw, 100vw"

@@ -12,7 +12,7 @@ export function PhotoSlot({
   sizes = "(min-width: 1024px) 50vw, 100vw",
   priority = false,
   quiet = false,
-  quality,
+  quality = 85,
   style,
 }: {
   photo: Photo;
@@ -21,7 +21,7 @@ export function PhotoSlot({
   priority?: boolean;
   /** Hide the art-direction brief; show only a small "photograph to come" mark. */
   quiet?: boolean;
-  /** Image quality 1-100 (Next default 75). */
+  /** Image quality; must be listed in `images.qualities` in next.config.ts. */
   quality?: number;
   style?: React.CSSProperties;
 }) {

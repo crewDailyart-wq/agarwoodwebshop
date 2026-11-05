@@ -18,7 +18,7 @@ export function ProductCard({ product, inset }: { product: Product; inset?: Reac
           photo={product.photos[0]}
           quiet
           className="aspect-[5/4] w-full"
-          sizes="(min-width: 1024px) 20vw, (min-width: 640px) 45vw, 100vw"
+          sizes="(min-width: 1024px) 400px, (min-width: 640px) 45vw, 100vw"
         />
         {inset}
       </Link>
