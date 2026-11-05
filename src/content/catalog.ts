@@ -221,11 +221,11 @@ export const products: Record<ProductId, Product> = {
     variants: [],
     photos: [
       {
-        src: "/photos/china-chips-medium-1.jpg",
-        alt: "A pile of middle size high oil agarwood chips from Southern China beside the ALUWWAH wooden box and cotton pouch",
+        src: "/photos/china-chips-medium-pile.jpg",
+        alt: "A pile of middle size high oil agarwood chips from Southern China, with the ALUWWAH wooden box in the top left corner and a cotton pouch top right",
         brief: "Overview pile of the middle size chips with the ALUWWAH box and pouch.",
-        width: 1200,
-        height: 1600,
+        width: 1600,
+        height: 1200,
       },
       {
         src: "/photos/china-chips-medium-2.jpg",
