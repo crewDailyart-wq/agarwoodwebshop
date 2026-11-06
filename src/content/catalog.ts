@@ -441,19 +441,32 @@ export const products: Record<ProductId, Product> = {
     name: "Pure Camphor",
     cardLabel: "For mixing with agarwood",
     summary: "Pure camphor, to be mixed with agarwood in the tradition of Prophet Muhammad \uFDFA.",
+    bismillah: true,
     description: [
-      "Pure camphor, to be mixed with agarwood/aloeswood as Prophet Muhammad \uFDFA used to do.",
+      "We hereby offer our pure camphor, made by distilling the bark and wood of the Camphor tree (Cinnamomum Camphora). It offers a strong and cooling fragrance.",
+      "When burning our camphor as incense you can use it by itself, or you can mix it with agarwood, as is found in the tradition of Prophet Muhammad \uFDFA. Either way you would need but a little, as it is very strong.",
+      "Leaving the camphor exposed in any place causes it to perfume its surroundings, but it also evaporates quickly, because it undergoes sublimation, which means that it transfers immediately from a solid state to a gas state. This is caused by the outward vapor pressure of the camphor, which is stronger than the air resistance it undergoes, causing it to \u2018escape\u2019 into the air.",
+      "Knowing and understanding these scientific processes should not in any way decrease us in our faith; rather it should make us contemplate more about our existence and increase us in our love for the One who created our complex reality.",
     ],
     priceCents: 1200, // PLACEHOLDER
     stock: null,
     variants: [],
     photos: [
       {
-        src: null,
-        alt: "Pure camphor",
-        brief: "Pure camphor crystals on a dark, warm surface, soft side light.",
+        src: "/photos/camphor-1.jpg",
+        alt: "Large white pieces of pure camphor lying on the ALUWWAH wooden box with its engraved gold tree logo",
+        brief: "Pieces of pure camphor on the engraved ALUWWAH box.",
         width: 1200,
-        height: 1500,
+        height: 1600,
+        focus: "50% 42%",
+      },
+      {
+        src: "/photos/camphor-2.jpg",
+        alt: "A large piece of pure camphor held in an open hand, with the ALUWWAH box and more camphor behind it",
+        brief: "A piece of camphor held in the hand for scale.",
+        width: 1200,
+        height: 1600,
+        focus: "50% 48%",
       },
     ],
     facts: [

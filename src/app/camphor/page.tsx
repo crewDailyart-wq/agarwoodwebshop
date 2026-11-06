@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AddToCart } from "@/components/AddToCart";
 import { withSalutation } from "@/components/NarrationBody";
 import { NarrationCarousel } from "@/components/NarrationCarousel";
-import { PhotoSlot } from "@/components/PhotoSlot";
+import { ProductGallery } from "@/components/ProductGallery";
 import { Price } from "@/components/Price";
 import { QuantityOptions } from "@/components/QuantityOptions";
 import { products } from "@/content/catalog";
@@ -10,6 +10,7 @@ import { camphorNarrations } from "@/content/narrations";
 import { site } from "@/content/site";
 
 const product = products["pure-camphor"];
+const description = product.description.filter((b): b is string => typeof b === "string");
 
 export const metadata: Metadata = {
   title: product.seo.title,
@@ -123,12 +124,9 @@ export default function CamphorPage() {
         <div className="mx-auto mt-8 grid max-w-2xl items-start gap-8 lg:max-w-none lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)_minmax(0,1fr)] lg:gap-6 xl:gap-8">
           {/* ── The product ── */}
           <article aria-label={product.name} className="lg:col-start-2 lg:row-start-1">
-            <PhotoSlot
-              photo={product.photos[0]}
-              priority
-              className="frame aspect-[4/5] w-full"
-              sizes="(min-width: 1024px) 28vw, 100vw"
-            />
+            <div className="space-y-4">
+              <ProductGallery photos={product.photos} />
+            </div>
             <div className="mt-6 text-center">
               <h2 className="display text-[2.1rem] leading-tight">{product.name}</h2>
               <Price cents={product.priceCents} className="mt-2 block text-xl tabular-nums" />
@@ -136,6 +134,25 @@ export default function CamphorPage() {
             <div className="mt-6 space-y-5 border-t border-gold-line pt-6">
               <QuantityOptions product={product} />
               <AddToCart id={product.id} />
+            </div>
+
+            {/* The description: Bismillah, what the camphor is and how to use it, and a closing reflection. */}
+            <div className="mt-8 border-t border-gold-line pt-8">
+              {product.bismillah && (
+                <p className="pb-5 text-center">
+                  <span lang="ar" dir="rtl" className="quran block text-[1.7rem] leading-[1.8]">
+                    بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                  </span>
+                  <span className="mt-1 block italic text-ivory">(Bismillah Ar-Rahman Ar-Rahiem)</span>
+                </p>
+              )}
+              <div className="space-y-4 text-ivory-soft">
+                {description.slice(0, -1).map((text) => (
+                  <p key={text}>{withSalutation(text)}</p>
+                ))}
+              </div>
+              <Divider />
+              <p className="text-center italic text-ivory">{withSalutation(description[description.length - 1])}</p>
             </div>
           </article>
 
