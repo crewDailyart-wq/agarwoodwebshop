@@ -133,7 +133,7 @@ export default function Home() {
                     href="/collection"
                     className="btn btn-solid !min-h-[2.5rem] !gap-3 !px-5 !text-[0.6rem] sm:!min-h-[3.2rem] sm:!gap-4 sm:!px-8 sm:!text-[0.74rem] shadow-[0_6px_28px_rgb(0_0_0_/_0.55)] ring-1 ring-gold-bright/70"
                   >
-                    Explore the collection <ArrowIcon className="h-4 w-4" />
+                    Go to our assortment <ArrowIcon className="h-4 w-4" />
                   </Link>
                 </div>
               </div>
