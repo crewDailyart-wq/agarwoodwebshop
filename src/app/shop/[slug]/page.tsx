@@ -8,6 +8,7 @@ import { ProductGallery } from "@/components/ProductGallery";
 import { QuantityOptions } from "@/components/QuantityOptions";
 import { Price } from "@/components/Price";
 import { ChinaInset } from "@/components/ChinaInset";
+import { ChinaTrees } from "@/components/ChinaTrees";
 import { VietnamInset } from "@/components/VietnamInset";
 import { VietnamLogs } from "@/components/VietnamLogs";
 import { getProduct, productList, products } from "@/content/catalog";
@@ -84,6 +85,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
           </div>
 
           {product.originMap === "vietnam" && <VietnamLogs />}
+          {product.originMap === "china" && <ChinaTrees />}
         </div>
 
         {/* Purchase */}
