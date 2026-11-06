@@ -12,13 +12,17 @@ const INTERVAL_MS = 2000;
  * A quiet slideshow that fills its (relative) parent: one Aquilaria species per region, a new
  * one every two seconds, each with its Latin name and region. A slide shows its photograph when
  * it has one, otherwise the region's outline. Lies behind the heading (the parent keeps the
- * text above it); the slides cross-fade, and with reduced motion it stays on the first one.
+ * text above it); the slides cross-fade and drift slowly.
+ *
+ * With "reduce motion" switched on in the system (Windows: Accessibility > Visual effects >
+ * Animation effects off) the slides still change every two seconds, because they carry the
+ * species and region names, but they swap instantly and without the drift: `motion-reduce:`
+ * classes here and the `prefers-reduced-motion` rule in globals.css remove the movement.
  */
 export function SpeciesBackdrop({ slides }: { slides: SpeciesSlide[] }) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = window.setInterval(() => {
       if (!document.hidden) setIndex((i) => (i + 1) % slides.length);
     }, INTERVAL_MS);
