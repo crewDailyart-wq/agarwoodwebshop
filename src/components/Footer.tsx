@@ -124,12 +124,9 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-gold-hair">
-        <div className="mx-auto flex max-w-[1400px] flex-col items-center gap-2 px-5 py-6 text-center text-[0.8rem] text-ivory-faint sm:px-8">
-          <p className="font-[family-name:var(--font-caps)] text-[0.62rem] uppercase tracking-[0.3em] text-gold">
-            Rare woods. A more fragrant world.
-          </p>
-          <p>© {site.name}. All rights reserved.</p>
-        </div>
+        <p className="mx-auto max-w-[1400px] px-5 py-5 text-center text-[0.8rem] text-ivory-faint sm:px-8">
+          © {site.name}. All rights reserved.
+        </p>
       </div>
     </footer>
   );
