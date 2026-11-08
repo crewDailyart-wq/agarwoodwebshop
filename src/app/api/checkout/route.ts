@@ -10,6 +10,8 @@ import {
   shippingFor,
 } from "@/lib/checkout";
 import { notifyOwner, offlineConfig, type OfflineMethod } from "@/lib/offline-payments";
+import { attachMolliePayment, markOrderFailed, saveOrder } from "@/lib/orders";
+import { getUser } from "@/lib/session";
 
 const str = (v: unknown, max = 200) =>
   typeof v === "string" && v.trim().length > 0 && v.length <= max ? v.trim() : null;
@@ -69,6 +71,21 @@ export async function POST(request: Request) {
   const totalCents = priced.subtotalCents + shippingCents;
   const ref = randomBytes(5).toString("hex").toUpperCase();
 
+  // Kept in the database so the customer can see it under "My account". If they're signed in the
+  // order is theirs straight away; otherwise it attaches once they confirm that email address.
+  const user = await getUser().catch(() => null);
+  const record = {
+    ref,
+    userId: user?.emailVerified ? user.id : null,
+    email,
+    name,
+    lines: priced.lines.map((l) => ({ id: l.id, name: l.name, quantity: l.quantity, unitCents: l.unitCents })),
+    subtotalCents: priced.subtotalCents,
+    shippingCents,
+    totalCents,
+    address: { street, postalCode, city, country },
+  };
+
   // Bank transfer or cash: no Mollie. The owner is told by webhook; the customer is shown how to pay.
   if (method !== "online") {
     const ok = await notifyOwner({
@@ -85,6 +102,11 @@ export async function POST(request: Request) {
         { status: 502 },
       );
     }
+    await saveOrder({
+      ...record,
+      status: method === "cash" ? "awaiting_cash" : "awaiting_transfer",
+      paymentMethod: method as OfflineMethod,
+    });
     const response = NextResponse.json({ redirectTo: "/order/offline" });
     response.cookies.set("lastOffline", JSON.stringify({ ref, method, totalCents, email }), {
       httpOnly: true,
@@ -121,6 +143,8 @@ export async function POST(request: Request) {
   // Mollie rejects webhooks it can't reach (e.g. localhost); only send a public URL.
   if (!origin.includes("localhost")) payload.webhookUrl = `${origin}/api/mollie/webhook`;
 
+  await saveOrder({ ...record, status: "pending", paymentMethod: "online" });
+
   const res = await fetch("https://api.mollie.com/v2/payments", {
     method: "POST",
     headers: {
@@ -132,6 +156,7 @@ export async function POST(request: Request) {
 
   if (!res.ok) {
     console.error("Mollie payment creation failed", res.status, await res.text());
+    await markOrderFailed(ref);
     return NextResponse.json(
       { error: "We couldn't start the payment. Please try again." },
       { status: 502 },
@@ -140,7 +165,9 @@ export async function POST(request: Request) {
 
   const payment = (await res.json()) as { id: string; _links?: { checkout?: { href: string } } };
   const checkoutUrl = payment._links?.checkout?.href;
+  await attachMolliePayment(ref, payment.id);
   if (!checkoutUrl) {
+    await markOrderFailed(ref);
     return NextResponse.json({ error: "We couldn't start the payment." }, { status: 502 });
   }
 

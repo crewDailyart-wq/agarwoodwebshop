@@ -47,8 +47,18 @@ export function Header() {
 
         <div className="relative flex min-w-0 items-stretch">
           {/* The logo sits on its own deep-emerald corner, as in the original artwork. */}
-          <div className="flex shrink-0 items-center bg-emerald bg-[radial-gradient(90%_90%_at_50%_45%,#00461a_0%,#002e0a_70%)] px-5 py-2 sm:px-8">
+          <div className="flex shrink-0 flex-col items-center justify-center gap-1.5 bg-emerald bg-[radial-gradient(90%_90%_at_50%_45%,#00461a_0%,#002e0a_70%)] px-5 py-2 sm:px-8">
             <Logo />
+            <Link
+              href="/account"
+              className="flex items-center gap-2 border border-gold/70 px-4 py-1.5 font-[family-name:var(--font-caps)] text-[0.62rem] font-semibold uppercase tracking-[0.26em] text-gold-bright transition-colors hover:bg-gold hover:text-ink"
+            >
+              <svg aria-hidden viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" strokeLinecap="round" />
+              </svg>
+              Account
+            </Link>
           </div>
           {/* Below lg the menu is folded away: a facing pair of branches fills the bar. */}
           <div className="flex min-w-0 flex-1 items-center justify-center gap-1 px-2 sm:gap-4 lg:hidden">

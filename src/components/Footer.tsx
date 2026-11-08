@@ -5,6 +5,8 @@ import { nav } from "@/content/nav";
 import { getMollieMethods } from "@/lib/mollie-methods";
 import { PaymentLogos } from "./PaymentLogos";
 import { StripSmoke } from "./StripSmoke";
+import { Suspense } from "react";
+import { FooterAccount, FooterAccountSkeleton } from "./account/FooterAccount";
 
 const information = [
   { href: "/shop/the-complete-ritual", label: "Complete Agarwood Set" },
@@ -55,12 +57,19 @@ export async function Footer() {
   return (
     <footer className="mt-auto border-t-2 border-gold-line bg-night/90">
       <div className="mx-auto max-w-[1400px] px-5 pb-10 pt-12 sm:px-8">
-        {/* Crest */}
-        <div className="flex flex-col items-center text-center">
-          <Logo small />
-          <p className="mt-4 font-[family-name:var(--font-display)] text-lg italic text-ivory-soft">
-            {site.tagline}
-          </p>
+        {/* Crest, with the account corner on its left */}
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
+          <div className="order-first flex flex-col items-center text-center lg:order-none lg:col-start-2">
+            <Logo small />
+            <p className="mt-4 font-[family-name:var(--font-display)] text-lg italic text-ivory-soft">
+              {site.tagline}
+            </p>
+          </div>
+          <div className="flex justify-center lg:col-start-1 lg:row-start-1 lg:justify-start">
+            <Suspense fallback={<FooterAccountSkeleton />}>
+              <FooterAccount />
+            </Suspense>
+          </div>
         </div>
         <Rule className="my-10" />
 

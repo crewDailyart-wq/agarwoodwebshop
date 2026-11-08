@@ -71,6 +71,11 @@ export function MobileMenu() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link href="/account" onClick={() => setOpen(false)} className="display block py-2 text-2xl">
+                My account
+              </Link>
+            </li>
           </ul>
         </nav>
       )}
