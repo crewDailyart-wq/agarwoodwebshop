@@ -20,7 +20,8 @@ export type ProductId =
   | "china-chips-large"
   | "china-chips-medium"
   | "china-granules"
-  | "incense-burner" | "the-complete-ritual" | "pure-camphor";
+  | "the-complete-ritual"
+  | "pure-camphor";
 
 export type Photo = {
   /** Path under /public, e.g. "/photos/chips-hero.jpg". `null` = placeholder shown. */
@@ -125,7 +126,7 @@ export const products: Record<ProductId, Product> = {
       { label: "Growth", value: null }, // e.g. plantation / wild — never assume
     ],
     sections: [], // the Fragrance / How to burn / Storage / Shipping panel was removed (owner, Oct 2026)
-    related: ["incense-burner"],
+    related: [],
     seo: {
       title: "High Grade Vietnamese Agarwood Chips",
       description:
@@ -197,7 +198,7 @@ export const products: Record<ProductId, Product> = {
       { label: "Growth", value: null },
     ],
     sections: [],
-    related: ["incense-burner"],
+    related: [],
     seo: {
       title: "High Oil Agarwood Chips from Southern China, Large chips",
       description:
@@ -262,7 +263,7 @@ export const products: Record<ProductId, Product> = {
       { label: "Growth", value: null },
     ],
     sections: [],
-    related: ["incense-burner"],
+    related: [],
     seo: {
       title: "High Oil Agarwood Chips from Southern China, Middle size chips",
       description:
@@ -322,73 +323,11 @@ export const products: Record<ProductId, Product> = {
       { label: "Growth", value: null },
     ],
     sections: [],
-    related: ["incense-burner"],
+    related: [],
     seo: {
       title: "High Oil Agarwood Chips from Southern China, Agarwood granules",
       description:
         "High oil agarwood from Southern China, agarwood granules, for burning as incense: warmed slowly, never lit.",
-    },
-  },
-
-  "incense-burner": {
-    id: "incense-burner",
-    slug: "incense-burner",
-    name: "The Incense Burner",
-    subtitle: "Made to warm agarwood slowly",
-    cardLabel: "For warming agarwood",
-    summary: "A refined burner designed for the gentle, indirect heat that agarwood deserves.",
-    description: [
-      "Agarwood is at its best when it is warmed, not burned. The burner holds the heat at a distance and lets the resin release gradually.",
-      "Designed to sit quietly on a table or shelf, and to be used often.",
-    ],
-    priceCents: 6500, // PLACEHOLDER
-    stock: null,
-    variants: [],
-    photos: [
-      {
-        src: null,
-        alt: "The incense burner on a dark surface",
-        brief: "Hero shot of the burner, warm studio light, metalwork detail, soft smoke.",
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: null,
-        alt: "Detail of the incense burner's metalwork",
-        brief: "Close detail of the material and finish.",
-        width: 1200,
-        height: 1500,
-      },
-    ],
-    facts: [
-      { label: "Material", value: null },
-      { label: "Dimensions", value: null },
-      { label: "Heating method", value: null },
-    ],
-    sections: [
-      {
-        title: "Heating methods",
-        body: [
-          "Compatible heating methods will be listed here once confirmed for the supplied burner.",
-        ],
-      },
-      {
-        title: "Care and cleaning",
-        body: [
-          "Let the burner cool completely before handling or cleaning. Wipe with a dry or slightly damp cloth; avoid abrasive cleaners.",
-        ],
-      },
-      {
-        title: "Safe handling",
-        body: [
-          "The burner becomes hot in use. Place on a stable, heat-resistant surface, keep away from children and pets, and never leave it unattended while hot.",
-        ],
-      },
-    ],
-    related: ["agarwood-chips"],
-    seo: {
-      title: "The Incense Burner",
-      description: "An incense burner made for warming agarwood chips slowly and evenly.",
     },
   },
 
@@ -407,7 +346,6 @@ export const products: Record<ProductId, Product> = {
     variants: [],
     includes: [
       { id: "agarwood-chips", quantity: 1 },
-      { id: "incense-burner", quantity: 1 },
     ],
     photos: [
       {
