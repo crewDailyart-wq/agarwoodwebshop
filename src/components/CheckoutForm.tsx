@@ -7,24 +7,36 @@ import { cartSubtotalCents, useCartLines } from "@/lib/cart";
 import type { ShippingInfo } from "@/lib/checkout";
 import { shippingFor } from "@/lib/checkout";
 import { formatMoney } from "@/lib/money";
+import type { PaymentMethod } from "@/content/payments";
+import { PaymentLogos } from "./PaymentLogos";
 
 const field =
   "w-full min-h-12 border border-gold-line bg-transparent px-4 text-ivory placeholder:text-ivory-faint focus:border-gold focus:outline-none";
 
+type PayChoice = "online" | "bank-transfer" | "cash";
+
 export function CheckoutForm({
   info,
   paymentsReady,
+  methods,
+  bankReady,
+  cashReady,
 }: {
   info: ShippingInfo;
   paymentsReady: boolean;
+  methods: PaymentMethod[];
+  bankReady: boolean;
+  cashReady: boolean;
 }) {
   const lines = useCartLines();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [pay, setPay] = useState<PayChoice>(paymentsReady ? "online" : bankReady ? "bank-transfer" : "cash");
 
   const subtotal = cartSubtotalCents(lines);
   const shipping = shippingFor(subtotal, info);
-  const canOrder = lines.length > 0 && shipping !== null && paymentsReady;
+  const payAvailable = pay === "online" ? paymentsReady : pay === "bank-transfer" ? bankReady : cashReady;
+  const canOrder = lines.length > 0 && shipping !== null && payAvailable;
 
   if (lines.length === 0) {
     return (
@@ -49,15 +61,17 @@ export function CheckoutForm({
         body: JSON.stringify({
           items: lines,
           customer: Object.fromEntries(data),
+          paymentMethod: pay,
         }),
       });
-      const json = (await res.json()) as { checkoutUrl?: string; error?: string };
-      if (!res.ok || !json.checkoutUrl) {
+      const json = (await res.json()) as { checkoutUrl?: string; redirectTo?: string; error?: string };
+      const next = json.checkoutUrl ?? json.redirectTo;
+      if (!res.ok || !next) {
         setError(json.error ?? "Something went wrong. Please try again.");
         setBusy(false);
         return;
       }
-      window.location.assign(json.checkoutUrl);
+      window.location.assign(next);
     } catch {
       setError("We couldn't reach the server. Please try again.");
       setBusy(false);
@@ -113,7 +127,72 @@ export function CheckoutForm({
           </label>
         </fieldset>
 
-        {!paymentsReady && (
+        <fieldset className="space-y-3">
+          <legend className="eyebrow mb-4">Payment</legend>
+          {(
+            [
+              {
+                id: "online",
+                title: "Pay online with Mollie",
+                ready: paymentsReady,
+                body: (
+                  <>
+                    <span className="block text-sm text-ivory-soft">
+                      You choose your method on the next, secure Mollie page.
+                    </span>
+                    <PaymentLogos methods={methods} className="mt-3" />
+                  </>
+                ),
+              },
+              {
+                id: "bank-transfer",
+                title: "Direct bank transfer",
+                ready: bankReady,
+                body: (
+                  <span className="block text-sm text-ivory-soft">
+                    After you order, you see our bank details and your payment reference. We send your
+                    order once the payment has arrived.
+                  </span>
+                ),
+              },
+              {
+                id: "cash",
+                title: "Cash, sent by post",
+                ready: cashReady,
+                body: (
+                  <span className="block text-sm text-ivory-soft">
+                    After you order, you see where to send the cash and your payment reference. We send
+                    your order once the cash has arrived. Cash sent by post is at your own risk.
+                  </span>
+                ),
+              },
+            ] as const
+          ).map((opt) => (
+            <label
+              key={opt.id}
+              className={`block cursor-pointer border p-4 transition-colors ${
+                pay === opt.id ? "border-gold bg-gold/[0.07]" : "border-gold-line"
+              } ${opt.ready ? "" : "cursor-not-allowed opacity-60"}`}
+            >
+              <span className="flex items-center gap-3">
+                <input
+                  type="radio"
+                  name="pay"
+                  value={opt.id}
+                  checked={pay === opt.id}
+                  disabled={!opt.ready}
+                  onChange={() => setPay(opt.id)}
+                  className="h-4 w-4 accent-[#c9a05a]"
+                />
+                <span className="text-base text-ivory">{opt.title}</span>
+                {!opt.ready && <span className="text-xs text-ivory-faint">Not available yet</span>}
+              </span>
+              <span className="mt-2 block pl-7">{opt.body}</span>
+            </label>
+          ))}
+        </fieldset>
+
+        {!paymentsReady && !bankReady && !cashReady && (
           <p role="status" className="border border-gold-line p-4 text-sm text-ivory-soft">
             Payments aren&apos;t switched on yet, so orders can&apos;t be placed.
           </p>
@@ -130,11 +209,9 @@ export function CheckoutForm({
         )}
 
         <button type="submit" disabled={!canOrder || busy} className="btn btn-solid w-full sm:w-auto">
-          {busy ? "One moment…" : "Continue to payment"}
+          {busy ? "One moment…" : pay === "online" ? "Continue to payment" : "Place order"}
         </button>
-        <p className="text-xs text-ivory-faint">
-          You&apos;ll choose how to pay — including iDEAL — on the next, secure page. No account needed.
-        </p>
+        <p className="text-xs text-ivory-faint">No account needed.</p>
       </form>
 
       <aside aria-label="Order summary" className="h-fit border border-gold-line p-6">

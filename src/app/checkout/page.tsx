@@ -3,6 +3,8 @@ import { connection } from "next/server";
 import { Suspense } from "react";
 import { CheckoutForm } from "@/components/CheckoutForm";
 import { getShippingInfo, mollieConfigured } from "@/lib/checkout";
+import { getMollieMethods } from "@/lib/mollie-methods";
+import { offlineConfig } from "@/lib/offline-payments";
 
 export const metadata: Metadata = {
   title: "Checkout",
@@ -12,7 +14,16 @@ export const metadata: Metadata = {
 // Read at request time so shipping and payment settings can change without a rebuild.
 async function Form() {
   await connection();
-  return <CheckoutForm info={getShippingInfo()} paymentsReady={mollieConfigured()} />;
+  const offline = offlineConfig();
+  return (
+    <CheckoutForm
+      info={getShippingInfo()}
+      paymentsReady={mollieConfigured()}
+      methods={await getMollieMethods()}
+      bankReady={offline.bankReady}
+      cashReady={offline.cashReady}
+    />
+  );
 }
 
 export default function CheckoutPage() {

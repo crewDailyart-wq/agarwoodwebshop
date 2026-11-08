@@ -15,7 +15,7 @@ npm run dev
 - `src/content/catalog.ts` — the two products and the bundle. **Prices are placeholders** until `pricesConfirmed` is set to true. Unverified facts (origin, species, weight…) are `null` and simply not shown.
 - `src/content/site.ts` — brand name, contact, shipping countries, tax settings.
 - `src/components/PhotoSlot.tsx` — shows a labelled placeholder until a real photo path is set in the catalog (`/public/photos/…`).
-- `src/app/api/checkout` — validates the cart against the catalog on the server and creates a Mollie payment (iDEAL and other methods appear on Mollie's hosted page).
+- `src/app/api/checkout` — validates the cart against the catalog on the server and creates a Mollie payment (every method switched on in Mollie appears on its hosted page; logos in `src/content/payments.ts`), or registers a direct bank transfer / cash order (`src/lib/offline-payments.ts`, see `.env.example`).
 
 ## Not built yet
 

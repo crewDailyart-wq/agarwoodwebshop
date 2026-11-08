@@ -2,6 +2,9 @@ import Link from "next/link";
 import { site } from "@/content/site";
 import { Logo } from "./Header";
 import { nav } from "@/content/nav";
+import { getMollieMethods } from "@/lib/mollie-methods";
+import { PaymentLogos } from "./PaymentLogos";
+import { StripSmoke } from "./StripSmoke";
 
 const information = [
   { href: "/shop/the-complete-ritual", label: "Complete Agarwood Set" },
@@ -10,13 +13,6 @@ const information = [
   { href: "/shipping-returns", label: "Shipping & returns" },
   { href: "/privacy", label: "Privacy policy" },
 ];
-
-/**
- * Payment methods shown in the footer. Payment is taken on Mollie's secure page,
- * so this list must match the methods switched on in the Mollie dashboard.
- * Plain text plaques on purpose: no third-party logos are copied.
- */
-const payments = ["iDEAL", "Visa", "Mastercard", "Bancontact", "PayPal"];
 
 /** A fine gold rule with a small diamond in the middle. */
 function Rule({ className = "" }: { className?: string }) {
@@ -54,7 +50,8 @@ function LinkList({ items, label }: { items: { href: string; label: string }[]; 
   );
 }
 
-export function Footer() {
+export async function Footer() {
+  const methods = await getMollieMethods();
   return (
     <footer className="mt-auto border-t-2 border-gold-line bg-night/90">
       <div className="mx-auto max-w-[1400px] px-5 pb-10 pt-12 sm:px-8">
@@ -94,8 +91,9 @@ export function Footer() {
 
           <section>
             <ColumnTitle>Payment</ColumnTitle>
-            <ul className="flex flex-wrap gap-2" aria-label="Accepted payment methods">
-              {payments.map((p) => (
+            <PaymentLogos methods={methods} />
+            <ul className="mt-3 flex flex-wrap gap-2" aria-label="Other ways to pay">
+              {["Direct bank transfer", "Cash"].map((p) => (
                 <li
                   key={p}
                   className="border border-gold-line bg-black/30 px-3 py-1.5 font-[family-name:var(--font-caps)] text-[0.68rem] font-medium uppercase tracking-[0.14em] text-ivory"
@@ -105,7 +103,7 @@ export function Footer() {
               ))}
             </ul>
             <p className="mt-4 text-[0.88rem] leading-relaxed text-ivory-faint">
-              Secure checkout. You choose how to pay on the next page.
+              Secure checkout through Mollie. You choose how to pay at checkout.
             </p>
             {site.social.length > 0 && (
               <ul className="mt-6 flex flex-col gap-2">
@@ -123,8 +121,9 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-gold-hair">
-        <p className="mx-auto max-w-[1400px] px-5 py-5 text-center text-[0.8rem] text-ivory-faint sm:px-8">
+      <div className="relative overflow-hidden border-t border-gold/50 bg-black">
+        <StripSmoke />
+        <p className="relative mx-auto flex h-14 max-w-[1400px] items-center justify-center px-5 text-center font-[family-name:var(--font-caps)] text-[0.7rem] tracking-[0.16em] text-gold-bright [text-shadow:0_0_3px_#000,0_0_7px_#000,0_0_14px_#000,0_0_22px_#000] sm:px-8">
           © {site.name}. All rights reserved.
         </p>
       </div>

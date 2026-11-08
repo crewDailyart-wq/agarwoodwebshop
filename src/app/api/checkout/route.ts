@@ -9,6 +9,7 @@ import {
   priceOrder,
   shippingFor,
 } from "@/lib/checkout";
+import { notifyOwner, offlineConfig, type OfflineMethod } from "@/lib/offline-payments";
 
 const str = (v: unknown, max = 200) =>
   typeof v === "string" && v.trim().length > 0 && v.length <= max ? v.trim() : null;
@@ -49,15 +50,51 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!mollieConfigured()) {
+  const method = body.paymentMethod === "bank-transfer" || body.paymentMethod === "cash" ? body.paymentMethod : "online";
+  const offline = offlineConfig();
+
+  if (method === "online" && !mollieConfigured()) {
     return NextResponse.json(
-      { error: "Payments aren't configured yet, so orders can't be placed." },
+      { error: "Online payment isn't configured yet, so orders can't be placed." },
+      { status: 503 },
+    );
+  }
+  if ((method === "bank-transfer" && !offline.bankReady) || (method === "cash" && !offline.cashReady)) {
+    return NextResponse.json(
+      { error: "That way of paying isn't available yet. Please choose another." },
       { status: 503 },
     );
   }
 
   const totalCents = priced.subtotalCents + shippingCents;
   const ref = randomBytes(5).toString("hex").toUpperCase();
+
+  // Bank transfer or cash: no Mollie. The owner is told by webhook; the customer is shown how to pay.
+  if (method !== "online") {
+    const ok = await notifyOwner({
+      ref,
+      method: method as OfflineMethod,
+      totalCents,
+      shippingCents,
+      customer: { name, email, street, postalCode, city, country },
+      lines: priced.lines.map((l) => ({ id: l.id, name: l.name, quantity: l.quantity, unitCents: l.unitCents })),
+    });
+    if (!ok) {
+      return NextResponse.json(
+        { error: "We couldn't register your order. Please try again, or choose another way to pay." },
+        { status: 502 },
+      );
+    }
+    const response = NextResponse.json({ redirectTo: "/order/offline" });
+    response.cookies.set("lastOffline", JSON.stringify({ ref, method, totalCents, email }), {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
+    return response;
+  }
   const origin = process.env.NEXT_PUBLIC_SITE_URL ?? site.url;
 
   const payload: Record<string, unknown> = {
