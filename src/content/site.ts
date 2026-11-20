@@ -12,7 +12,12 @@ export const site = {
     "Genuine agarwood chips for burning, and an incense burner made for them. One chip. One burner. One ritual.",
   /** Set NEXT_PUBLIC_SITE_URL in production. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  contactEmail: null as string | null, // TODO: owner to supply
+  contactEmail: "alluwah@hotmail.com" as string | null, // owner, Nov 2026
+  /** Wholesale phone numbers: `display` is shown, `tel` is the dialable form (country code, no 0). */
+  wholesalePhones: [
+    { display: "+31 6 17720465", tel: "+31617720465" },
+    { display: "+31 6 85163960", tel: "+31685163960" },
+  ],
   social: [] as { label: string; href: string }[], // TODO: owner to supply
   currency: "EUR" as const,
   locale: "en-NL",

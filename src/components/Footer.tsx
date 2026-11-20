@@ -76,16 +76,32 @@ export async function Footer() {
         {/* Columns */}
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
           <section>
-            <ColumnTitle>Our House</ColumnTitle>
-            <p className="max-w-[28ch] text-[0.98rem] leading-relaxed text-ivory-soft">
-              Genuine agarwood from different parts of Asia, offered with respect for the tree and
-              for the ritual.
-            </p>
-            <p className="side-note mt-5 !text-[0.55rem] !text-ivory">
-              A more fragrant world
-              <br />
-              for generations to come.
-            </p>
+            <ColumnTitle>Contact / Wholesale</ColumnTitle>
+            <div className="space-y-6 text-[0.98rem] leading-relaxed text-ivory-soft">
+              <div>
+                <p className="mb-2">For wholesale inquiries you can contact us on the following numbers:</p>
+                <ul className="space-y-1">
+                  {site.wholesalePhones.map((p) => (
+                    <li key={p.tel}>
+                      <a href={`tel:${p.tel}`} className="tabular-nums text-ivory hover:text-gold-bright">
+                        {p.display}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {site.contactEmail && (
+                <div>
+                  <p className="mb-2">For any question you can send us an e-mail to:</p>
+                  <a
+                    href={`mailto:${site.contactEmail}`}
+                    className="break-all text-ivory underline decoration-gold/50 underline-offset-4 hover:text-gold-bright"
+                  >
+                    {site.contactEmail}
+                  </a>
+                </div>
+              )}
+            </div>
           </section>
 
           <section>
