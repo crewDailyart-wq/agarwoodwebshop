@@ -5,6 +5,7 @@
  * (added Nov 2026 on the owner's say-so, with its own page at /camphor), and the three
  * High Oil Agarwood Chips from Southern China (large chips, middle size chips, granules;
  * added Nov 2026 on the owner's say-so).
+ * Thin Vietnamese agarwood chips (added Nov 2026 on the owner's say-so).
  * Do not add others without the owner's say-so.
  *
  * Facts that need verification (origin, species, certificates, dimensions,
@@ -17,6 +18,7 @@
 
 export type ProductId =
   | "agarwood-chips"
+  | "agarwood-chips-thin"
   | "china-chips-large"
   | "china-chips-medium"
   | "china-granules"
@@ -137,6 +139,70 @@ export const products: Record<ProductId, Product> = {
       title: "High Grade Vietnamese Agarwood Chips",
       description:
         "Genuine Vietnamese agarwood chips for burning as incense — resin-rich, warmed slowly, never lit.",
+    },
+  },
+
+  "agarwood-chips-thin": {
+    id: "agarwood-chips-thin",
+    slug: "agarwood-chips-thin",
+    name: "High Grade Vietnamese Agarwood Chips - Thin",
+    originMap: "vietnam",
+    cardLabel: "Thin chips",
+    summary:
+      "Thin, resin-rich agarwood chips, selected to be warmed slowly and enjoyed as the fragrance unfolds.",
+    bismillah: true,
+    description: [
+      "We hereby offer our high grade, thin Vietnamese agarwood chips. You can use them as incense to perfume yourself and your surroundings.",
+      "The smoke of agarwood/aloeswood incense is said to have many benefits, including physical health benefits. The difference between quality of agarwood chips can be likened to the difference in fruits when they ripen, no doubt that when a fruit ripens more, it becomes more pleasing to us and is generally better for us. Prophet Muhammad \uFDFA used it to perfume himself as mentioned in the narration we put on our homepage. We know from the following narration that our deeds are by their intention:",
+      { narration: "bukhari-6689" },
+      "So whomsoever uses the agarwood to follow the tradition of Prophet Muhammad \uFDFA then he will be rewarded for it beyond the benefit he already gets by using it in the first place, but whomsoever uses it only for his own satisfaction then that will be his reward. As such we must try to set our intention straight with everything we do in our lives. Cleanliness and personal hygiene are highly encouraged in Islam.",
+    ],
+    priceCents: 9500, // PLACEHOLDER
+    stock: null,
+    variants: [],
+    photos: [
+      {
+        src: "/photos/vietnam-thin-1.jpg",
+        alt: "Thin Vietnamese agarwood chips piled around the ALUWWAH wooden box with the engraved gold tree logo",
+        brief: "The ALUWWAH box resting on a bed of thin chips, seen from above.",
+        width: 1600,
+        height: 1200,
+      },
+      {
+        src: "/photos/vietnam-thin-2.jpg",
+        alt: "A hand held in front of the ALUWWAH box with a long thin agarwood chip in the foreground",
+        brief: "A long thin chip held in the hand for scale, with the ALUWWAH box behind.",
+        width: 1600,
+        height: 1200,
+      },
+      {
+        src: "/photos/vietnam-thin-3.jpg",
+        alt: "A long thin agarwood chip lying across the ALUWWAH box, with more thin chips around",
+        brief: "A long thin chip across the box, more chips around it.",
+        width: 1600,
+        height: 1200,
+      },
+      {
+        src: "/photos/vietnam-thin-4.jpg",
+        alt: "A long thin agarwood chip with fine, even grain lying over the ALUWWAH box",
+        brief: "A long thin chip with fine, even grain.",
+        width: 1600,
+        height: 1200,
+      },
+    ],
+    facts: [
+      { label: "Country of origin", value: "Vietnam" }, // owner, Oct 2026
+      { label: "Botanical species", value: null },
+      { label: "Net weight", value: null },
+      { label: "Grade", value: null },
+      { label: "Growth", value: null }, // e.g. plantation / wild — never assume
+    ],
+    sections: [], // the Fragrance / How to burn / Storage / Shipping panel was removed (owner, Oct 2026)
+    related: [],
+    seo: {
+      title: "High Grade Vietnamese Agarwood Chips - Thin",
+      description:
+        "Genuine thin Vietnamese agarwood chips for burning as incense — resin-rich, warmed slowly, never lit.",
     },
   },
 

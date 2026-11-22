@@ -88,6 +88,7 @@ export default function CollectionPage() {
 
         <div className="mx-auto mt-10 grid max-w-[1240px] gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <ProductCard product={products["agarwood-chips"]} inset={<VietnamInset />} />
+          <ProductCard product={products["agarwood-chips-thin"]} inset={<VietnamInset />} />
 
           {/* A reminder, in the place of a product. */}
           <article className="frame velvet relative flex flex-col px-6 py-7 text-center sm:row-span-1">
