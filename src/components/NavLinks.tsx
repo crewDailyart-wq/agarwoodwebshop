@@ -8,7 +8,7 @@ import { nav } from "@/content/nav";
 export function NavLinks() {
   const pathname = usePathname();
   return (
-    <ul className="flex items-center gap-2.5 min-[1100px]:gap-4 min-[1400px]:gap-6">
+    <ul className="flex items-center gap-2.5 min-[1100px]:gap-4 min-[1400px]:gap-4 min-[1600px]:gap-6">
       {nav.map((item, i) => {
         const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
         return (

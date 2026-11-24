@@ -35,9 +35,10 @@ const side = (sign: 1 | -1) =>
   });
 const BRANCH = `M${side(1).join("L")}L${side(-1).reverse().join("L")}Z`;
 
-// Leaves fan up and out like the logo's canopy; pairs, larger at the base.
-const leaves = Array.from({ length: 12 }, (_, i) => {
-  const t = 0.1 + Math.floor(i / 2) * 0.15 + (i % 2) * 0.05;
+// Leaves fan up and out like the logo's canopy; pairs, larger at the base. Five pairs and the tip
+// leaf make eleven leaves on each branch.
+const leaves = Array.from({ length: 10 }, (_, i) => {
+  const t = 0.1 + Math.floor(i / 2) * 0.19 + (i % 2) * 0.05;
   const { x, y, angle } = at(Math.min(t, 0.97));
   const up = i % 2 === 0;
   const s = 1.15 - t * 0.5;

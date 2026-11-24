@@ -4,7 +4,6 @@ import { site } from "@/content/site";
 import { CartButton } from "./CartButton";
 import { MobileMenu } from "./MobileMenu";
 import { NavLinks } from "./NavLinks";
-import { SearchIcon } from "./icons";
 import { AgarwoodBranch, StarLattice } from "./HeaderOrnament";
 import { StripSmoke } from "./StripSmoke";
 import logo from "@/assets/aluwwah-logo.png";
@@ -39,8 +38,8 @@ export function Header() {
         </p>
       </div>
 
-      {/* Three columns with equal outer widths, so the menu sits exactly under the strip's text. */}
-      <div className="relative grid grid-cols-[1fr_auto] items-stretch border-b border-gold bg-white lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
+      {/* Logo and cart take only the room they need; the menu, flanked by its branches, gets all the rest. */}
+      <div className="relative grid grid-cols-[1fr_auto] items-stretch border-b border-gold bg-white lg:grid-cols-[auto_minmax(0,1fr)_auto]">
         <StarLattice
           className="pointer-events-none absolute inset-0 h-full w-full text-gold-deep opacity-[0.28] [mask-image:linear-gradient(90deg,#000,rgb(0_0_0/0.35)_40%,rgb(0_0_0/0.35)_60%,#000)]"
         />
@@ -68,23 +67,16 @@ export function Header() {
         </div>
 
         {/* Menu flanked by two identical branches, so the centre stays symmetrical. */}
-        <div className="relative hidden items-center gap-3 px-3 lg:flex min-[1600px]:gap-4">
-          <AgarwoodBranch id="orn-l" className="hidden h-[3.5rem] w-auto shrink-0 min-[1440px]:block min-[1600px]:h-[5.6rem]" />
+        <div className="relative hidden items-center justify-center gap-3 px-3 lg:flex min-[1600px]:gap-4">
+          <AgarwoodBranch id="orn-l" className="hidden h-[3rem] w-auto shrink-0 min-[1440px]:block min-[1600px]:h-[5.6rem]" />
           <nav aria-label="Main">
             <NavLinks />
           </nav>
-          <AgarwoodBranch id="orn-r" className="hidden h-[3.5rem] w-auto shrink-0 -scale-x-100 min-[1440px]:block min-[1600px]:h-[5.6rem]" />
+          <AgarwoodBranch id="orn-r" className="hidden h-[3rem] w-auto shrink-0 -scale-x-100 min-[1440px]:block min-[1600px]:h-[5.6rem]" />
         </div>
 
         <div className="relative flex min-w-0 items-center justify-end">
           <div className="flex shrink-0 items-center gap-1 pr-4 sm:gap-2 sm:pr-6">
-            <Link
-              href="/collection"
-              aria-label="Search the collection"
-              className="hidden h-11 w-11 items-center justify-center text-gold-deep hover:text-emerald sm:flex"
-            >
-              <SearchIcon className="h-6 w-6" />
-            </Link>
             <CartButton />
             <MobileMenu />
           </div>
