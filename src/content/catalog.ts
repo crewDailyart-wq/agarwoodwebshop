@@ -490,9 +490,14 @@ export const products: Record<ProductId, Product> = {
       "Leaving the camphor exposed in any place causes it to perfume its surroundings, but it also evaporates quickly, because it undergoes sublimation, which means that it transfers immediately from a solid state to a gas state. This is caused by the outward vapor pressure of the camphor, which is stronger than the air resistance it undergoes, causing it to \u2018escape\u2019 into the air.",
       "Knowing and understanding these scientific processes should not in any way decrease us in our faith; rather it should make us contemplate more about our existence and increase us in our love for the One who created our complex reality.",
     ],
-    priceCents: 1200, // PLACEHOLDER
+    priceCents: 700, // from the 30 g option (owner, Nov 2026)
+    priceConfirmed: true,
     stock: null,
-    variants: [],
+    variants: [
+      { id: "g30", label: "30 g", grams: 30, priceCents: 700 },
+      { id: "g50", label: "50 g", grams: 50, priceCents: 1000 },
+      { id: "g100", label: "100 g", grams: 100, priceCents: 1750 },
+    ],
     photos: [
       {
         src: "/photos/camphor-1.jpg",

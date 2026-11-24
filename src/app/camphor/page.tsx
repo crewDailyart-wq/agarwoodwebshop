@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { AddToCart } from "@/components/AddToCart";
 import { withSalutation } from "@/components/NarrationBody";
 import { NarrationCarousel } from "@/components/NarrationCarousel";
 import { ProductGallery } from "@/components/ProductGallery";
 import { Price } from "@/components/Price";
-import { QuantityOptions } from "@/components/QuantityOptions";
-import { products } from "@/content/catalog";
+import { WeightPurchase } from "@/components/WeightPurchase";
+import { priceIsFinal, products } from "@/content/catalog";
 import { camphorNarrations } from "@/content/narrations";
 import { site } from "@/content/site";
 
@@ -69,13 +68,14 @@ export default function CamphorPage() {
     name: product.name,
     description: product.seo.description,
     brand: { "@type": "Brand", name: site.name },
-    offers: {
+    offers: product.variants.map((v) => ({
       "@type": "Offer",
+      name: v.label,
       priceCurrency: site.currency,
-      price: (product.priceCents / 100).toFixed(2),
+      price: (v.priceCents / 100).toFixed(2),
       availability: "https://schema.org/InStock",
       url: `${site.url}/camphor`,
-    },
+    })),
   };
 
   return (
@@ -129,11 +129,15 @@ export default function CamphorPage() {
             </div>
             <div className="mt-6 text-center">
               <h2 className="display text-[2.1rem] leading-tight">{product.name}</h2>
-              <Price cents={product.priceCents} className="mt-2 block text-xl tabular-nums" />
+              <Price
+                cents={product.priceCents}
+                from
+                final={priceIsFinal(product)}
+                className="mt-2 block text-xl tabular-nums"
+              />
             </div>
             <div className="mt-6 space-y-5 border-t border-gold-line pt-6">
-              <QuantityOptions product={product} />
-              <AddToCart id={product.id} />
+              <WeightPurchase product={product} />
             </div>
 
             {/* The description: Bismillah, what the camphor is and how to use it, and a closing reflection. */}

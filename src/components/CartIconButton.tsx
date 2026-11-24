@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { getProduct, type ProductId } from "@/content/catalog";
+import { getProduct, productHref, type ProductId } from "@/content/catalog";
 import { cart } from "@/lib/cart";
 import { CartIcon } from "./icons";
 
@@ -12,7 +12,7 @@ export function CartIconButton({ id, name, soldOut = false }: { id: ProductId; n
   if (product && product.variants.length > 0) {
     return (
       <Link
-        href={`/shop/${product.slug}`}
+        href={productHref(product)}
         aria-label={`Choose a weight of ${name}`}
         className="flex h-11 w-12 shrink-0 items-center justify-center bg-emerald text-gold-bright transition-colors hover:bg-gold hover:text-ink"
       >

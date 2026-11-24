@@ -5,6 +5,14 @@ import { priceIsFinal, type Product } from "@/content/catalog";
 import { cart } from "@/lib/cart";
 import { formatMoney } from "@/lib/money";
 
+/** "€2.00 per gram", or "€17.50 per 100 g" when a gram costs under a euro (a price per gram would round badly). */
+function unitPrice(cents: number, grams: number) {
+  const perGram = cents / grams;
+  return perGram >= 100
+    ? `${formatMoney(Math.round(perGram))} per gram`
+    : `${formatMoney(Math.round(perGram * 100))} per 100 g`;
+}
+
 /**
  * Choose a weight, then a number of packs, then add to cart. Each weight shows its price and the
  * price per gram, so the bigger packs are clearly the better value. A native radio group, so it works
@@ -21,7 +29,7 @@ export function WeightPurchase({ product, soldOut = false }: { product: Product;
     <div className="space-y-6">
       <fieldset>
         <legend className="eyebrow eyebrow-gold mb-4 !text-[0.72rem] !tracking-[0.3em]">Choose your weight</legend>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className={`grid grid-cols-2 gap-3 ${options.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-4"}`}>
           {options.map((o) => {
             const active = o.id === selected;
             return (
@@ -42,9 +50,7 @@ export function WeightPurchase({ product, soldOut = false }: { product: Product;
                 <span className="font-[family-name:var(--font-display)] text-2xl leading-none text-ivory">{o.label}</span>
                 <span className="tabular-nums text-gold-bright">{formatMoney(o.priceCents)}</span>
                 {o.grams && (
-                  <span className="text-[0.7rem] tabular-nums text-ivory-faint">
-                    {formatMoney(Math.round(o.priceCents / o.grams))} per gram
-                  </span>
+                  <span className="text-[0.7rem] tabular-nums text-ivory-faint">{unitPrice(o.priceCents, o.grams)}</span>
                 )}
                 {active && (
                   <span aria-hidden className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rotate-45 bg-gold" />

@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { priceIsFinal, type Product } from "@/content/catalog";
+import { priceIsFinal, productHref, type Product } from "@/content/catalog";
 import { cart } from "@/lib/cart";
 import { formatMoney } from "@/lib/money";
 import { CartIcon, GoldBranch } from "./icons";
@@ -45,7 +45,7 @@ export function ProductCard({ product, inset }: { product: Product; inset?: Reac
           {hasOptions ? (
             // The weight is chosen on the product page, so this opens it.
             <Link
-              href={`/shop/${product.slug}`}
+              href={productHref(product)}
               aria-label={`Choose a weight of ${product.name}`}
               className="flex h-10 w-11 shrink-0 items-center justify-center bg-emerald text-gold-bright transition-colors hover:bg-gold hover:text-ink"
             >
