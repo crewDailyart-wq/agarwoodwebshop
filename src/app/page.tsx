@@ -5,6 +5,7 @@ import { CharitySection } from "@/components/CharitySection";
 import { FlowerPanel } from "@/components/FlowerPanel";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { SpeciesBackdrop } from "@/components/SpeciesBackdrop";
+import { ChinaInset } from "@/components/ChinaInset";
 import { VietnamInset } from "@/components/VietnamInset";
 import { ArrowIcon, BotanicalSprig, GoldBranch } from "@/components/icons";
 import { priceIsFinal, productHref, products, type Product } from "@/content/catalog";
@@ -110,7 +111,7 @@ function Signs() {
 
 export default function Home() {
   const vietnamese = products["agarwood-chips"];
-  const set = products["the-complete-ritual"];
+  const chinaMiddle = products["china-chips-medium"];
   const camphor = products["pure-camphor"];
 
   return (
@@ -203,10 +204,11 @@ export default function Home() {
             </article>
 
             <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold">
-              <Link href={`/shop/${set.slug}`} tabIndex={-1} aria-hidden className="relative block aspect-[4/3]">
-                <PhotoSlot photo={set.photos[0]} quiet className="absolute inset-0" sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw" />
+              <Link href={productHref(chinaMiddle)} tabIndex={-1} aria-hidden className="relative block aspect-[4/3]">
+                <PhotoSlot photo={chinaMiddle.photos[0]} quiet className="absolute inset-0" sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw" />
+                <ChinaInset />
               </Link>
-              <ProductBody product={set} action={{ href: "/collection", label: "Go to our assortment" }} />
+              <ProductBody product={chinaMiddle} action={{ href: "/collection", label: "Go to our assortment" }} />
             </article>
 
             {/* Pure Camphor: replaces the former "Our Creator's favor upon us" card. */}
