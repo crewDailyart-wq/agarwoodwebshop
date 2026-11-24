@@ -112,6 +112,24 @@ export const camphorNarrations: Narration[] = [
   },
 ];
 
+/**
+ * Hadith 36 of An-Nawawi's Forty Hadith (Sahih Muslim 2699), shown on the Contact page only, so it is
+ * kept apart from `narrations` and does not appear in the carousel of every product. The Arabic follows
+ * the wording of An-Nawawi's collection; English is a plain translation.
+ */
+export const contactNarration: Narration = {
+  id: "nawawi-36",
+  reference: "Hadith 36 of An-Nawawi\u2019s Forty Hadith \u00B7 Sahih Muslim 2699",
+  parts: [
+    {
+      arabic:
+        "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا، نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ، وَمَنْ يَسَّرَ عَلَى مُعْسِرٍ، يَسَّرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالْآخِرَةِ، وَمَنْ سَتَرَ مُسْلِمًا، سَتَرَهُ اللَّهُ فِي الدُّنْيَا وَالْآخِرَةِ، وَاللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ، وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا، سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ، وَمَا اجْتَمَعَ قَوْمٌ فِي بَيْتٍ مِنْ بُيُوتِ اللَّهِ تَعَالَى، يَتْلُونَ كِتَابَ اللَّهِ، وَيَتَدَارَسُونَهُ بَيْنَهُمْ، إِلَّا نَزَلَتْ عَلَيْهِمُ السَّكِينَةُ، وَغَشِيَتْهُمُ الرَّحْمَةُ، وَحَفَّتْهُمُ الْمَلَائِكَةُ، وَذَكَرَهُمُ اللَّهُ فِيمَنْ عِنْدَهُ، وَمَنْ بَطَّأَ بِهِ عَمَلُهُ، لَمْ يُسْرِعْ بِهِ نَسَبُهُ»",
+      english:
+        "Abu Hurairah reported that the Prophet \uFDFA said: \u201CWhoever relieves a believer of one of the distresses of this world, Allah will relieve him of one of the distresses of the Day of Resurrection. Whoever eases the hardship of one in difficulty, Allah will make things easy for him in this world and the Hereafter. Whoever conceals the faults of a Muslim, Allah will conceal his faults in this world and the Hereafter. Allah is in the aid of His servant as long as the servant is in the aid of his brother. Whoever follows a path in which he seeks knowledge, Allah will make easy for him a path to Paradise. No people gather in one of the houses of Allah, reciting the Book of Allah and studying it among themselves, except that tranquility descends upon them, mercy covers them, the angels surround them, and Allah mentions them among those who are with Him. And whoever is slowed down by his deeds, his lineage will not speed him forward.\u201D",
+    },
+  ],
+};
+
 export function getNarration(id: string): Narration | undefined {
   return narrations.find((n) => n.id === id);
 }
