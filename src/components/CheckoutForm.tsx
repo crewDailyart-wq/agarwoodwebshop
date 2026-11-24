@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { getProduct } from "@/content/catalog";
-import { cartSubtotalCents, useCartLines } from "@/lib/cart";
+import { getProduct, getVariant, unitPriceCents } from "@/content/catalog";
+import { cartSubtotalCents, lineKey, useCartLines } from "@/lib/cart";
 import type { ShippingInfo } from "@/lib/checkout";
 import { shippingFor } from "@/lib/checkout";
 import { formatMoney } from "@/lib/money";
@@ -221,11 +221,15 @@ export function CheckoutForm({
             const p = getProduct(line.id);
             if (!p) return null;
             return (
-              <li key={line.id} className="flex justify-between gap-4 py-3 text-sm">
+              <li key={lineKey(line)} className="flex justify-between gap-4 py-3 text-sm">
                 <span>
-                  {p.name} <span className="text-ivory-faint">× {line.quantity}</span>
+                  {p.name}
+                  {getVariant(p, line.variantId) && (
+                    <span className="text-ivory-soft"> — {getVariant(p, line.variantId)!.label}</span>
+                  )}{" "}
+                  <span className="text-ivory-faint">× {line.quantity}</span>
                 </span>
-                <span className="tabular-nums">{formatMoney(p.priceCents * line.quantity)}</span>
+                <span className="tabular-nums">{formatMoney(unitPriceCents(p, line.variantId) * line.quantity)}</span>
               </li>
             );
           })}

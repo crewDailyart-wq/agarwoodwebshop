@@ -1,10 +1,10 @@
 import "server-only";
-import { getProduct, type ProductId } from "@/content/catalog";
+import { getProduct, lineName, type ProductId } from "@/content/catalog";
 import { dbConfigured, query } from "@/lib/db";
 import { origin, sendOrderConfirmationEmail } from "@/lib/email";
 import type { OrderStatus } from "@/lib/order-status";
 
-export type OrderLineRecord = { id: string; name: string; quantity: number; unitCents: number };
+export type OrderLineRecord = { id: string; name: string; quantity: number; unitCents: number; variantId?: string };
 export type Address = { name?: string; street: string; postalCode: string; city: string; country: string };
 
 export type OrderRecord = {
@@ -134,7 +134,7 @@ type MolliePayment = {
   metadata?: {
     ref?: string;
     customer?: Record<string, string>;
-    lines?: { id: string; quantity: number; unitCents: number }[];
+    lines?: { id: string; quantity: number; unitCents: number; v?: string }[];
     shippingCents?: number;
   };
   amount?: { value: string };
@@ -180,14 +180,20 @@ export async function applyMolliePayment(payment: MolliePayment) {
   }
 }
 
+function lineLabel(id: string, variantId?: string) {
+  const p = getProduct(id as ProductId);
+  return p ? lineName(p, variantId) : id;
+}
+
 async function rebuildFromPayment(payment: MolliePayment, ref: string) {
   const m = payment.metadata ?? {};
   const c = m.customer ?? {};
   const lines: OrderLineRecord[] = (m.lines ?? []).map((l) => ({
     id: l.id,
-    name: getProduct(l.id as ProductId)?.name ?? l.id,
+    name: lineLabel(l.id, l.v),
     quantity: l.quantity,
     unitCents: l.unitCents,
+    ...(l.v ? { variantId: l.v } : {}),
   }));
   const subtotal = lines.reduce((s, l) => s + l.unitCents * l.quantity, 0);
   const shipping = m.shippingCents ?? 0;

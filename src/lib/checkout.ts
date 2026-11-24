@@ -1,7 +1,7 @@
-import { getProduct, type ProductId } from "@/content/catalog";
+import { getProduct, getVariant, lineName, unitPriceCents, type ProductId } from "@/content/catalog";
 import { shipping, site } from "@/content/site";
 
-export type OrderLine = { id: ProductId; quantity: number };
+export type OrderLine = { id: ProductId; quantity: number; variantId?: string };
 
 export type ShippingInfo = {
   countries: { code: string; name: string }[];
@@ -43,23 +43,42 @@ export function priceOrder(input: unknown):
   | { ok: false; error: string } {
   if (!Array.isArray(input) || input.length === 0) return { ok: false, error: "Your cart is empty." };
 
-  const merged = new Map<ProductId, number>();
+  const merged = new Map<string, { id: ProductId; variantId?: string; quantity: number }>();
   for (const raw of input) {
     const id = (raw as OrderLine)?.id;
     const qty = (raw as OrderLine)?.quantity;
+    const variantId = (raw as OrderLine)?.variantId;
     const product = typeof id === "string" ? getProduct(id) : undefined;
     if (!product || !Number.isInteger(qty) || qty < 1 || qty > 10) {
       return { ok: false, error: "Your cart contains an item we don't recognise." };
     }
+    // A product with weight options must come with one of them; one without must not.
+    const optionOk =
+      product.variants.length > 0
+        ? typeof variantId === "string" && getVariant(product, variantId) !== undefined
+        : variantId === undefined || variantId === null;
+    if (!optionOk) return { ok: false, error: "Please choose a weight for the item in your cart." };
     if (product.stock !== null && product.stock < qty) {
       return { ok: false, error: `${product.name} is not available in that quantity.` };
     }
-    merged.set(product.id, Math.min(10, (merged.get(product.id) ?? 0) + qty));
+    const key = variantId ? `${product.id}:${variantId}` : product.id;
+    const prev = merged.get(key);
+    merged.set(key, {
+      id: product.id,
+      variantId: variantId ?? undefined,
+      quantity: Math.min(10, (prev?.quantity ?? 0) + qty),
+    });
   }
 
-  const lines = [...merged].map(([id, quantity]) => {
+  const lines = [...merged.values()].map(({ id, variantId, quantity }) => {
     const p = getProduct(id)!;
-    return { id, quantity, name: p.name, unitCents: p.priceCents };
+    return {
+      id,
+      quantity,
+      name: lineName(p, variantId),
+      unitCents: unitPriceCents(p, variantId),
+      ...(variantId ? { variantId } : {}),
+    };
   });
   return {
     ok: true,

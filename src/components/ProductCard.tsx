@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { pricesConfirmed, type Product } from "@/content/catalog";
+import { priceIsFinal, type Product } from "@/content/catalog";
 import { cart } from "@/lib/cart";
 import { formatMoney } from "@/lib/money";
 import { CartIcon, GoldBranch } from "./icons";
@@ -11,6 +11,7 @@ import { PhotoSlot } from "./PhotoSlot";
 /** Framed product tile: photo, small-caps name, gold sub-label, price and a gold cart button. */
 export function ProductCard({ product, inset }: { product: Product; inset?: ReactNode }) {
   const soldOut = product.stock === 0;
+  const hasOptions = product.variants.length > 0;
   return (
     <article className="frame group flex flex-col bg-night/80 transition-colors hover:border-gold">
       <Link href={`/shop/${product.slug}`} className="relative block" tabIndex={-1} aria-hidden>
@@ -33,20 +34,34 @@ export function ProductCard({ product, inset }: { product: Product; inset?: Reac
         <p className="mt-3 text-[0.92rem] font-semibold leading-relaxed text-[#3d2a06]">{product.summary}</p>
         <div className="mt-auto flex items-end justify-between gap-3 pt-5">
           <p className="font-[family-name:var(--font-display)] text-[1.6rem] font-bold leading-none tabular-nums">
+            {hasOptions && (
+              <span className="eyebrow mb-1 block !text-[0.52rem] !font-bold !text-gold-deep">from</span>
+            )}
             {formatMoney(product.priceCents)}
-            {!pricesConfirmed && (
+            {!priceIsFinal(product) && (
               <span className="eyebrow mt-1 block !text-[0.52rem] !font-bold !text-gold-deep">preview price</span>
             )}
           </p>
-          <button
-            type="button"
-            disabled={soldOut}
-            onClick={() => cart.add(product.id)}
-            aria-label={soldOut ? `${product.name} is unavailable` : `Add ${product.name} to cart`}
-            className="flex h-10 w-11 shrink-0 items-center justify-center bg-emerald text-gold-bright transition-colors hover:bg-gold hover:text-ink disabled:opacity-40"
-          >
-            <CartIcon className="h-5 w-5" />
-          </button>
+          {hasOptions ? (
+            // The weight is chosen on the product page, so this opens it.
+            <Link
+              href={`/shop/${product.slug}`}
+              aria-label={`Choose a weight of ${product.name}`}
+              className="flex h-10 w-11 shrink-0 items-center justify-center bg-emerald text-gold-bright transition-colors hover:bg-gold hover:text-ink"
+            >
+              <CartIcon className="h-5 w-5" />
+            </Link>
+          ) : (
+            <button
+              type="button"
+              disabled={soldOut}
+              onClick={() => cart.add(product.id)}
+              aria-label={soldOut ? `${product.name} is unavailable` : `Add ${product.name} to cart`}
+              className="flex h-10 w-11 shrink-0 items-center justify-center bg-emerald text-gold-bright transition-colors hover:bg-gold hover:text-ink disabled:opacity-40"
+            >
+              <CartIcon className="h-5 w-5" />
+            </button>
+          )}
         </div>
       </div>
     </article>

@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { getProduct, productHref } from "@/content/catalog";
-import { cart, cartSubtotalCents, useCartLines, useCartOpen } from "@/lib/cart";
+import { getProduct, getVariant, productHref, unitPriceCents } from "@/content/catalog";
+import { cart, cartSubtotalCents, lineKey, useCartLines, useCartOpen } from "@/lib/cart";
 import { formatMoney } from "@/lib/money";
 
 export function CartDrawer() {
@@ -67,7 +67,7 @@ export function CartDrawer() {
                 const product = getProduct(line.id);
                 if (!product) return null;
                 return (
-                  <li key={line.id} className="py-5">
+                  <li key={lineKey(line)} className="py-5">
                     <div className="flex justify-between gap-4">
                       <div>
                         <Link
@@ -77,9 +77,13 @@ export function CartDrawer() {
                         >
                           {product.name}
                         </Link>
-                        {product.subtitle && <p className="text-sm text-ivory-faint">{product.subtitle}</p>}
+                        {(product.subtitle || line.variantId) && (
+                          <p className="text-sm text-ivory-faint">
+                            {[product.subtitle, getVariant(product, line.variantId)?.label].filter(Boolean).join(" · ")}
+                          </p>
+                        )}
                       </div>
-                      <p className="tabular-nums">{formatMoney(product.priceCents * line.quantity)}</p>
+                      <p className="tabular-nums">{formatMoney(unitPriceCents(product, line.variantId) * line.quantity)}</p>
                     </div>
                     <div className="mt-3 flex items-center justify-between">
                       <div className="flex items-center border border-gold-line">
@@ -87,7 +91,7 @@ export function CartDrawer() {
                           type="button"
                           aria-label={`Decrease quantity of ${product.name}`}
                           className="h-11 w-11 text-ivory-soft hover:text-gold"
-                          onClick={() => cart.setQuantity(line.id, line.quantity - 1)}
+                          onClick={() => cart.setQuantity(line.id, line.quantity - 1, line.variantId)}
                         >
                           −
                         </button>
@@ -96,14 +100,14 @@ export function CartDrawer() {
                           type="button"
                           aria-label={`Increase quantity of ${product.name}`}
                           className="h-11 w-11 text-ivory-soft hover:text-gold"
-                          onClick={() => cart.setQuantity(line.id, line.quantity + 1)}
+                          onClick={() => cart.setQuantity(line.id, line.quantity + 1, line.variantId)}
                         >
                           +
                         </button>
                       </div>
                       <button
                         type="button"
-                        onClick={() => cart.remove(line.id)}
+                        onClick={() => cart.remove(line.id, line.variantId)}
                         className="min-h-11 text-xs uppercase tracking-[0.18em] text-ivory-faint hover:text-gold"
                       >
                         Remove

@@ -1,14 +1,18 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { getProduct, type ProductId } from "@/content/catalog";
+import { getProduct, getVariant, unitPriceCents, type ProductId } from "@/content/catalog";
 
 /**
  * Client-side cart, kept in localStorage. Only ids and quantities are stored:
  * prices are always looked up from the catalog, and re-checked on the server
  * at checkout, so a tampered cart can never change what is charged.
  */
-export type CartLine = { id: ProductId; quantity: number };
+export type CartLine = { id: ProductId; quantity: number; variantId?: string };
+
+/** One cart line per product and weight option. */
+const same = (l: CartLine, id: ProductId, variantId?: string) => l.id === id && l.variantId === variantId;
+export const lineKey = (l: CartLine) => (l.variantId ? `${l.id}:${l.variantId}` : l.id);
 
 const KEY = "aurum-oud-cart";
 const MAX_QTY = 10;
@@ -21,6 +25,13 @@ const listeners = new Set<() => void>();
 
 function emit() {
   listeners.forEach((l) => l());
+}
+
+/** A product with weight options needs one of them; one without must not have any. */
+function validVariant(l: CartLine) {
+  const p = getProduct(l.id);
+  if (!p) return false;
+  return p.variants.length > 0 ? getVariant(p, l.variantId) !== undefined : l.variantId === undefined;
 }
 
 function load() {
@@ -39,9 +50,14 @@ function load() {
           typeof (l as CartLine).id === "string" &&
           getProduct((l as CartLine).id) !== undefined &&
           Number.isInteger((l as CartLine).quantity) &&
-          (l as CartLine).quantity > 0,
+          (l as CartLine).quantity > 0 &&
+          validVariant(l as CartLine),
       )
-      .map((l) => ({ id: l.id, quantity: Math.min(l.quantity, MAX_QTY) }));
+      .map((l) => ({
+        id: l.id,
+        quantity: Math.min(l.quantity, MAX_QTY),
+        ...(l.variantId ? { variantId: l.variantId } : {}),
+      }));
   } catch {
     lines = EMPTY;
   }
@@ -78,29 +94,29 @@ function getLines() {
 }
 
 export const cart = {
-  add(id: ProductId, quantity = 1) {
+  add(id: ProductId, quantity = 1, variantId?: string) {
     load();
-    const existing = lines.find((l) => l.id === id);
+    const existing = lines.find((l) => same(l, id, variantId));
     lines = existing
       ? lines.map((l) =>
-          l.id === id ? { ...l, quantity: Math.min(l.quantity + quantity, MAX_QTY) } : l,
+          same(l, id, variantId) ? { ...l, quantity: Math.min(l.quantity + quantity, MAX_QTY) } : l,
         )
-      : [...lines, { id, quantity: Math.min(quantity, MAX_QTY) }];
+      : [...lines, { id, quantity: Math.min(quantity, MAX_QTY), ...(variantId ? { variantId } : {}) }];
     save();
     open = true;
     emit();
   },
-  setQuantity(id: ProductId, quantity: number) {
+  setQuantity(id: ProductId, quantity: number, variantId?: string) {
     load();
     lines =
       quantity <= 0
-        ? lines.filter((l) => l.id !== id)
-        : lines.map((l) => (l.id === id ? { ...l, quantity: Math.min(quantity, MAX_QTY) } : l));
+        ? lines.filter((l) => !same(l, id, variantId))
+        : lines.map((l) => (same(l, id, variantId) ? { ...l, quantity: Math.min(quantity, MAX_QTY) } : l));
     save();
     emit();
   },
-  remove(id: ProductId) {
-    cart.setQuantity(id, 0);
+  remove(id: ProductId, variantId?: string) {
+    cart.setQuantity(id, 0, variantId);
   },
   clear() {
     lines = EMPTY;
@@ -130,7 +146,10 @@ export function useCartOpen(): boolean {
 }
 
 export function cartSubtotalCents(l: CartLine[]): number {
-  return l.reduce((sum, line) => sum + (getProduct(line.id)?.priceCents ?? 0) * line.quantity, 0);
+  return l.reduce((sum, line) => {
+    const p = getProduct(line.id);
+    return sum + (p ? unitPriceCents(p, line.variantId) : 0) * line.quantity;
+  }, 0);
 }
 
 export function cartCount(l: CartLine[]): number {

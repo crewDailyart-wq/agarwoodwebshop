@@ -57,11 +57,15 @@ export type Product = {
   description: (string | { narration: string })[];
   /** Open the product text with the Basmala. */
   bismillah?: boolean;
+  /** Price in cents. For a product with weight options this is the lowest option ("from" price). */
   priceCents: number;
+  /** The price is final, not a placeholder (the site-wide `pricesConfirmed` still covers the rest). */
+  priceConfirmed?: boolean;
   /** Units in stock. `null` = not tracked (always available). `0` = sold out. */
   stock: number | null;
-  /** Weight/quantity options. Empty = single option. Only add real, supplied options. */
-  variants: { id: string; label: string; priceCents: number }[];
+  /** Weight/quantity options. Empty = single option. Only add real, supplied options.
+   *  `grams` lets the page show a price per gram. */
+  variants: { id: string; label: string; priceCents: number; grams?: number }[];
   photos: Photo[];
   /** For bundles: the ids and quantities included. */
   includes?: { id: ProductId; quantity: number }[];
@@ -222,9 +226,15 @@ export const products: Record<ProductId, Product> = {
       { narration: "bukhari-6689" },
       "So whomsoever uses the agarwood to follow the tradition of Prophet Muhammad \uFDFA then he will be rewarded for it beyond the benefit he already gets by using it in the first place, but whomsoever uses it only for his own satisfaction then that will be his reward. As such we must try to set our intention straight with everything we do in our lives. Cleanliness and personal hygiene are highly encouraged in Islam.",
     ],
-    priceCents: 9500, // PLACEHOLDER
+    priceCents: 2000, // from the 10 g option (owner, Nov 2026)
+    priceConfirmed: true,
     stock: null,
-    variants: [],
+    variants: [
+      { id: "g10", label: "10 g", grams: 10, priceCents: 2000 },
+      { id: "g30", label: "30 g", grams: 30, priceCents: 5000 },
+      { id: "g60", label: "60 g", grams: 60, priceCents: 8500 },
+      { id: "g100", label: "100 g", grams: 100, priceCents: 12000 },
+    ],
     photos: [
       {
         src: "/photos/china-chips-large-1.jpg",
@@ -294,9 +304,15 @@ export const products: Record<ProductId, Product> = {
       { narration: "bukhari-6689" },
       "So whomsoever uses the agarwood to follow the tradition of Prophet Muhammad \uFDFA then he will be rewarded for it beyond the benefit he already gets by using it in the first place, but whomsoever uses it only for his own satisfaction then that will be his reward. As such we must try to set our intention straight with everything we do in our lives. Cleanliness and personal hygiene are highly encouraged in Islam.",
     ],
-    priceCents: 9500, // PLACEHOLDER
+    priceCents: 2000, // from the 10 g option (owner, Nov 2026)
+    priceConfirmed: true,
     stock: null,
-    variants: [],
+    variants: [
+      { id: "g10", label: "10 g", grams: 10, priceCents: 2000 },
+      { id: "g30", label: "30 g", grams: 30, priceCents: 5000 },
+      { id: "g60", label: "60 g", grams: 60, priceCents: 8500 },
+      { id: "g100", label: "100 g", grams: 100, priceCents: 12000 },
+    ],
     photos: [
       {
         src: "/photos/china-chips-medium-pile.jpg",
@@ -359,9 +375,15 @@ export const products: Record<ProductId, Product> = {
       { narration: "bukhari-6689" },
       "So whomsoever uses the agarwood to follow the tradition of Prophet Muhammad \uFDFA then he will be rewarded for it beyond the benefit he already gets by using it in the first place, but whomsoever uses it only for his own satisfaction then that will be his reward. As such we must try to set our intention straight with everything we do in our lives. Cleanliness and personal hygiene are highly encouraged in Islam.",
     ],
-    priceCents: 9500, // PLACEHOLDER
+    priceCents: 2000, // from the 10 g option (owner, Nov 2026)
+    priceConfirmed: true,
     stock: null,
-    variants: [],
+    variants: [
+      { id: "g10", label: "10 g", grams: 10, priceCents: 2000 },
+      { id: "g30", label: "30 g", grams: 30, priceCents: 5000 },
+      { id: "g60", label: "60 g", grams: 60, priceCents: 8500 },
+      { id: "g100", label: "100 g", grams: 100, priceCents: 12000 },
+    ],
     photos: [
       {
         src: "/photos/china-granules-hd-1.jpg",
@@ -512,3 +534,25 @@ export const brandFacts = {
     sourcingStatement: null as string | null,
   },
 };
+
+export type Variant = Product["variants"][number];
+
+/** The chosen weight option of a product, if it has options and the id is one of them. */
+export function getVariant(product: Product, variantId?: string | null): Variant | undefined {
+  return variantId ? product.variants.find((v) => v.id === variantId) : undefined;
+}
+
+/** What one unit costs: the chosen option's price, or the product's own price. */
+export function unitPriceCents(product: Product, variantId?: string | null): number {
+  return getVariant(product, variantId)?.priceCents ?? product.priceCents;
+}
+
+/** True when the shown price is final (not the "preview price" placeholder). */
+export const priceIsFinal = (product: Product) => pricesConfirmed || product.priceConfirmed === true;
+
+/** Name as written on order lines and e-mails, e.g. "High Oil Agarwood Chips from Southern China — Large chips — 30 g". */
+export function lineName(product: Product, variantId?: string | null): string {
+  // A short subtitle ("Large chips") is part of the name; a long tagline is not.
+  const sub = product.subtitle && product.subtitle.length <= 24 ? product.subtitle : undefined;
+  return [product.name, sub, getVariant(product, variantId)?.label].filter(Boolean).join(" — ");
+}

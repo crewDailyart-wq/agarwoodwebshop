@@ -5,13 +5,14 @@ import { AddToCart } from "@/components/AddToCart";
 import { NarrationBody, withSalutation } from "@/components/NarrationBody";
 import { NarrationCarousel } from "@/components/NarrationCarousel";
 import { ProductGallery } from "@/components/ProductGallery";
+import { WeightPurchase } from "@/components/WeightPurchase";
 import { QuantityOptions } from "@/components/QuantityOptions";
 import { Price } from "@/components/Price";
 import { ChinaInset } from "@/components/ChinaInset";
 import { ChinaTrees } from "@/components/ChinaTrees";
 import { VietnamInset } from "@/components/VietnamInset";
 import { VietnamLogs } from "@/components/VietnamLogs";
-import { getProduct, productList, products } from "@/content/catalog";
+import { getProduct, priceIsFinal, productList, products } from "@/content/catalog";
 import { getNarration } from "@/content/narrations";
 import { site } from "@/content/site";
 
@@ -47,13 +48,23 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
     name: product.name,
     description: product.seo.description,
     brand: { "@type": "Brand", name: site.name },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: site.currency,
-      price: (product.priceCents / 100).toFixed(2),
-      availability: soldOut ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
-      url: `${site.url}/shop/${product.slug}`,
-    },
+    offers:
+      product.variants.length > 0
+        ? product.variants.map((v) => ({
+            "@type": "Offer",
+            name: v.label,
+            priceCurrency: site.currency,
+            price: (v.priceCents / 100).toFixed(2),
+            availability: soldOut ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+            url: `${site.url}/shop/${product.slug}`,
+          }))
+        : {
+            "@type": "Offer",
+            priceCurrency: site.currency,
+            price: (product.priceCents / 100).toFixed(2),
+            availability: soldOut ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+            url: `${site.url}/shop/${product.slug}`,
+          },
   };
 
   return (
@@ -80,8 +91,14 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
 
           {/* Quantity and add to cart sit directly under the pictures. */}
           <div className="space-y-5 border-t border-gold-line pt-8">
-            <QuantityOptions product={product} />
-            <AddToCart id={product.id} soldOut={soldOut} />
+            {product.variants.length > 0 ? (
+              <WeightPurchase product={product} soldOut={soldOut} />
+            ) : (
+              <>
+                <QuantityOptions product={product} />
+                <AddToCart id={product.id} soldOut={soldOut} />
+              </>
+            )}
           </div>
 
           {product.originMap === "vietnam" && <VietnamLogs />}
@@ -97,12 +114,20 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
           <div className="@container">
             <h1
               className="display whitespace-nowrap"
-              style={{ fontSize: "clamp(1.05rem, 5.9cqw, 3.5rem)" }}
+              style={{
+                // Shrinks with the length of the name, so even a long name fits on one line.
+                fontSize: `clamp(1.05rem, min(5.9cqw, ${(215 / product.name.length).toFixed(2)}cqw), 3.5rem)`,
+              }}
             >
               {product.name}
             </h1>
           </div>
-          <Price cents={product.priceCents} className="mt-5 block text-xl tabular-nums" />
+          <Price
+            cents={product.priceCents}
+            from={product.variants.length > 0}
+            final={priceIsFinal(product)}
+            className="mt-5 block text-xl tabular-nums"
+          />
 
           <div className="mt-8 space-y-4 text-ivory-soft">
             {product.bismillah && (
@@ -186,7 +211,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
                   <p className="mt-1 text-sm text-ivory-soft">{r.summary}</p>
                 </div>
                 <div className="flex items-center gap-6">
-                  <Price cents={r.priceCents} className="tabular-nums" />
+                  <Price cents={r.priceCents} final={priceIsFinal(r)} from={r.variants.length > 0} className="tabular-nums" />
                   <Link href={`/shop/${r.slug}`} className="btn btn-line">
                     View
                   </Link>

@@ -79,7 +79,7 @@ export async function POST(request: Request) {
     userId: user?.emailVerified ? user.id : null,
     email,
     name,
-    lines: priced.lines.map((l) => ({ id: l.id, name: l.name, quantity: l.quantity, unitCents: l.unitCents })),
+    lines: priced.lines.map((l) => ({ id: l.id, name: l.name, quantity: l.quantity, unitCents: l.unitCents, ...(l.variantId ? { variantId: l.variantId } : {}) })),
     subtotalCents: priced.subtotalCents,
     shippingCents,
     totalCents,
@@ -94,7 +94,7 @@ export async function POST(request: Request) {
       totalCents,
       shippingCents,
       customer: { name, email, street, postalCode, city, country },
-      lines: priced.lines.map((l) => ({ id: l.id, name: l.name, quantity: l.quantity, unitCents: l.unitCents })),
+      lines: priced.lines.map((l) => ({ id: l.id, name: l.name, quantity: l.quantity, unitCents: l.unitCents, ...(l.variantId ? { variantId: l.variantId } : {}) })),
     });
     if (!ok) {
       return NextResponse.json(
@@ -136,7 +136,7 @@ export async function POST(request: Request) {
     metadata: {
       ref,
       customer: { name, email, street, postalCode, city, country },
-      lines: priced.lines.map((l) => ({ id: l.id, quantity: l.quantity, unitCents: l.unitCents })),
+      lines: priced.lines.map((l) => ({ id: l.id, quantity: l.quantity, unitCents: l.unitCents, ...(l.variantId ? { v: l.variantId } : {}) })),
       shippingCents,
     },
   };

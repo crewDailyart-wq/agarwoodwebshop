@@ -14,7 +14,7 @@ export type OfflineOrder = {
   totalCents: number;
   shippingCents: number;
   customer: Record<string, string>;
-  lines: { id: string; name: string; quantity: number; unitCents: number }[];
+  lines: { id: string; name: string; quantity: number; unitCents: number; variantId?: string }[];
 };
 
 export function offlineConfig() {

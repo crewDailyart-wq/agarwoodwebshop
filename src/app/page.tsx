@@ -7,7 +7,7 @@ import { PhotoSlot } from "@/components/PhotoSlot";
 import { SpeciesBackdrop } from "@/components/SpeciesBackdrop";
 import { VietnamInset } from "@/components/VietnamInset";
 import { ArrowIcon, BotanicalSprig, GoldBranch } from "@/components/icons";
-import { pricesConfirmed, productHref, products, type Product } from "@/content/catalog";
+import { priceIsFinal, productHref, products, type Product } from "@/content/catalog";
 import { speciesSlides } from "@/content/species";
 import { formatMoney } from "@/lib/money";
 
@@ -30,7 +30,7 @@ function ProductBody({
       <p className="eyebrow mt-1 !text-[0.56rem] !font-bold !text-gold-deep leading-loose">{product.cardLabel}</p>
       <p className="mt-3 text-[0.9rem] font-semibold leading-relaxed text-[#3d2a06]">{product.summary}</p>
       <div className="mt-auto flex items-end justify-between gap-3 pt-4">
-        <CardPrice cents={product.priceCents} />
+        <CardPrice cents={product.priceCents} final={priceIsFinal(product)} from={product.variants.length > 0} />
         <CartIconButton id={product.id} name={product.name} soldOut={product.stock === 0} />
       </div>
       {action && (
@@ -45,11 +45,12 @@ function ProductBody({
   );
 }
 
-function CardPrice({ cents }: { cents: number }) {
+function CardPrice({ cents, final, from }: { cents: number; final: boolean; from: boolean }) {
   return (
     <p className="font-[family-name:var(--font-display)] text-[1.6rem] font-bold leading-none tabular-nums">
+      {from && <span className="eyebrow mb-1 block !text-[0.52rem] !font-bold !text-gold-deep">from</span>}
       {formatMoney(cents)}
-      {!pricesConfirmed && (
+      {!final && (
         <span className="eyebrow mt-1 block !text-[0.52rem] !font-bold !text-gold-deep">preview price</span>
       )}
     </p>
