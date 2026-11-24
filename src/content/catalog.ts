@@ -97,9 +97,14 @@ export const products: Record<ProductId, Product> = {
       { narration: "bukhari-6689" },
       "So whomsoever uses the agarwood to follow the tradition of Prophet Muhammad \uFDFA then he will be rewarded for it beyond the benefit he already gets by using it in the first place, but whomsoever uses it only for his own satisfaction then that will be his reward. As such we must try to set our intention straight with everything we do in our lives. Cleanliness and personal hygiene are highly encouraged in Islam.",
     ],
-    priceCents: 9500, // PLACEHOLDER
+    priceCents: 3000, // from the 10 g option (owner, Nov 2026)
+    priceConfirmed: true,
     stock: null,
-    variants: [],
+    variants: [
+      { id: "g10", label: "10 g", grams: 10, priceCents: 3000 },
+      { id: "g30", label: "30 g", grams: 30, priceCents: 7500 },
+      { id: "g50", label: "50 g", grams: 50, priceCents: 11000 },
+    ],
     photos: [
       {
         src: "/photos/vietnam-chips-1.jpg",
@@ -161,9 +166,14 @@ export const products: Record<ProductId, Product> = {
       { narration: "bukhari-6689" },
       "So whomsoever uses the agarwood to follow the tradition of Prophet Muhammad \uFDFA then he will be rewarded for it beyond the benefit he already gets by using it in the first place, but whomsoever uses it only for his own satisfaction then that will be his reward. As such we must try to set our intention straight with everything we do in our lives. Cleanliness and personal hygiene are highly encouraged in Islam.",
     ],
-    priceCents: 9500, // PLACEHOLDER
+    priceCents: 3000, // from the 10 g option (owner, Nov 2026)
+    priceConfirmed: true,
     stock: null,
-    variants: [],
+    variants: [
+      { id: "g10", label: "10 g", grams: 10, priceCents: 3000 },
+      { id: "g30", label: "30 g", grams: 30, priceCents: 7500 },
+      { id: "g50", label: "50 g", grams: 50, priceCents: 11000 },
+    ],
     photos: [
       {
         src: "/photos/vietnam-thin-1.jpg",
