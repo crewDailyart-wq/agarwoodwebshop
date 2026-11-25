@@ -69,6 +69,7 @@ export type Product = {
   photos: Photo[];
   /** For bundles: the ids and quantities included. */
   includes?: { id: ProductId; quantity: number }[];
+  setContents?: { heading: string; items: { label: string; amount: string }[] }[];
   /** Verified facts. `null` = unknown, not shown. */
   facts: {
     label: string;
@@ -439,40 +440,53 @@ export const products: Record<ProductId, Product> = {
     id: "the-complete-ritual",
     slug: "the-complete-ritual",
     name: "Complete Agarwood Set",
-    subtitle: "Agarwood of your choice with all you need to use it",
-    cardLabel: "Agarwood of your choice with all you need to use it",
-    summary: "Agarwood of your choice, with all you need to use it — presented together.",
+    subtitle: "Mixed true agarwood with all you need to use it",
+    cardLabel: "Mixed true agarwood with all you need to use it",
+    summary: "Mixed true agarwood, with all you need to use it — presented together.",
+    bismillah: true,
     description: [
-      "Agarwood of your choice and The Incense Burner, together in one presentation. Nothing else to buy before the first evening.",
+      "We hereby present our agarwood set, consisting of all varieties of agarwood in our current assortment: high oil agarwood from Southern China in 3 forms: large chips, middle size chips, granules and high oil Vietnamese agarwood chips in 2 forms: regular chips and thin chips. Of each variety from Southern China we include 10 grams, and of each Vietnamese variety we include 10 grams, totalling to 50 grams of true agarwood, which should last a long time, as you need very little agarwood each session to perfume yourself or your surroundings. Along with the agarwood you will get a standard and simple incense burner, incense tongs, 3x10 tablets of incense coal, 3x heat resistant pads, 30 grams of our pure Camphor.",
     ],
     priceCents: 13500, // owner, Oct 2026 (was 150)
     stock: null,
     variants: [],
-    includes: [
-      { id: "agarwood-chips", quantity: 1 },
-    ],
-    photos: [
-      { src: "/photos/complete-set-1.jpg", alt: "Everything in the set laid out: incense burner, tongs, charcoal, canvas pouch, engraved box and agarwood pieces", brief: "Everything laid out together.", width: 1600, height: 1200 },
-      { src: "/photos/complete-set-2.jpg", alt: "The incense burner with tongs, charcoal, canvas pouch, engraved box and agarwood pieces laid out on white", brief: "The set, laid out.", width: 1600, height: 1200 },
-      { src: "/photos/complete-set-3.jpg", alt: "Close-up of agarwood pieces on a white surface with the incense burner and charcoal at the edge", brief: "The agarwood up close.", width: 1600, height: 1200 },
-      { src: "/photos/complete-set-4.jpg", alt: "Close-up of agarwood chips beside the canvas pouch", brief: "Agarwood chips and pouch.", width: 1600, height: 1200 },
-      { src: "/photos/complete-set-5.jpg", alt: "The ALUWWAH gift box opened from above: incense burner, charcoal and the engraved wooden box on green paper, with the canvas pouch above", brief: "The complete set in its gift box.", width: 1200, height: 1600 },
-      { src: "/photos/complete-set-6.jpg", alt: "The opened ALUWWAH gift box with the incense burner, charcoal, a piece of camphor on the engraved box and the canvas pouch beside it", brief: "Burner, charcoal, camphor and box.", width: 1600, height: 1200 },
-      { src: "/photos/complete-set-7.jpg", alt: "The ALUWWAH gift box with incense burner, charcoal and engraved box, with the pouch and a piece of agarwood beside it", brief: "The set with its pouch.", width: 1600, height: 1200 },
-    ],
-    facts: [{ label: "Includes", value: "High Grade Vietnamese Agarwood Chips · The Incense Burner" }],
-    sections: [
+    setContents: [
       {
-        title: "Presentation",
-        body: [
-          "Packaging is shown as a concept preview until the final box is produced.",
+        heading: "True agarwood \u00B7 50 g in total",
+        items: [
+          { label: "Southern China \u00B7 large chips", amount: "10 g" },
+          { label: "Southern China \u00B7 middle size chips", amount: "10 g" },
+          { label: "Southern China \u00B7 granules", amount: "10 g" },
+          { label: "Vietnam \u00B7 regular chips", amount: "10 g" },
+          { label: "Vietnam \u00B7 thin chips", amount: "10 g" },
+        ],
+      },
+      {
+        heading: "Along with the agarwood",
+        items: [
+          { label: "Standard, simple incense burner", amount: "1\u00D7" },
+          { label: "Incense tongs", amount: "1\u00D7" },
+          { label: "Incense coal tablets", amount: "3 \u00D7 10" },
+          { label: "Heat resistant pads", amount: "3\u00D7" },
+          { label: "Pure Camphor", amount: "30 g" },
         ],
       },
     ],
+    photos: [
+      { src: "/photos/set-1.jpg", alt: "Everything in the set laid out: incense burner, tongs, charcoal, canvas pouch, engraved box and agarwood pieces", brief: "Everything laid out together.", width: 1600, height: 1200 },
+      { src: "/photos/set-2.jpg", alt: "The incense burner with tongs, charcoal, canvas pouch, engraved box and agarwood pieces laid out on white", brief: "The set, laid out.", width: 1600, height: 1200 },
+      { src: "/photos/set-3.jpg", alt: "Close-up of agarwood pieces on a white surface with the incense burner and charcoal at the edge", brief: "The agarwood up close.", width: 1600, height: 1200 },
+      { src: "/photos/set-4.jpg", alt: "Close-up of agarwood chips beside the canvas pouch", brief: "Agarwood chips and pouch.", width: 1600, height: 1200 },
+      { src: "/photos/set-5.jpg", alt: "The ALUWWAH gift box opened from above: incense burner, charcoal and the engraved wooden box on green paper, with the canvas pouch above", brief: "The complete set in its gift box.", width: 1200, height: 1600 },
+      { src: "/photos/set-6.jpg", alt: "The opened ALUWWAH gift box with the incense burner, charcoal, a piece of camphor on the engraved box and the canvas pouch beside it", brief: "Burner, charcoal, camphor and box.", width: 1600, height: 1200 },
+      { src: "/photos/set-7.jpg", alt: "The ALUWWAH gift box with incense burner, charcoal and engraved box, with the pouch and a piece of agarwood beside it", brief: "The set with its pouch.", width: 1600, height: 1200 },
+    ],
+    facts: [],
+    sections: [],
     related: [],
     seo: {
       title: "Complete Agarwood Set",
-      description: "Agarwood of your choice with the incense burner — all you need to use it.",
+      description: "Mixed true agarwood (50 g) with incense burner, tongs, coal, heat resistant pads and pure camphor.",
     },
   },
 

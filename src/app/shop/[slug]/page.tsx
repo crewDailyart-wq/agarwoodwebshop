@@ -150,6 +150,24 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             })}
           </div>
 
+          {product.setContents && (
+            <div className="mt-8 space-y-6">
+              {product.setContents.map((g) => (
+                <section key={g.heading} className="border-y border-gold-line py-5">
+                  <h2 className="eyebrow eyebrow-gold mb-3">{g.heading}</h2>
+                  <ul className="divide-y divide-gold-line/40 text-sm">
+                    {g.items.map((it) => (
+                      <li key={it.label} className="flex justify-between gap-6 py-2">
+                        <span>{it.label}</span>
+                        <span className="tabular-nums text-gold-bright">{it.amount}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          )}
+
           {product.includes && (
             <ul className="mt-8 space-y-2 border-y border-gold-line py-5">
               {product.includes.map((inc) => {
