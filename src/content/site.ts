@@ -25,6 +25,12 @@ export const site = {
     vatId: null as string | null, // BTW-id, e.g. NL000000000B01
     address: null as string | null, // visiting address, one line
   },
+  /** Featured video in the footer: the 11-character YouTube id, or null to hide. */
+  featuredVideo: {
+    id: null as string | null,
+    title: "لماذا يستجيب الكون للرياضيات؟ | فيدمغه 04 | الشيخ فايز الكندري",
+    channel: "Fayez Alkandari",
+  },
   social: [] as { label: string; href: string }[], // TODO: owner to supply
   currency: "EUR" as const,
   locale: "en-NL",

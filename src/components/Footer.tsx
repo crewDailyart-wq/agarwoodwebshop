@@ -63,6 +63,27 @@ export async function Footer() {
               {site.tagline}
             </p>
           </div>
+          {site.featuredVideo.id && (
+            <figure className="mx-auto w-full max-w-md lg:col-start-3 lg:row-start-1 lg:ml-auto lg:mr-0">
+              <figcaption className="eyebrow mb-3 text-center lg:text-right">
+                Featured · {site.featuredVideo.channel}
+              </figcaption>
+              <div className="aspect-video w-full overflow-hidden border border-gold-line bg-black">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${site.featuredVideo.id}`}
+                  title={site.featuredVideo.title}
+                  loading="lazy"
+                  allow="encrypted-media; picture-in-picture; fullscreen"
+                  allowFullScreen
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  className="h-full w-full"
+                />
+              </div>
+              <p lang="ar" dir="rtl" className="mt-3 text-center text-sm text-ivory-soft lg:text-right">
+                {site.featuredVideo.title}
+              </p>
+            </figure>
+          )}
           <div className="flex justify-center lg:col-start-1 lg:row-start-1 lg:justify-start">
             <Suspense fallback={<FooterAccountSkeleton />}>
               <FooterAccount />
