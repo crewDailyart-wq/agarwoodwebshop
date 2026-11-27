@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { EditorialPage } from "@/components/Page";
 import { site } from "@/content/site";
+import { NarrationBody } from "@/components/NarrationBody";
+import { safetyNarration } from "@/content/narrations";
 
 export const metadata: Metadata = {
   title: "Terms and conditions",
@@ -12,11 +14,13 @@ export default function TermsPage() {
   const l = site.legal;
   return (
     <EditorialPage eyebrow="Information" title="Terms and conditions">
-      <p>
-        These terms apply to every order placed through this website. We keep them short and plain,
-        so that you know what to expect from us before you order. Dutch law applies, and nothing
-        here takes away the rights the law gives you as a consumer.
+      <p className="pb-1">
+        <span lang="ar" dir="rtl" className="quran block text-left text-[1.7rem] leading-[1.8]">
+          بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+        </span>
+        <span className="mt-1 block italic text-ivory">(Bismillah Ar-Rahman Ar-Rahiem)</span>
       </p>
+      <p>The following information you find on this page is required by the law of the country in which we operate.</p>
 
       <h2>1. Who we are</h2>
       <p>
@@ -88,12 +92,13 @@ export default function TermsPage() {
       </p>
 
       <h2>8. Safe use</h2>
-      <p>
-        Our products are for fragrance and are not medicines; we make no medical claims. We endorse
-        safe use of our products and safe conduct in everything in our lives. Burn incense only on
-        a heat-resistant holder, never leave it unattended, keep it out of reach of children and
-        pets, and do not swallow camphor.
-      </p>
+      <p>We endorse safe use of our products and safe conduct in everything in our lives.</p>
+      <figure className="frame not-prose relative my-6 bg-night/45 px-5 py-6 text-center sm:px-8">
+        <span aria-hidden className="pointer-events-none absolute inset-1.5 border border-gold-hair" />
+        <div className="relative">
+          <NarrationBody narration={safetyNarration} large />
+        </div>
+      </figure>
 
       <h2>9. Liability</h2>
       <p>
