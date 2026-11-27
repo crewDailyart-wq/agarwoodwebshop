@@ -100,9 +100,7 @@ export default function TermsPage() {
 
       <h2>9. Liability</h2>
       <p>
-        We are liable for damage caused by our intent or gross negligence and wherever the law
-        does not allow liability to be limited. Beyond that, our liability is limited to the amount
-        of the order concerned. We are not liable for improper use of the goods.
+        We are liable for damage or improper handling caused from our side. This is the right way.
       </p>
 
       <h2>10. Privacy</h2>
