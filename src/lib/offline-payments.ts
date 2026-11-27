@@ -14,6 +14,7 @@ export type OfflineOrder = {
   totalCents: number;
   shippingCents: number;
   customer: Record<string, string>;
+  carrier?: string;
   lines: { id: string; name: string; quantity: number; unitCents: number; variantId?: string }[];
 };
 

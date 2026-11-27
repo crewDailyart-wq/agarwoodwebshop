@@ -1,40 +1,28 @@
 import { getProduct, getVariant, lineName, unitPriceCents, type ProductId } from "@/content/catalog";
 import { shipping, site } from "@/content/site";
+import { shippingOptions, type ShippingRates } from "@/lib/shipping";
 
 export type OrderLine = { id: ProductId; quantity: number; variantId?: string };
 
 export type ShippingInfo = {
   countries: { code: string; name: string }[];
-  /** Flat rate in cents, or null if the owner hasn't configured shipping yet. */
-  rateCents: number | null;
+  rates: ShippingRates;
   freeFromCents: number | null;
-  deliveryEstimate: string | null;
 };
 
-/**
- * Shipping comes from `content/site.ts`; env vars let the owner set a flat
- * rate without a code change: SHIPPING_FLAT_RATE_CENTS, SHIPPING_FREE_FROM_CENTS,
- * DELIVERY_ESTIMATE.
- */
 export function getShippingInfo(): ShippingInfo {
-  const envRate = process.env.SHIPPING_FLAT_RATE_CENTS;
-  const envFree = process.env.SHIPPING_FREE_FROM_CENTS;
-  const rateFromEnv = envRate !== undefined && envRate !== "" ? Number(envRate) : NaN;
-  const freeFromEnv = envFree !== undefined && envFree !== "" ? Number(envFree) : NaN;
-
-  return {
-    countries: shipping.countries,
-    rateCents: Number.isInteger(rateFromEnv) && rateFromEnv >= 0 ? rateFromEnv : null,
-    freeFromCents:
-      Number.isInteger(freeFromEnv) && freeFromEnv >= 0 ? freeFromEnv : shipping.freeFromCents,
-    deliveryEstimate: process.env.DELIVERY_ESTIMATE || shipping.deliveryEstimate,
-  };
+  return { countries: shipping.countries, rates: shipping.rates, freeFromCents: shipping.freeFromCents };
 }
 
-export function shippingFor(subtotalCents: number, info: ShippingInfo): number | null {
-  if (info.rateCents === null) return null;
-  if (info.freeFromCents !== null && subtotalCents >= info.freeFromCents) return 0;
-  return info.rateCents;
+/** The price the customer pays for the chosen carrier, or null if that option isn't available. */
+export function shippingFor(
+  country: string,
+  carrier: string,
+  subtotalCents: number,
+  info: ShippingInfo,
+): number | null {
+  const opt = shippingOptions(country, subtotalCents, info.rates, info.freeFromCents).find((o) => o.carrier === carrier);
+  return opt ? opt.cents : null;
 }
 
 /** Builds a trusted order from a client cart: catalog prices only, quantities clamped. */

@@ -5,7 +5,7 @@ import { origin, sendOrderConfirmationEmail } from "@/lib/email";
 import type { OrderStatus } from "@/lib/order-status";
 
 export type OrderLineRecord = { id: string; name: string; quantity: number; unitCents: number; variantId?: string };
-export type Address = { name?: string; street: string; postalCode: string; city: string; country: string };
+export type Address = { name?: string; street: string; postalCode: string; city: string; country: string; carrier?: string };
 
 export type OrderRecord = {
   ref: string;

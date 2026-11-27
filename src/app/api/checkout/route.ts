@@ -48,11 +48,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "We don't ship to that country yet." }, { status: 400 });
   }
 
-  const shippingCents = shippingFor(priced.subtotalCents, info);
+  const carrier = str(body.carrier, 20) ?? "";
+  const shippingCents = shippingFor(country, carrier, priced.subtotalCents, info);
   if (shippingCents === null) {
     return NextResponse.json(
-      { error: "Shipping isn't configured yet, so orders can't be placed." },
-      { status: 503 },
+      { error: "Please choose a delivery option available for your country." },
+      { status: 400 },
     );
   }
 
@@ -87,7 +88,7 @@ export async function POST(request: Request) {
     subtotalCents: priced.subtotalCents,
     shippingCents,
     totalCents,
-    address: { street, postalCode, city, country },
+    address: { street, postalCode, city, country, carrier },
   };
 
   // Bank transfer or cash: no Mollie. The owner is told by webhook; the customer is shown how to pay.
@@ -98,6 +99,7 @@ export async function POST(request: Request) {
       totalCents,
       shippingCents,
       customer: { name, email, street, postalCode, city, country },
+      carrier,
       lines: priced.lines.map((l) => ({ id: l.id, name: l.name, quantity: l.quantity, unitCents: l.unitCents, ...(l.variantId ? { variantId: l.variantId } : {}) })),
     });
     if (!ok) {
@@ -142,6 +144,7 @@ export async function POST(request: Request) {
       customer: { name, email, street, postalCode, city, country },
       lines: priced.lines.map((l) => ({ id: l.id, quantity: l.quantity, unitCents: l.unitCents, ...(l.variantId ? { v: l.variantId } : {}) })),
       shippingCents,
+      carrier,
     },
   };
   // Mollie rejects webhooks it can't reach (e.g. localhost); only send a public URL.

@@ -1,4 +1,5 @@
 import { worldwide } from "./countries";
+import type { ShippingRates } from "@/lib/shipping";
 /**
  * Brand and store configuration. Everything here is editable.
  * Nothing in this file is a verified fact about the goods: facts about sourcing
@@ -49,14 +50,19 @@ export const site = {
  * until the owner has set the rules.
  */
 export const shipping = {
-  /** Countries we ship to (ISO 3166-1 alpha-2). */
+  /** Countries we ship to (ISO 3166-1 alpha-2): worldwide. */
   countries: worldwide,
-  /** Flat rate in cents per country code; `null` = not configured. */
-  flatRateCents: null as Record<string, number> | null,
-  /** Free shipping from this order value in cents; `null` = never. */
-  freeFromCents: null as number | null,
-  /** Delivery estimate shown to customers, e.g. "2–4 working days". */
-  deliveryEstimate: null as string | null,
+  /** Free shipping from this order value in cents, outside the Netherlands and Belgium (always free). */
+  freeFromCents: 10000 as number | null,
+  /**
+   * Price in cents per carrier for Europe and for the rest of the world. `null` = not decided yet:
+   * that carrier is then not offered for that zone. TODO: owner to supply.
+   */
+  rates: {
+    postnl: { europe: null, world: null },
+    dhl: { europe: null, world: null },
+    ups: { europe: null, world: null },
+  } as ShippingRates,
 };
 
 /** Tax handling is the owner's decision: prices are treated as VAT-inclusive. */

@@ -15,18 +15,24 @@ async function Rules() {
     <>
       <h2>Shipping</h2>
       <p>
-        {info.countries.length > 30
-          ? "We ship worldwide."
-          : `We ship to: ${info.countries.map((c) => c.name).join(", ")}.`}{" "}
-        {info.rateCents === null
-          ? "Shipping costs are shown at checkout."
-          : `Shipping costs ${formatMoney(info.rateCents)}${
-              info.freeFromCents !== null
-                ? `, and are free from ${formatMoney(info.freeFromCents)}`
-                : ""
-            }.`}
+        We ship worldwide, and you choose your carrier at checkout: PostNL, DHL or UPS. Every parcel
+        is sent tracked.
       </p>
-      {info.deliveryEstimate && <p>Estimated delivery: {info.deliveryEstimate}.</p>}
+      <p>
+        <strong>Netherlands and Belgium:</strong> shipping is always free, at any order value.
+        Expected delivery: 2–4 working days.
+      </p>
+      <p>
+        <strong>All other countries:</strong>{" "}
+        {info.freeFromCents !== null
+          ? `shipping is free from ${formatMoney(info.freeFromCents)}. Below that, the price depends on the carrier and your country and is shown at checkout before you pay. `
+          : "the price depends on the carrier and your country and is shown at checkout before you pay. "}
+        Expected delivery: 5–10 working days.
+      </p>
+      <p>
+        Orders outside the European Union may be subject to import duties, taxes and permits in the
+        destination country, which are the customer&apos;s responsibility.
+      </p>
     </>
   );
 }

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { getProduct, getVariant, unitPriceCents } from "@/content/catalog";
 import { cartSubtotalCents, lineKey, useCartLines } from "@/lib/cart";
 import type { ShippingInfo } from "@/lib/checkout";
-import { shippingFor } from "@/lib/checkout";
+import { shippingOptions } from "@/lib/shipping";
 import { formatMoney } from "@/lib/money";
 import type { PaymentMethod } from "@/content/payments";
 import { PaymentLogos } from "./PaymentLogos";
@@ -34,7 +34,11 @@ export function CheckoutForm({
   const [pay, setPay] = useState<PayChoice>(paymentsReady ? "online" : bankReady ? "bank-transfer" : "cash");
 
   const subtotal = cartSubtotalCents(lines);
-  const shipping = shippingFor(subtotal, info);
+  const [country, setCountry] = useState(info.countries[0]?.code ?? "NL");
+  const [carrier, setCarrier] = useState<string>("postnl");
+  const options = shippingOptions(country, subtotal, info.rates, info.freeFromCents);
+  const chosen = options.find((o) => o.carrier === carrier) ?? options[0];
+  const shipping = chosen ? chosen.cents : null;
   const payAvailable = pay === "online" ? paymentsReady : pay === "bank-transfer" ? bankReady : cashReady;
   const canOrder = lines.length > 0 && shipping !== null && payAvailable;
 
@@ -62,6 +66,7 @@ export function CheckoutForm({
           items: lines,
           customer: Object.fromEntries(data),
           paymentMethod: pay,
+          carrier: chosen?.carrier,
           acceptedTerms: data.get("acceptTerms") === "on",
         }),
       });
@@ -116,7 +121,8 @@ export function CheckoutForm({
               name="country"
               required
               autoComplete="country"
-              defaultValue={info.countries[0]?.code}
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
               className={field}
             >
               {info.countries.map((c) => (
@@ -126,6 +132,39 @@ export function CheckoutForm({
               ))}
             </select>
           </label>
+        </fieldset>
+
+        <fieldset className="space-y-3">
+          <legend className="eyebrow mb-4">Shipping method</legend>
+          {options.length === 0 && (
+            <p role="status" className="border border-gold-line p-4 text-sm text-ivory-soft">
+              Delivery prices for this country aren&apos;t available yet. Please contact us and we will help you.
+            </p>
+          )}
+          {options.map((o) => (
+            <label
+              key={o.carrier}
+              className={`flex cursor-pointer items-center justify-between gap-4 border p-4 text-sm ${
+                chosen?.carrier === o.carrier ? "border-gold bg-black/30" : "border-gold-line"
+              }`}
+            >
+              <span className="flex items-center gap-3">
+                <input
+                  type="radio"
+                  name="carrier"
+                  value={o.carrier}
+                  checked={chosen?.carrier === o.carrier}
+                  onChange={() => setCarrier(o.carrier)}
+                  className="accent-[#c9a24a]"
+                />
+                <span>
+                  {o.name}
+                  <span className="block text-xs text-ivory-faint">{o.estimate}</span>
+                </span>
+              </span>
+              <span className="tabular-nums">{o.cents === 0 ? "Free" : formatMoney(o.cents)}</span>
+            </label>
+          ))}
         </fieldset>
 
         <fieldset className="space-y-3">
@@ -200,7 +239,7 @@ export function CheckoutForm({
         )}
         {paymentsReady && shipping === null && (
           <p role="status" className="border border-gold-line p-4 text-sm text-ivory-soft">
-            Shipping costs haven&apos;t been set yet, so orders can&apos;t be placed.
+            Delivery isn&apos;t available for this country yet, so the order can&apos;t be placed.
           </p>
         )}
         {error && (
@@ -268,8 +307,10 @@ export function CheckoutForm({
             </dd>
           </div>
         </dl>
-        {info.deliveryEstimate && (
-          <p className="mt-4 text-xs text-ivory-faint">Estimated delivery: {info.deliveryEstimate}</p>
+        {chosen && (
+          <p className="mt-4 text-xs text-ivory-faint">
+            {chosen.name} · estimated delivery: {chosen.estimate}
+          </p>
         )}
       </aside>
     </div>
