@@ -9,9 +9,7 @@ import { Suspense } from "react";
 import { FooterAccount, FooterAccountSkeleton } from "./account/FooterAccount";
 
 const information = [
-  { href: "/shop/the-complete-ritual", label: "Complete Agarwood Set" },
-  { href: "/ritual", label: "The Ritual" },
-  { href: "/our-story", label: "Our Story" },
+  { href: "/about", label: "About" },
   { href: "/shipping-returns", label: "Shipping & returns" },
   { href: "/privacy", label: "Privacy policy" },
 ];

@@ -18,6 +18,13 @@ export const site = {
     { display: "+31 6 17720465", tel: "+31617720465" },
     { display: "+31 6 85163960", tel: "+31685163960" },
   ],
+  /** Legal details shown on /about. Fill in; empty ones are simply not shown. */
+  legal: {
+    legalName: null as string | null, // registered business name, if different from ALUWWAH
+    kvk: null as string | null, // Chamber of Commerce (KvK) number
+    vatId: null as string | null, // BTW-id, e.g. NL000000000B01
+    address: null as string | null, // visiting address, one line
+  },
   social: [] as { label: string; href: string }[], // TODO: owner to supply
   currency: "EUR" as const,
   locale: "en-NL",
