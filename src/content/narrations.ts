@@ -130,6 +130,20 @@ export const contactNarration: Narration = {
   ],
 };
 
+/** Hadith 32 of An-Nawawi's Forty (Ibn Majah, Ad-Daraqutni). Arabic as in the collection. */
+export const safetyNarration: Narration = {
+  id: "nawawi-32",
+  reference: "Hadith 32 of An-Nawawi\u2019s Forty Hadith \u00B7 Ibn Majah, Ad-Daraqutni",
+  parts: [
+    {
+      arabic:
+        "عَنْ أَبِي سَعِيدٍ سَعْدِ بْنِ مَالِكِ بْنِ سِنَانٍ الْخُدْرِيِّ رَضِيَ اللَّهُ عَنْهُ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «لَا ضَرَرَ وَلَا ضِرَارَ»",
+      english:
+        "Abu Sa\u2019id Sa\u2019d ibn Malik ibn Sinan Al-Khudri reported that the Messenger of Allah \uFDFA said: \u201CThere should be neither harming nor reciprocating harm.\u201D",
+    },
+  ],
+};
+
 export function getNarration(id: string): Narration | undefined {
   return narrations.find((n) => n.id === id);
 }

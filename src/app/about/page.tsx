@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { EditorialPage } from "@/components/Page";
 import { site } from "@/content/site";
+import { NarrationBody } from "@/components/NarrationBody";
+import { safetyNarration } from "@/content/narrations";
 
 export const metadata: Metadata = {
   title: "About",
@@ -71,12 +73,13 @@ export default function AboutPage() {
         for any reduction in value caused by handling beyond what is needed to inspect them.
       </p>
       <h2>Safe use</h2>
-      <p>
-        Burn incense only in the burner provided or another heat-resistant holder, on a stable,
-        heat-resistant surface, and never leave it unattended. Keep incense, hot charcoal and
-        camphor out of reach of children and pets. Camphor is for burning or perfuming a room only
-        and must not be swallowed or applied to the skin. Ventilate the room while burning.
-      </p>
+      <p>We endorse safe use of our products and safe conduct in everything in our lives.</p>
+      <figure className="frame not-prose relative my-6 bg-night/45 px-5 py-6 text-center sm:px-8">
+        <span aria-hidden className="pointer-events-none absolute inset-1.5 border border-gold-hair" />
+        <div className="relative">
+          <NarrationBody narration={safetyNarration} large />
+        </div>
+      </figure>
 
       <h2>Privacy and cookies</h2>
       <p>
