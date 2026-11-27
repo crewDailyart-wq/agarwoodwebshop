@@ -5,8 +5,11 @@ import { getShippingInfo } from "@/lib/checkout";
 import { connection } from "next/server";
 import { Suspense } from "react";
 import Link from "next/link";
+import { carriers } from "@/lib/shipping";
 
 export const metadata: Metadata = { title: "Shipping & returns" };
+
+const price = (cents: number | null) => (cents === null ? "—" : formatMoney(cents));
 
 async function Rules() {
   await connection();
@@ -18,16 +21,40 @@ async function Rules() {
         We ship worldwide, and you choose your carrier at checkout: PostNL, DHL or UPS. Every parcel
         is sent tracked.
       </p>
+      <div className="not-prose overflow-x-auto">
+        <table className="w-full min-w-[34rem] border-collapse text-left text-base">
+          <thead>
+            <tr className="border-y border-gold-line text-sm text-ivory-faint">
+              <th className="py-3 pr-4 font-normal">Carrier</th>
+              <th className="px-4 py-3 font-normal">Netherlands &amp; Belgium</th>
+              <th className="px-4 py-3 font-normal">Rest of Europe</th>
+              <th className="py-3 pl-4 font-normal">Rest of the world</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gold-line/50 text-ivory">
+            {carriers.map((c) => (
+              <tr key={c.id}>
+                <th scope="row" className="py-3 pr-4 font-normal">{c.name}</th>
+                <td className="px-4 py-3">Free</td>
+                <td className="px-4 py-3 tabular-nums">{price(info.rates[c.id].europe)}</td>
+                <td className="py-3 pl-4 tabular-nums">{price(info.rates[c.id].world)}</td>
+              </tr>
+            ))}
+            <tr className="border-t border-gold-line text-ivory-soft">
+              <th scope="row" className="py-3 pr-4 font-normal">Delivery time</th>
+              <td className="px-4 py-3">2–4 working days</td>
+              <td className="px-4 py-3">5–10 working days</td>
+              <td className="py-3 pl-4">5–10 working days</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <p>
-        <strong>Netherlands and Belgium:</strong> shipping is always free, at any order value.
-        Expected delivery: 2–4 working days.
-      </p>
-      <p>
-        <strong>All other countries:</strong>{" "}
-        {info.freeFromCents !== null
-          ? `shipping is free from ${formatMoney(info.freeFromCents)}. Below that, the price depends on the carrier and your country and is shown at checkout before you pay. `
-          : "the price depends on the carrier and your country and is shown at checkout before you pay. "}
-        Expected delivery: 5–10 working days.
+        Shipping to the Netherlands and Belgium is always free.
+        {info.freeFromCents !== null &&
+          ` Everywhere else, shipping is free from ${formatMoney(info.freeFromCents)}, whichever carrier you choose.`}{" "}
+        Prices are per order and shown again at checkout before you pay. A dash means that carrier
+        is not offered for that region yet.
       </p>
       <p>
         Orders outside the European Union may be subject to import duties, taxes and permits in the
