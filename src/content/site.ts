@@ -1,3 +1,4 @@
+import { worldwide } from "./countries";
 /**
  * Brand and store configuration. Everything here is editable.
  * Nothing in this file is a verified fact about the goods: facts about sourcing
@@ -49,7 +50,7 @@ export const site = {
  */
 export const shipping = {
   /** Countries we ship to (ISO 3166-1 alpha-2). */
-  countries: [{ code: "NL", name: "Netherlands" }] as { code: string; name: string }[],
+  countries: worldwide,
   /** Flat rate in cents per country code; `null` = not configured. */
   flatRateCents: null as Record<string, number> | null,
   /** Free shipping from this order value in cents; `null` = never. */

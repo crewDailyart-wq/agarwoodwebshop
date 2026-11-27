@@ -61,7 +61,7 @@ export default function TermsPage() {
         <Link href="/shipping-returns">Shipping &amp; returns</Link> page. Unless we agree
         otherwise, we deliver within 30 days of your order. If we cannot, you may cancel and we
         refund you. The goods become your responsibility once they have been delivered to you.
-        Please check the parcel on arrival and tell us at once if it is damaged.
+        Please check the parcel on arrival and tell us at once if it is damaged. We ship worldwide. For orders outside the European Union, import duties, taxes and any permits required by the destination country are the responsibility of the customer.
       </p>
 
       <h2>6. Right of withdrawal</h2>
@@ -71,8 +71,9 @@ export default function TermsPage() {
         withdraw; you can use the model form at the end of these terms, but you do not have to.
       </p>
       <p>
-        Send the goods back to us within 14 days after telling us. The direct cost of returning
-        the goods is borne by you. We refund the full amount you paid, including the original
+        Send the goods back to us within 14 days after telling us. We cover the cost of returning
+        the goods: tell us you wish to return them and we will arrange the return or reimburse
+        your postage. We refund the full amount you paid, including the original
         standard shipping costs, within 14 days after we receive the goods back or after you show
         proof that you have sent them. Return the goods unused and in their original condition; you
         are liable for any loss in value caused by handling beyond what is needed to inspect them.

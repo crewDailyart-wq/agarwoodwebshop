@@ -15,7 +15,9 @@ async function Rules() {
     <>
       <h2>Shipping</h2>
       <p>
-        We ship to: {info.countries.map((c) => c.name).join(", ")}.{" "}
+        {info.countries.length > 30
+          ? "We ship worldwide."
+          : `We ship to: ${info.countries.map((c) => c.name).join(", ")}.`}{" "}
         {info.rateCents === null
           ? "Shipping costs are shown at checkout."
           : `Shipping costs ${formatMoney(info.rateCents)}${
@@ -39,7 +41,7 @@ export default function ShippingReturnsPage() {
       <p>
         You may cancel your order without giving a reason within 14 days after receiving it. Tell
         us by e-mail or telephone, then send the goods back to us within 14 days, unused and in
-        their original condition. The direct cost of returning the goods is borne by you. We refund
+        their original condition. We cover the cost of returning the goods: tell us you wish to return them and we will arrange the return or reimburse your postage. We refund
         what you paid, including the original standard shipping, within 14 days after we receive
         the goods or proof that you have sent them.
       </p>

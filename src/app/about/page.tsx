@@ -66,8 +66,8 @@ export default function AboutPage() {
         above, that you want to withdraw.
       </p>
       <p>
-        Send the goods back to us within 14 days of telling us you withdraw. The direct cost of
-        returning the goods is borne by you. We refund the amount you paid, including the original
+        Send the goods back to us within 14 days of telling us you withdraw. We cover the cost of
+        returning the goods: we will arrange the return or reimburse your postage. We refund the amount you paid, including the original
         standard shipping costs, within 14 days of receiving the goods back or proof that you have
         sent them. The goods must be returned unused and in their original condition; you are liable
         for any reduction in value caused by handling beyond what is needed to inspect them.
