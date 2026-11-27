@@ -61,7 +61,7 @@ export default function AboutPage() {
       <p>
         If you are a consumer you may cancel your order without giving a reason within 14 days of
         receiving it. To do so, tell us clearly by e-mail or telephone, using the contact details
-        above, that you want to withdraw. You may use the model form below, but you do not have to.
+        above, that you want to withdraw.
       </p>
       <p>
         Send the goods back to us within 14 days of telling us you withdraw. The direct cost of
@@ -70,19 +70,6 @@ export default function AboutPage() {
         sent them. The goods must be returned unused and in their original condition; you are liable
         for any reduction in value caused by handling beyond what is needed to inspect them.
       </p>
-      <p>
-        <strong>Model withdrawal form</strong> — to {site.name}
-        {site.contactEmail ? `, ${site.contactEmail}` : ""}: I/We hereby give notice that I/We
-        withdraw from my/our contract for the sale of the following goods: ____ · ordered on ____ /
-        received on ____ · name of consumer(s): ____ · address of consumer(s): ____ · date: ____
-      </p>
-
-      <h2>Complaints</h2>
-      <p>
-        If something is not right with your order, please contact us first by e-mail or telephone.
-        We aim to reply within 2 working days and to resolve your complaint as soon as we can.
-      </p>
-
       <h2>Safe use</h2>
       <p>
         Burn incense only in the burner provided or another heat-resistant holder, on a stable,
