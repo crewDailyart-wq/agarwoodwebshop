@@ -20,10 +20,10 @@ export const site = {
   ],
   /** Legal details shown on /about. Fill in; empty ones are simply not shown. */
   legal: {
-    legalName: null as string | null, // registered business name, if different from ALUWWAH
-    kvk: null as string | null, // Chamber of Commerce (KvK) number
-    vatId: null as string | null, // BTW-id, e.g. NL000000000B01
-    address: null as string | null, // visiting address, one line
+    legalName: "Rifindustries" as string | null, // registered business name, if different from ALUWWAH
+    kvk: "97138509" as string | null, // Chamber of Commerce (KvK) number
+    vatId: "NL005249968B31" as string | null, // BTW-id, e.g. NL000000000B01
+    address: "Ruige Hoek 18" as string | null, // visiting address, one line
   },
   /** Featured video in the footer: the 11-character YouTube id, or null to hide. */
   featuredVideo: {
