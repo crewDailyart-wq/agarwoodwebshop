@@ -12,10 +12,15 @@ export default function PrivacyPage() {
   const l = site.legal;
   return (
     <EditorialPage eyebrow="Information" title="Privacy policy">
+      <p className="pb-1">
+        <span lang="ar" dir="rtl" className="quran block text-left text-[1.7rem] leading-[1.8]">
+          بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+        </span>
+        <span className="mt-1 block italic text-ivory">(Bismillah Ar-Rahman Ar-Rahiem)</span>
+      </p>
       <p>
-        Your trust matters to us. We collect only what we need to serve you, we do not sell your
-        data, and we do not use it for advertising. This page explains what we keep, why, and what
-        you can do about it.
+        On this page will be mentioned what is legally required in the country from which we
+        currently operate, all success comes from our One Creator Allah.
       </p>
 
       <h2>Who is responsible</h2>
