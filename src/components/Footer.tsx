@@ -66,7 +66,7 @@ export async function Footer() {
           {site.featuredVideo.id && (
             <figure className="mx-auto w-full max-w-md lg:col-start-3 lg:row-start-1 lg:ml-auto lg:mr-0">
               <figcaption className="eyebrow mb-3 text-center lg:text-right">
-                Featured · {site.featuredVideo.channel}
+                {site.featuredVideo.channel}
               </figcaption>
               <div className="aspect-video w-full overflow-hidden border border-gold-line bg-black">
                 <iframe
