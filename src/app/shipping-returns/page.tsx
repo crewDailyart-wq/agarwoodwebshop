@@ -9,7 +9,7 @@ import { carriers } from "@/lib/shipping";
 
 export const metadata: Metadata = { title: "Shipping & returns" };
 
-const price = (cents: number | null) => (cents === null ? "—" : formatMoney(cents));
+const price = (cents: number | null) => (cents === null ? "—" : cents === 0 ? "Free" : formatMoney(cents));
 
 async function Rules() {
   await connection();
@@ -22,11 +22,12 @@ async function Rules() {
         is sent tracked.
       </p>
       <div className="not-prose overflow-x-auto">
-        <table className="w-full min-w-[34rem] border-collapse text-left text-base">
+        <table className="w-full min-w-[40rem] border-collapse text-left text-base">
           <thead>
             <tr className="border-y border-gold-line text-sm text-ivory-faint">
               <th className="py-3 pr-4 font-normal">Carrier</th>
-              <th className="px-4 py-3 font-normal">Netherlands &amp; Belgium</th>
+              <th className="px-4 py-3 font-normal">Netherlands</th>
+              <th className="px-4 py-3 font-normal">Belgium</th>
               <th className="px-4 py-3 font-normal">Rest of Europe</th>
               <th className="py-3 pl-4 font-normal">Rest of the world</th>
             </tr>
@@ -35,13 +36,15 @@ async function Rules() {
             {carriers.map((c) => (
               <tr key={c.id}>
                 <th scope="row" className="py-3 pr-4 font-normal">{c.name}</th>
-                <td className="px-4 py-3">Free</td>
+                <td className="px-4 py-3 tabular-nums">{price(info.rates[c.id].nl)}</td>
+                <td className="px-4 py-3 tabular-nums">{price(info.rates[c.id].be)}</td>
                 <td className="px-4 py-3 tabular-nums">{price(info.rates[c.id].europe)}</td>
                 <td className="py-3 pl-4 tabular-nums">{price(info.rates[c.id].world)}</td>
               </tr>
             ))}
             <tr className="border-t border-gold-line text-ivory-soft">
               <th scope="row" className="py-3 pr-4 font-normal">Delivery time</th>
+              <td className="px-4 py-3">2–4 working days</td>
               <td className="px-4 py-3">2–4 working days</td>
               <td className="px-4 py-3">5–10 working days</td>
               <td className="py-3 pl-4">5–10 working days</td>
@@ -50,9 +53,9 @@ async function Rules() {
         </table>
       </div>
       <p>
-        Shipping to the Netherlands and Belgium is always free.
+        Shipping with PostNL and DHL to the Netherlands and Belgium is always free.
         {info.freeFromCents !== null &&
-          ` Everywhere else, shipping is free from ${formatMoney(info.freeFromCents)}, whichever carrier you choose.`}{" "}
+          ` Elsewhere, shipping is free from ${formatMoney(info.freeFromCents)}, whichever carrier you choose.`}{" "}
         Prices are per order and shown again at checkout before you pay. A dash means that carrier
         is not offered for that region yet.
       </p>

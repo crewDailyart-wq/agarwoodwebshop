@@ -61,9 +61,9 @@ export const shipping = {
   rates: {
     // Nov 2026, from the carriers' published tariffs for a parcel up to 2 kg. Re-check with
     // Sendcloud/MyParcel contract prices, which are usually lower.
-    postnl: { europe: 1400, world: 3250 }, // Klein Pakket track&trace, 1-2 kg
-    dhl: { europe: 1465, world: null }, // DHL Parcel, 0-2 kg; no worldwide price found yet
-    ups: { europe: 6255, world: null }, // UPS Standard list rate, 2 kg; no worldwide price found yet
+    postnl: { nl: 0, be: 0, europe: 1400, world: 3250 }, // Klein Pakket track&trace, 1-2 kg
+    dhl: { nl: 0, be: 0, europe: 1465, world: null }, // DHL Parcel, 0-2 kg; no worldwide price found yet
+    ups: { nl: 1620, be: 2730, europe: 6255, world: null }, // UPS Standard list rates, 2 kg (NL 16.20, BE 27.30); no worldwide price found yet
   } as ShippingRates,
 };
 

@@ -2,8 +2,8 @@
  * Delivery options. Pure functions, safe to use in the browser and on the server, so the
  * checkout shows exactly the price the server will charge.
  *
- * Rules: the Netherlands and Belgium are always free; elsewhere shipping is free from the
- * threshold, and otherwise costs the price of the carrier the customer chooses for their zone.
+ * Rules: each carrier has a price per zone (0 = free; null = not offered). Outside the Netherlands
+ * and Belgium, shipping is free from the threshold.
  */
 export const carriers = [
   { id: "postnl", name: "PostNL" },
@@ -12,9 +12,9 @@ export const carriers = [
 ] as const;
 
 export type CarrierId = (typeof carriers)[number]["id"];
-export type Zone = "home" | "europe" | "world";
+export type Zone = "nl" | "be" | "europe" | "world";
 /** Price in cents per carrier and zone; `null` = not set yet, which hides that option. */
-export type ShippingRates = Record<CarrierId, { europe: number | null; world: number | null }>;
+export type ShippingRates = Record<CarrierId, Record<Zone, number | null>>;
 
 const EUROPE = new Set(
   (
@@ -24,12 +24,13 @@ const EUROPE = new Set(
 );
 
 export function zoneOf(country: string): Zone {
-  if (country === "NL" || country === "BE") return "home";
+  if (country === "NL") return "nl";
+  if (country === "BE") return "be";
   return EUROPE.has(country) ? "europe" : "world";
 }
 
 export function estimateFor(zone: Zone): string {
-  return zone === "home" ? "2–4 working days" : "5–10 working days";
+  return zone === "nl" || zone === "be" ? "2–4 working days" : "5–10 working days";
 }
 
 export type ShippingOption = { carrier: CarrierId; name: string; cents: number; estimate: string };
@@ -41,10 +42,12 @@ export function shippingOptions(
   freeFromCents: number | null,
 ): ShippingOption[] {
   const zone = zoneOf(country);
-  const free = zone === "home" || (freeFromCents !== null && subtotalCents >= freeFromCents);
+  // The free-shipping threshold only applies outside the Netherlands and Belgium, where the
+  // price of each carrier (0 for free ones) is charged at any order value.
+  const free = zone !== "nl" && zone !== "be" && freeFromCents !== null && subtotalCents >= freeFromCents;
   const out: ShippingOption[] = [];
   for (const c of carriers) {
-    const rate = zone === "home" ? 0 : rates[c.id][zone];
+    const rate = rates[c.id][zone];
     if (rate === null) continue; // this carrier isn't offered for this zone yet
     const price = free ? 0 : rate;
     out.push({ carrier: c.id, name: c.name, cents: price, estimate: estimateFor(zone) });
