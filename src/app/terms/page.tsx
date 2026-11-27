@@ -115,6 +115,9 @@ export default function TermsPage() {
         consumer protection of the country where you live remains unaffected. We may update these
         terms; the version that applies to your order is the one that was shown when you placed it.
       </p>
+      <p>
+        May Allah give the believers a strong and helping realm on this earth, helping each other to true success in this world and the hereafter.
+      </p>
 
       <h2>Model withdrawal form</h2>
       <p>
