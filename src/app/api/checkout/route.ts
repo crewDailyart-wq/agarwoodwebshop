@@ -27,6 +27,10 @@ export async function POST(request: Request) {
   const priced = priceOrder(body.items);
   if (!priced.ok) return NextResponse.json({ error: priced.error }, { status: 400 });
 
+  if (body.acceptedTerms !== true) {
+    return NextResponse.json({ error: "Please accept the terms and conditions to place your order." }, { status: 400 });
+  }
+
   const customer = (body.customer ?? {}) as Record<string, unknown>;
   const email = str(customer.email);
   const name = str(customer.name);

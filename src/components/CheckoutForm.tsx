@@ -62,6 +62,7 @@ export function CheckoutForm({
           items: lines,
           customer: Object.fromEntries(data),
           paymentMethod: pay,
+          acceptedTerms: data.get("acceptTerms") === "on",
         }),
       });
       const json = (await res.json()) as { checkoutUrl?: string; redirectTo?: string; error?: string };
@@ -207,6 +208,21 @@ export function CheckoutForm({
             {error}
           </p>
         )}
+
+        <label className="flex items-start gap-3 text-sm text-ivory-soft">
+          <input type="checkbox" name="acceptTerms" required className="mt-1 h-4 w-4 accent-[#c9a24a]" />
+          <span>
+            I have read and agree to the{" "}
+            <Link href="/terms" target="_blank" className="underline decoration-gold/50 underline-offset-4 hover:text-gold-bright">
+              terms and conditions
+            </Link>{" "}
+            (including the 14-day right of withdrawal) and the{" "}
+            <Link href="/privacy" target="_blank" className="underline decoration-gold/50 underline-offset-4 hover:text-gold-bright">
+              privacy policy
+            </Link>
+            .
+          </span>
+        </label>
 
         <button type="submit" disabled={!canOrder || busy} className="btn btn-solid w-full sm:w-auto">
           {busy ? "One moment…" : pay === "online" ? "Continue to payment" : "Place order"}

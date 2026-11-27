@@ -11,6 +11,7 @@ import { FooterAccount, FooterAccountSkeleton } from "./account/FooterAccount";
 const information = [
   { href: "/about", label: "About" },
   { href: "/shipping-returns", label: "Shipping & returns" },
+  { href: "/terms", label: "Terms and conditions" },
   { href: "/privacy", label: "Privacy policy" },
 ];
 
