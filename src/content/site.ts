@@ -27,7 +27,7 @@ export const site = {
   },
   /** Featured video in the footer: the 11-character YouTube id, or null to hide. */
   featuredVideo: {
-    id: null as string | null,
+    id: "EyXNvkG2hWA" as string | null,
     title: "لماذا يستجيب الكون للرياضيات؟ | فيدمغه 04 | الشيخ فايز الكندري",
     channel: "Fayez Alkandari",
   },
