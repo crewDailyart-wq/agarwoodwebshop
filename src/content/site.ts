@@ -23,7 +23,7 @@ export const site = {
     legalName: "Rifindustries" as string | null, // registered business name, if different from ALUWWAH
     kvk: "97138509" as string | null, // Chamber of Commerce (KvK) number
     vatId: "NL005249968B31" as string | null, // BTW-id, e.g. NL000000000B01
-    address: "Ruige Hoek 18" as string | null, // visiting address, one line
+    address: "Ruige Hoek 18, 4731 VW Oudenbosch" as string | null, // visiting address, one line
   },
   /** Featured video in the footer: the 11-character YouTube id, or null to hide. */
   featuredVideo: {
