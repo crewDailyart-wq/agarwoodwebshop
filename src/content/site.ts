@@ -59,9 +59,11 @@ export const shipping = {
    * that carrier is then not offered for that zone. TODO: owner to supply.
    */
   rates: {
-    postnl: { europe: null, world: null },
-    dhl: { europe: null, world: null },
-    ups: { europe: null, world: null },
+    // Nov 2026, from the carriers' published tariffs for a parcel up to 2 kg. Re-check with
+    // Sendcloud/MyParcel contract prices, which are usually lower.
+    postnl: { europe: 1400, world: 3250 }, // Klein Pakket track&trace, 1-2 kg
+    dhl: { europe: 1465, world: null }, // DHL Parcel, 0-2 kg; no worldwide price found yet
+    ups: { europe: 6255, world: null }, // UPS Standard list rate, 2 kg; no worldwide price found yet
   } as ShippingRates,
 };
 

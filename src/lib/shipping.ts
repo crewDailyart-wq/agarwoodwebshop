@@ -44,8 +44,9 @@ export function shippingOptions(
   const free = zone === "home" || (freeFromCents !== null && subtotalCents >= freeFromCents);
   const out: ShippingOption[] = [];
   for (const c of carriers) {
-    const price = zone === "home" ? 0 : free ? 0 : rates[c.id][zone];
-    if (price === null) continue;
+    const rate = zone === "home" ? 0 : rates[c.id][zone];
+    if (rate === null) continue; // this carrier isn't offered for this zone yet
+    const price = free ? 0 : rate;
     out.push({ carrier: c.id, name: c.name, cents: price, estimate: estimateFor(zone) });
   }
   return out;
