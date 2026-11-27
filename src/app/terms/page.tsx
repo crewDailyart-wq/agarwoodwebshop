@@ -86,7 +86,7 @@ export default function TermsPage() {
       <h2>7. If something is not right</h2>
       <p>
         The goods must match what we described. If they do not, or if they arrive damaged, contact
-        us as soon as you notice, with a photograph if you can. We will reply as soon as possible, within 2 days, insha Allah. We will then replace or refund you.
+        us as soon as you notice, with a photograph if you can. We will reply as soon as possible, within 2 days, and replace your order or refund you insha Allah.
       </p>
 
       <h2>8. Safe use</h2>
